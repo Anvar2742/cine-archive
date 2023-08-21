@@ -2,13 +2,17 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./components/MainLayout";
 import Home from "./pages/Home";
+import Catalog from "./pages/Catalog";
+import PersistLogin from "./components/PersistLogin";
 
 function App() {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/test" element={<Home />} />
+                <Route element={<PersistLogin />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/test" element={<Catalog />} />
+                </Route>
             </Route>
         </Routes>
     );
