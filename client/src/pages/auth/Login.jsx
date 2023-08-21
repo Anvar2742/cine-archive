@@ -1,6 +1,6 @@
 import React from "react";
 
-const Login = ({ onChange, formData }) => {
+const Login = ({ onChange, formData, formErrors }) => {
     return (
         <>
             <label htmlFor="email">
@@ -10,10 +10,13 @@ const Login = ({ onChange, formData }) => {
                     name="email"
                     id="email"
                     placeholder="Your email"
-                    className="border-white py-2 px-4 block w-full text-primary"
+                    className="border-white py-2 px-4 block mb-1 w-full text-primary"
                     onChange={onChange}
                     value={formData?.email}
                 />
+                <p className=" text-red-500 font-semibold">
+                    {formErrors?.email}
+                </p>
             </label>
             <label htmlFor="password">
                 Password
@@ -22,10 +25,13 @@ const Login = ({ onChange, formData }) => {
                     name="password"
                     id="password"
                     placeholder="Your password"
-                    className="border-white py-2 px-4 block w-full text-primary"
+                    className="border-white py-2 px-4 block mb-1 w-full text-primary"
                     onChange={onChange}
                     value={formData?.password}
                 />
+                <p className=" text-red-500 font-semibold">
+                    {formErrors?.password}
+                </p>
             </label>
         </>
     );

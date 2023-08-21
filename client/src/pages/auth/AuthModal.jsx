@@ -3,6 +3,7 @@ import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
     const [formData, setFormData] = useState({
@@ -38,11 +39,11 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
                 );
 
                 if (resp.status === 200 || 201) {
-                    navigate("/", { replace: true });
+                    navigate("/test", { replace: true });
                 }
             } catch (error) {
                 console.log(error);
-                setFormErrors(error.response.data);
+                setFormErrors(error?.response?.data);
             }
         }
     };
@@ -62,7 +63,7 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
             return false;
         }
 
-        if (!formData.passwordRepeat && isSignup) {
+        if (!formData.passwordRep && isSignup) {
             authErrors.passwordRep = "Repeat your password please";
             setFormErrors(authErrors);
             return false;

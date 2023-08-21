@@ -22,11 +22,15 @@ const handleErrors = (err) => {
         errors.password = "Incorrect Password";
     }
 
+    if (err.message.includes("No user with this email")) {
+        errors.email = "No user with this email";
+    }
+
     return errors;
 };
 
 const handleEmpty = (email, password, passwordRep = null) => {
-    const errors = { email: "", password: "" };
+    const errors = { email: "", password: "", passwordRep: "" };
     if (!email) {
         errors.email = "Please enter an email.";
         return errors;
@@ -36,7 +40,7 @@ const handleEmpty = (email, password, passwordRep = null) => {
         return errors;
     }
     if (!passwordRep && passwordRep !== null) {
-        errors.password = "Please repeat your password.";
+        errors.passwordRep = "Please repeat your password.";
     }
 
     return errors;
@@ -64,9 +68,17 @@ const createJWT = (user) => {
 };
 
 module.exports.signup_post = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, passwordRep } = req.body;
 
     try {
+        const emptyErrors = handleEmpty(email, password, passwordRep);
+        if (
+            emptyErrors.email ||
+            emptyErrors.password ||
+            emptyErrors.passwordRep
+        ) {
+            return res.status(400).json(emptyErrors);
+        }
         // Hash pass
         const salt = await bcrypt.genSalt();
         const hashedPass = await bcrypt.hash(password, salt);
@@ -89,7 +101,7 @@ module.exports.signup_post = async (req, res) => {
 
         res.status(201).json(createdUser);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         const errors = handleErrors(error);
         res.status(400).json(errors);
     }
@@ -99,7 +111,7 @@ module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
     try {
         const emptyErrors = handleEmpty(email, password);
-        if (emptyErrors.email && emptyErrors.password) {
+        if (emptyErrors.email || emptyErrors.password) {
             return res.status(400).json(emptyErrors);
         }
 
@@ -111,6 +123,15 @@ module.exports.login_post = async (req, res) => {
         const refreshToken = createJWT(logedInUser);
         // Saving refreshToken with current user
         logedInUser.refreshToken = refreshToken;
+        await logedInUser.save();
+
+        // Creates Secure Cookie with refresh token
+        res.cookie("jwt", refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
 
         res.status(200).json(logedInUser);
     } catch (error) {
@@ -118,4 +139,34 @@ module.exports.login_post = async (req, res) => {
         const errors = handleErrors(error);
         res.status(400).json(errors);
     }
+};
+
+module.exports.refresh = async (req, res) => {
+    const cookies = req.cookies;
+    const refreshToken = cookies?.jwt;
+    if (!refreshToken) return res.sendStatus(401);
+    console.log(refreshToken);
+
+    const foundUser = await User.findOne({ refreshToken }).exec();
+    if (!foundUser) return res.sendStatus(403); //Forbidden
+    // evaluate jwt
+    jwt.verify(
+        refreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+        (err, decoded) => {
+            // console.log(foundUser);
+            if (err || foundUser.email !== decoded.email)
+                return res.sendStatus(403);
+            const accessToken = jwt.sign(
+                {
+                    UserInfo: {
+                        username: decoded.username,
+                    },
+                },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: "10s" }
+            );
+            res.json({ accessToken });
+        }
+    );
 };
