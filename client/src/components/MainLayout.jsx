@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 
 const MainLayout = () => {
     const { auth } = useAuth();
-    console.log(auth);
     const [isAuth, setIsAuth] = useState(false);
     const [isSignup, setIsSignup] = useState(null);
 
@@ -20,7 +19,7 @@ const MainLayout = () => {
     };
     return (
         <div>
-            <Navbar toggleAuthModal={toggleAuthModal} />
+            <Navbar toggleAuthModal={toggleAuthModal} auth={auth} />
             {isAuth ? (
                 <AuthModal
                     isSignup={isSignup}

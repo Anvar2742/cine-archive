@@ -11,7 +11,7 @@ function App() {
             <Route element={<MainLayout />}>
                 <Route element={<PersistLogin />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/test" element={<Catalog />} />
+                    <Route path="/discover" element={<Catalog />} />
                 </Route>
             </Route>
         </Routes>
