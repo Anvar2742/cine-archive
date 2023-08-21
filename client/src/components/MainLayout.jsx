@@ -19,7 +19,11 @@ const MainLayout = () => {
         <div>
             <Navbar toggleAuthModal={toggleAuthModal} />
             {isAuth ? (
-                <AuthModal isSignup={isSignup} switchSignUpLogin={switchSignUpLogin} />
+                <AuthModal
+                    isSignup={isSignup}
+                    switchSignUpLogin={switchSignUpLogin}
+                    toggleAuthModal={toggleAuthModal}
+                />
             ) : (
                 ""
             )}
