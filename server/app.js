@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const auth = require("./routes/auth");
 const title = require("./routes/title");
+const verifyJWT = require("./middleware/verifyJWT");
 
 // Models
 const User = require("./models/User");
@@ -26,4 +27,5 @@ mongoose
     .catch((err) => console.log(err));
 
 app.use(auth);
+app.use(verifyJWT);
 app.use(title);
