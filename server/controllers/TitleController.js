@@ -15,9 +15,17 @@ module.exports.addToFavorites = async (req, res) => {
             async (err, decoded) => {
                 console.log(err);
                 if (err) return res.sendStatus(403);
-
                 const foundUser = await User.findById(decoded.id);
-                foundUser.favoriteTitles.push(titleId);
+
+                const favoriteTitles = foundUser.favoriteTitles;
+                if (!(favoriteTitles.indexOf(titleId) === -1)) {
+                    const titleIndex =
+                        foundUser.favoriteTitles.indexOf(titleId);
+                    foundUser.favoriteTitles.splice(titleIndex, 1);
+                } else {
+                    foundUser.favoriteTitles.push(titleId);
+                }
+
                 await foundUser.save();
 
                 res.status(200).json(foundUser);

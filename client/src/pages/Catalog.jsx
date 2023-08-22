@@ -22,7 +22,6 @@ const Catalog = () => {
     }, [location?.pathname]);
 
     const addToFavoritesClient = (titleId) => {
-        const likedTitle = titleArr.filter((el) => el.id === titleId);
         setTitleArr((prevArr) => {
             return prevArr.map((elMap) => {
                 if (titleId === elMap.id) {
