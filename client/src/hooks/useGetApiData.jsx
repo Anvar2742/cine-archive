@@ -6,7 +6,7 @@ const useGetApiData = (mediaType, listType, page, size = 1280) => {
 
     const getMovies = async () => {
         try {
-            const resp = await axiosMovies(
+            const resp = await axiosMovies.get(
                 `${mediaType}/${listType}?language=en-US&page=${page}`,
                 {
                     headers: {
@@ -17,6 +17,7 @@ const useGetApiData = (mediaType, listType, page, size = 1280) => {
             );
             // console.log(resp.data);
             const updatedResults = await resp.data.results.map((el) => {
+                // const isFav = 
                 return {
                     ...el,
                     backdrop_path: IMG_BASE_URL + `w${size}` + el.backdrop_path,
