@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { HeartIcon, SaveIcon, StarIcon } from "./svgIcons";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 
 const SingleTitleCard = ({ title, mediaType, addToFavoritesClient }) => {
     const axiosPrivate = useAxiosPrivate();

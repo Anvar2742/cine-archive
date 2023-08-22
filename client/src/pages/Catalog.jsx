@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import useGetApiData from "../hooks/useGetApiData";
+import useGetApiData from "../hooks/api/useGetApiData";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import SingleTitleCard from "../components/SingleTitleCard";
 

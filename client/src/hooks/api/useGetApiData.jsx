@@ -1,4 +1,4 @@
-import { axiosMovies } from "../api/axios";
+import { axiosMovies } from "../../api/axios";
 import useGetUser from "./useGetUser";
 
 const useGetApiData = (mediaType, listType, page, size = 1280) => {
