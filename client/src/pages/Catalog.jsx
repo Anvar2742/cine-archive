@@ -17,7 +17,13 @@ const Catalog = () => {
                 console.log(results);
                 setTitleElements(() => {
                     return results.map((el) => {
-                        return <SingleTitleCard title={el} mediaType={"movie"} />;
+                        return (
+                            <SingleTitleCard
+                                key={el?.id}
+                                title={el}
+                                mediaType={"movie"}
+                            />
+                        );
                     });
                 });
             });
