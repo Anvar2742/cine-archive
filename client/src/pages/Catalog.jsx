@@ -7,6 +7,7 @@ import SingleTitleCard from "../components/SingleTitleCard";
 const Catalog = () => {
     const location = useLocation();
     const getMovieEffectRan = useRef(true);
+    const [titleArr, setTitleArr] = useState(null);
     const [titleElements, setTitleElements] = useState(null);
 
     const getMovies = useGetApiData("movie", "now_playing", "1");
@@ -15,20 +16,43 @@ const Catalog = () => {
         if (getMovieEffectRan.current) {
             getMovies().then((results) => {
                 console.log(results);
-                setTitleElements(() => {
-                    return results.map((el) => {
-                        return (
-                            <SingleTitleCard
-                                key={el?.id}
-                                title={el}
-                                mediaType={"movie"}
-                            />
-                        );
-                    });
-                });
+                setTitleArr(results);
             });
         }
     }, [location?.pathname]);
+
+    const addToFavoritesClient = (titleId) => {
+        const likedTitle = titleArr.filter((el) => el.id === titleId);
+        setTitleArr((prevArr) => {
+            return prevArr.map((elMap) => {
+                if (titleId === elMap.id) {
+                    return {
+                        ...elMap,
+                        isFav: !elMap.isFav,
+                    };
+                } else {
+                    return elMap;
+                }
+            });
+        });
+    };
+
+    useEffect(() => {
+        if (titleArr) {
+            setTitleElements(() => {
+                return titleArr.map((el) => {
+                    return (
+                        <SingleTitleCard
+                            key={el?.id}
+                            title={el}
+                            mediaType={"movie"}
+                            addToFavoritesClient={addToFavoritesClient}
+                        />
+                    );
+                });
+            });
+        }
+    }, [titleArr]);
 
     if (!titleElements) return <div>Loading...</div>;
 

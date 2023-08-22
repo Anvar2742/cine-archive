@@ -19,7 +19,6 @@ const useGetApiData = (mediaType, listType, page, size = 1280) => {
             );
             const user = await getUser();
             const favoriteTitles = user.favoriteTitles;
-            console.log(user.favoriteTitles);
             // console.log(resp.data);
             const updatedResults = await resp.data.results.map((el) => {
                 const userFavId = favoriteTitles.filter((elF) => elF === el.id);
