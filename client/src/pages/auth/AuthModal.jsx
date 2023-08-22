@@ -39,7 +39,7 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
                 );
 
                 if (resp.status === 200 || 201) {
-                    navigate("/test", { replace: true });
+                    navigate("/discover", { replace: true });
                 }
             } catch (error) {
                 console.log(error);
