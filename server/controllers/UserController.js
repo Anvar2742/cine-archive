@@ -15,8 +15,11 @@ module.exports.single_user_get = async (req, res) => {
                 if (err) return res.sendStatus(403);
 
                 const foundUser = await User.findById(decoded.id);
+                const accessableUserData = {
+                    favoriteTitles: foundUser.favoriteTitles,
+                };
 
-                res.status(200).json(foundUser);
+                res.status(200).json(accessableUserData);
             }
         );
     } catch (error) {

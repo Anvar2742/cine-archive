@@ -56,7 +56,7 @@ const SingleTitleCard = ({ title, mediaType }) => {
                     </div>
                     <div className="flex gap-1">
                         <button className="fav_btn" ref={favRef}>
-                            <HeartIcon />
+                            <HeartIcon isFilled={title?.isFav} />
                         </button>
                         <button className="save_btn" ref={saveRef}>
                             <SaveIcon isFilled={false} />
