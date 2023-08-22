@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     refreshToken: {
         type: String,
     },
+    favoriteTitles: {
+        type: Array,
+    },
 });
 
 // static method to login user
