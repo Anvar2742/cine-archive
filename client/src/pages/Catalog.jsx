@@ -34,7 +34,7 @@ const Catalog = () => {
 
     return (
         <div className="container mx-auto">
-            <h1>Discover new titles</h1>
+            <h1 className=" text-4xl font-bold my-12">Now playing</h1>
             <div className=" grid grid-cols-3 gap-8">{titleElements}</div>
         </div>
     );

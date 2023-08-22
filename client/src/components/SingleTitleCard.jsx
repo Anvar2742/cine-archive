@@ -8,10 +8,9 @@ const SingleTitleCard = ({ title, mediaType }) => {
     const saveRef = useRef(null);
 
     const onClick = (e) => {
-        e.preventDefault();
-
         // Add to favorites
         if (e.target === favRef.current || favRef.current.contains(e.target)) {
+            e.preventDefault();
             console.log("cool fav");
         }
 
@@ -20,6 +19,7 @@ const SingleTitleCard = ({ title, mediaType }) => {
             e.target === saveRef.current ||
             saveRef.current.contains(e.target)
         ) {
+            e.preventDefault();
             console.log("cool save");
         }
     };
