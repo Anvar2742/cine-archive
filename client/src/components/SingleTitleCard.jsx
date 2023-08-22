@@ -1,8 +1,10 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { HeartIcon, SaveIcon, StarIcon } from "./svgIcons";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const SingleTitleCard = ({ title, mediaType }) => {
+    const axiosPrivate = useAxiosPrivate();
     // References
     const favRef = useRef(null);
     const saveRef = useRef(null);
@@ -11,7 +13,18 @@ const SingleTitleCard = ({ title, mediaType }) => {
         // Add to favorites
         if (e.target === favRef.current || favRef.current.contains(e.target)) {
             e.preventDefault();
-            console.log("cool fav");
+            const addToFavorites = async () => {
+                try {
+                    const resp = await axiosPrivate.put("/favorite", {
+                        titleId: title?.id,
+                    });
+                    console.log(resp.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+
+            addToFavorites();
         }
 
         // Add to seen
