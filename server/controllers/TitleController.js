@@ -99,7 +99,7 @@ module.exports.addRemoveWatchlist = async (req, res) => {
                 if (!(titleIndex === -1)) {
                     foundUser.watchlistTitles.splice(titleIndex, 1);
                 } else {
-                    const updatedTitle = { ...title, isFav: true };
+                    const updatedTitle = { ...title, isSaved: true };
                     foundUser.watchlistTitles.push(updatedTitle);
                 }
 

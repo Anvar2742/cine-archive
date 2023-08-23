@@ -22,6 +22,14 @@ const Navbar = ({ toggleAuthModal, auth }) => {
                 >
                     Favorite
                 </NavLink>
+                <NavLink
+                    to="/watchlist"
+                    className={({ isActive }) =>
+                        isActive ? " underline font-bold" : ""
+                    }
+                >
+                    Watchlist
+                </NavLink>
                 <button onClick={logout}>Sign out</button>
             </nav>
         );

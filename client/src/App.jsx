@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import PersistLogin from "./components/PersistLogin";
 import Favorite from "./pages/Favorite";
+import Watchlist from "./pages/Watchlist";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/discover" element={<Catalog />} />
                     <Route path="/favorite" element={<Favorite />} />
+                    <Route path="/watchlist" element={<Watchlist />} />
                 </Route>
             </Route>
         </Routes>
