@@ -18,6 +18,8 @@ module.exports.single_user_get = async (req, res) => {
                 const accessableUserData = {
                     favoriteTitleIds: foundUser.favoriteTitleIds,
                     favoriteTitles: foundUser.favoriteTitles,
+                    watchlistTitleIds: foundUser.watchlistTitleIds,
+                    watchlistTitles: foundUser.watchlistTitles,
                 };
 
                 res.status(200).json(accessableUserData);

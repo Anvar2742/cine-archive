@@ -36,6 +36,21 @@ const Catalog = () => {
         });
     };
 
+    const addRemoveWatchlistClient = (titleId) => {
+        setTitleArr((prevArr) => {
+            return prevArr.map((elMap) => {
+                if (titleId === elMap.id) {
+                    return {
+                        ...elMap,
+                        isSaved: !elMap.isSaved,
+                    };
+                } else {
+                    return elMap;
+                }
+            });
+        });
+    };
+
     useEffect(() => {
         if (titleArr) {
             setTitleElements(() => {
@@ -46,6 +61,7 @@ const Catalog = () => {
                             title={el}
                             mediaType={"movie"}
                             addRemoveFavoritesClient={addRemoveFavoritesClient}
+                            addRemoveWatchlistClient={addRemoveWatchlistClient}
                         />
                     );
                 });

@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { HeartIcon, SaveIcon, StarIcon } from "./svgIcons";
 import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 
-const SingleTitleCard = ({ title, mediaType, addRemoveFavoritesClient }) => {
+const SingleTitleCard = ({
+    title,
+    mediaType,
+    addRemoveFavoritesClient,
+    addRemoveWatchlistClient,
+}) => {
     const axiosPrivate = useAxiosPrivate();
     // References
     const favRef = useRef(null);
@@ -34,7 +39,20 @@ const SingleTitleCard = ({ title, mediaType, addRemoveFavoritesClient }) => {
             saveRef.current.contains(e.target)
         ) {
             e.preventDefault();
-            console.log("cool save");
+
+            const addRemoveWatchlistServer = async () => {
+                try {
+                    const resp = await axiosPrivate.put("/watchlist", {
+                        title,
+                    });
+                    console.log(resp.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+
+            addRemoveWatchlistClient(title?.id);
+            addRemoveWatchlistServer();
         }
     };
     return (
@@ -60,7 +78,7 @@ const SingleTitleCard = ({ title, mediaType, addRemoveFavoritesClient }) => {
                             <HeartIcon isFilled={title?.isFav} />
                         </button>
                         <button className="save_btn" ref={saveRef}>
-                            <SaveIcon isFilled={false} />
+                            <SaveIcon isFilled={title?.isSaved} />
                         </button>
                     </div>
                 </div>

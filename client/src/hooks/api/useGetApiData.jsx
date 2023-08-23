@@ -19,15 +19,22 @@ const useGetApiData = (mediaType, listType, page, size = 1280) => {
             );
             const user = await getUser();
             const favoriteTitleIds = user.favoriteTitleIds;
+            const watchlistTitleIds = user.watchlistTitleIds;
             // console.log(resp.data);
             const updatedResults = await resp.data.results.map((el) => {
-                const userFavId = favoriteTitleIds.filter((elF) => elF === el.id);
+                const userFavId = favoriteTitleIds.filter(
+                    (elF) => elF === el.id
+                );
+                const userSavedId = watchlistTitleIds.filter(
+                    (elF) => elF === el.id
+                );
 
                 return {
                     ...el,
                     backdrop_path: IMG_BASE_URL + `w${size}` + el.backdrop_path,
                     poster_path: IMG_BASE_URL + `w${size}` + el.poster_path,
                     isFav: userFavId.length ? true : false,
+                    isSaved: userSavedId.length ? true : false,
                 };
             });
 
