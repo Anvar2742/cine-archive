@@ -4,7 +4,7 @@ const User = require("../models/User");
 function containsObject(obj, list) {
     var i;
     for (i = 0; i < list.length; i++) {
-        if (list[i] === obj) {
+        if (list[i].id === obj.id) {
             return i;
         }
     }
@@ -12,7 +12,7 @@ function containsObject(obj, list) {
     return -1;
 }
 
-module.exports.addToFavorites = async (req, res) => {
+module.exports.addRemoveFavorites = async (req, res) => {
     const { title } = req.body;
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
@@ -40,12 +40,16 @@ module.exports.addToFavorites = async (req, res) => {
                 }
 
                 // Add title to user's favorite
-                const titleIndex =
-                    containsObject(title, foundUser.favoriteTitles) === -1;
-                if (!titleIndex) {
+                const titleIndex = containsObject(
+                    title,
+                    foundUser.favoriteTitles
+                );
+
+                if (!(titleIndex === -1)) {
                     foundUser.favoriteTitles.splice(titleIndex, 1);
                 } else {
-                    foundUser.favoriteTitles.push(title);
+                    const updatedTitle = { ...title, isFav: true };
+                    foundUser.favoriteTitles.push(updatedTitle);
                 }
 
                 await foundUser.save();

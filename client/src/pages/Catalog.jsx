@@ -21,7 +21,7 @@ const Catalog = () => {
         }
     }, [location?.pathname]);
 
-    const addToFavoritesClient = (titleId) => {
+    const addRemoveFavoritesClient = (titleId) => {
         setTitleArr((prevArr) => {
             return prevArr.map((elMap) => {
                 if (titleId === elMap.id) {
@@ -45,7 +45,7 @@ const Catalog = () => {
                             key={el?.id}
                             title={el}
                             mediaType={"movie"}
-                            addToFavoritesClient={addToFavoritesClient}
+                            addRemoveFavoritesClient={addRemoveFavoritesClient}
                         />
                     );
                 });

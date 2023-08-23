@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { HeartIcon, SaveIcon, StarIcon } from "./svgIcons";
 import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 
-const SingleTitleCard = ({ title, mediaType, addToFavoritesClient }) => {
+const SingleTitleCard = ({ title, mediaType, addRemoveFavoritesClient }) => {
     const axiosPrivate = useAxiosPrivate();
     // References
     const favRef = useRef(null);
@@ -13,7 +13,7 @@ const SingleTitleCard = ({ title, mediaType, addToFavoritesClient }) => {
         // Add to favorites
         if (e.target === favRef.current || favRef.current.contains(e.target)) {
             e.preventDefault();
-            const addToFavoritesServer = async () => {
+            const addRemoveFavoritesServer = async () => {
                 try {
                     const resp = await axiosPrivate.put("/favorite", {
                         title,
@@ -24,8 +24,8 @@ const SingleTitleCard = ({ title, mediaType, addToFavoritesClient }) => {
                 }
             };
 
-            addToFavoritesClient(title?.id);
-            addToFavoritesServer();
+            addRemoveFavoritesClient(title?.id);
+            addRemoveFavoritesServer();
         }
 
         // Add to seen

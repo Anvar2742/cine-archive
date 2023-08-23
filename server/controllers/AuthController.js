@@ -145,7 +145,7 @@ module.exports.refresh = async (req, res) => {
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
     if (!refreshToken) return res.sendStatus(401);
-    console.log(refreshToken);
+    // console.log(refreshToken);
 
     const foundUser = await User.findOne({ refreshToken }).exec();
     if (!foundUser) return res.sendStatus(403); //Forbidden

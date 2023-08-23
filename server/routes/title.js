@@ -1,7 +1,7 @@
 const { Router } = require("express");
-const { addToFavorites } = require("../controllers/TitleController");
+const { addRemoveFavorites } = require("../controllers/TitleController");
 const router = Router();
 
-router.put("/favorite", addToFavorites);
+router.put("/favorite", addRemoveFavorites);
 
 module.exports = router;
