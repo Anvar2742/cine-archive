@@ -16,7 +16,7 @@ module.exports.single_user_get = async (req, res) => {
 
                 const foundUser = await User.findById(decoded.id);
                 const accessableUserData = {
-                    favoriteTitles: foundUser.favoriteTitles,
+                    favoriteTitleIds: foundUser.favoriteTitleIds,
                 };
 
                 res.status(200).json(accessableUserData);

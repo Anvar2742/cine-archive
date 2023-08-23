@@ -16,7 +16,7 @@ const SingleTitleCard = ({ title, mediaType, addToFavoritesClient }) => {
             const addToFavoritesServer = async () => {
                 try {
                     const resp = await axiosPrivate.put("/favorite", {
-                        titleId: title?.id,
+                        title,
                     });
                     console.log(resp.data);
                 } catch (error) {

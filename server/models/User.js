@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     refreshToken: {
         type: String,
     },
+    favoriteTitleIds: {
+        type: Array,
+    },
     favoriteTitles: {
         type: Array,
     },

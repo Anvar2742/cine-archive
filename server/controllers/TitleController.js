@@ -1,13 +1,24 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+function containsObject(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i] === obj) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 module.exports.addToFavorites = async (req, res) => {
-    const { titleId } = req.body;
+    const { title } = req.body;
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
 
     try {
-        if (!titleId) return res.status(400).send("And id is required");
+        if (!title?.id) return res.status(400).send("And id is required");
         // evaluate jwt
         jwt.verify(
             refreshToken,
@@ -17,13 +28,24 @@ module.exports.addToFavorites = async (req, res) => {
                 if (err) return res.sendStatus(403);
                 const foundUser = await User.findById(decoded.id);
 
-                const favoriteTitles = foundUser.favoriteTitles;
-                if (!(favoriteTitles.indexOf(titleId) === -1)) {
-                    const titleIndex =
-                        foundUser.favoriteTitles.indexOf(titleId);
+                // Add or remove title id to user's favorites
+                const favoriteTitleIds = foundUser.favoriteTitleIds;
+                if (!(favoriteTitleIds.indexOf(title?.id) === -1)) {
+                    const titleIdIndex = foundUser.favoriteTitleIds.indexOf(
+                        title?.id
+                    );
+                    foundUser.favoriteTitleIds.splice(titleIdIndex, 1);
+                } else {
+                    foundUser.favoriteTitleIds.push(title?.id);
+                }
+
+                // Add title to user's favorite
+                const titleIndex =
+                    containsObject(title, foundUser.favoriteTitles) === -1;
+                if (!titleIndex) {
                     foundUser.favoriteTitles.splice(titleIndex, 1);
                 } else {
-                    foundUser.favoriteTitles.push(titleId);
+                    foundUser.favoriteTitles.push(title);
                 }
 
                 await foundUser.save();

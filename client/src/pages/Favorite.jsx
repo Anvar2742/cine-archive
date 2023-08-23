@@ -3,29 +3,45 @@ import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 import SingleTitleCard from "./../components/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
+import useGetApiData from "../hooks/api/useGetApiData";
 
 const Favorite = () => {
     const [favTitleArr, setFavTitleArr] = useState([]);
     const [favElements, setFavElements] = useState(null);
     const axiosPrivate = useAxiosPrivate();
     const location = useLocation();
+    const getMovies = useGetApiData("movie", "now_playing", "1");
 
-    const getFavorite = async () => {
+    const getFavorites = async () => {
         try {
-            const resp = await axiosPrivate.get("/favorites");
-            const results = await resp?.data?.results;
-            setFavTitleArr(results);
+            const resp = await axiosPrivate.get("/user");
+            const favoriteTitleIds = await resp?.data?.favoriteTitleIds;
+            await getMovies().then((results) => {
+                console.log(results);
+                let favArr = [];
+                favoriteTitleIds.forEach((favoriteId) => {
+                    const resultIndex = results.indexOf(favoriteId);
+                    console.log(favoriteId);
+                    if (!(resultIndex === -1)) {
+                        const favTitle = results.splice(resultIndex, 1);
+                        favArr.push(favTitle);
+                    }
+                });
+                console.log(favArr);
+                setFavTitleArr(favArr);
+            });
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffectOnce(() => {
-        getFavorite();
+        getFavorites();
     }, [location?.pathname]);
 
     useEffect(() => {
-        if (favTitleArr) {
+        console.log(favTitleArr);
+        if (favTitleArr.length) {
             setFavElements(
                 favTitleArr.map((el) => {
                     return (
