@@ -1,11 +1,13 @@
 import axios from "../api/axios";
 import useGetUser from "./api/useGetUser";
+import { useNavigate } from "react-router-dom";
 
 const useApproveReqToken = () => {
     const getUser = useGetUser();
     const urlParams = new URLSearchParams(window.location.search);
     const reqTokenFromQuery = urlParams.get("request_token");
     const isTokenApproved = urlParams.get("approved");
+    const navigate = useNavigate();
 
     const approveReqToken = async () => {
         try {
@@ -24,7 +26,7 @@ const useApproveReqToken = () => {
                     }
                 );
                 console.log(response.data);
-                return response.data;
+                return navigate("/", { replace: true });
             }
         } catch (error) {
             console.log(error);
