@@ -7,6 +7,7 @@ require("dotenv").config();
 
 // Error handling
 const handleErrors = (err) => {
+    console.log(err);
     const errors = { email: "", password: "" };
     // User already exists
     if (err.code === 11000) {
@@ -71,21 +72,26 @@ const createJWT = (user) => {
 };
 
 const createSessionId = async () => {
-    const createTokenUrl =
-        "https://api.themoviedb.org/3/authentication/token/new";
-    const options = {
-        method: "GET",
-        headers: {
-            accept: "application/json",
-            Authorization: "Bearer " + process.env.TMDB_TOKEN,
-        },
-    };
+    try {
+        const createTokenUrl =
+            "https://api.themoviedb.org/3/authentication/token/new";
+        const options = {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                Authorization: "Bearer " + process.env.TMDB_TOKEN,
+            },
+        };
 
-    const reqTokenResp = await fetch(createTokenUrl, options);
-    const requestTokenData = await reqTokenResp.json();
+        const reqTokenResp = await fetch(createTokenUrl, options);
+        const requestTokenData = await reqTokenResp.json();
 
-    if (requestTokenData.success) {
-        return `https://www.themoviedb.org/authenticate/${requestTokenData.request_token}?redirect_to=http://localhost:5173`;
+        if (requestTokenData.success) {
+            return requestTokenData.request_token;
+        }
+    } catch (error) {
+        console.log(error);
+        throw Error(error);
     }
 
     return false;
@@ -113,6 +119,14 @@ module.exports.signup_post = async (req, res) => {
 
         // Saving refreshToken with current user
         createdUser.refreshToken = refreshToken;
+
+        // Saving request token for TMDB access
+        const requestToken = await createSessionId();
+
+        createdUser.requestTokenObj = {
+            isApproved: false,
+            request_token: requestToken,
+        };
         await createdUser.save();
 
         // Creates Secure Cookie with refresh token
@@ -123,16 +137,9 @@ module.exports.signup_post = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        const reqToken = await createSessionId();
-
-        const dataToReturn = {
-            createdUser,
-            createSessionIdUrl: reqToken,
-        };
-
-        res.status(201).json(dataToReturn);
+        res.status(201).json(createdUser);
     } catch (error) {
-        // console.log(error);
+        console.log(error);
         const errors = handleErrors(error);
         res.status(400).json(errors);
     }

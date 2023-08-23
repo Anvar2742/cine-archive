@@ -28,6 +28,6 @@ mongoose
     .catch((err) => console.log(err));
 
 app.use(auth);
-app.use(verifyJWT);
 app.use(user);
+app.use(verifyJWT);
 app.use(title);

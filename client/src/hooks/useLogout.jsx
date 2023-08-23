@@ -5,11 +5,15 @@ const useLogout = () => {
     const { setAuth } = useAuth();
 
     const logout = async () => {
-        // setAuth({});
+        setAuth({});
         try {
-            const resp = await axios("/logout", {
-                withCredentials: true,
-            });
+            const resp = await axios.post(
+                "/logout",
+                {},
+                {
+                    withCredentials: true,
+                }
+            );
             console.log(resp);
         } catch (err) {
             console.error(err);

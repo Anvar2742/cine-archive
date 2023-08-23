@@ -15,6 +15,16 @@ const userSchema = new mongoose.Schema({
         required: [true, "Please enter a password"],
         minlength: [6, "Minimum password length is 6 characters"],
     },
+    refreshToken: {
+        type: String,
+    },
+    requestTokenObj: {
+        type: Object,
+        default: {
+            isApproved: false,
+            request_token: false,
+        },
+    },
 });
 
 // static method to login user

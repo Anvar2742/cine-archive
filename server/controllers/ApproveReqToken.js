@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
-module.exports.single_user_get = async (req, res) => {
+module.exports.approveRequestToken = async (req, res) => {
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
+    const reqToken = cookies?.requestToken;
 
     try {
         // evaluate jwt
@@ -15,8 +17,15 @@ module.exports.single_user_get = async (req, res) => {
                 if (err) return res.sendStatus(403);
 
                 const foundUser = await User.findById(decoded.id);
+                const requestToken = await foundUser.requestTokenObj
+                    .request_token;
 
-                res.status(200).json(foundUser);
+                foundUser.requestTokenObj = {
+                    isApproved: true,
+                    request_token: requestToken,
+                };
+                await foundUser.save();
+                return res.status(200).json(foundUser);
             }
         );
     } catch (error) {

@@ -3,12 +3,27 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthModal from "../pages/auth/AuthModal";
 import useAuth from "../hooks/useAuth";
+import useApproveReqToken from "../hooks/useApproveReqToken";
+import { useEffectOnce } from "./../hooks/useEffectOnce";
 
 const MainLayout = () => {
     const { auth } = useAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [isSignup, setIsSignup] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const urlParams = new URLSearchParams(window.location.search);
+    const reqTokenFromQuery = urlParams.get("request_token");
+    const isTokenApproved = urlParams.get("approved");
+    const approveReqToken = useApproveReqToken(
+        reqTokenFromQuery,
+        isTokenApproved
+    );
+
+    useEffectOnce(() => {
+        if (reqTokenFromQuery && isTokenApproved) {
+            approveReqToken();
+        }
+    }, []);
 
     const toggleAuthModal = (passedIsSignup) => {
         setIsSignup(passedIsSignup);
