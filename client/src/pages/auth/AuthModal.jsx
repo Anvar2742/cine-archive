@@ -2,8 +2,7 @@ import { useState } from "react";
 import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import { useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
     const [formData, setFormData] = useState({
@@ -13,7 +12,6 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
     });
     const [formErrors, setFormErrors] = useState({});
     const navigate = useNavigate();
-    const location = useLocation();
 
     const onChange = (e) => {
         setFormData((prevFormData) => {

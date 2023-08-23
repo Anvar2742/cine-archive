@@ -12,7 +12,7 @@ const createSession = async (request_token) => {
         headers: {
             accept: "application/json",
             "content-type": "application/json",
-            Authorization: "Bearer " + process.env.TMDB_TOKE,
+            Authorization: "Bearer " + process.env.TMDB_TOKEN,
         },
         body: JSON.stringify({
             request_token,
