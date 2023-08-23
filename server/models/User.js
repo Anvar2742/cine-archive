@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema({
     favoriteTitles: {
         type: Array,
     },
+    watchlistTitleIds: {
+        type: Array,
+    },
+    watchlistTitles: {
+        type: Array,
+    },
 });
 
 // static method to login user
