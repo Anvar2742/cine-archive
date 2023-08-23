@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthModal from "../pages/auth/AuthModal";
 import useAuth from "../hooks/useAuth";
 
@@ -8,6 +8,7 @@ const MainLayout = () => {
     const { auth } = useAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [isSignup, setIsSignup] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const toggleAuthModal = (passedIsSignup) => {
         setIsSignup(passedIsSignup);
@@ -17,6 +18,15 @@ const MainLayout = () => {
     const switchSignUpLogin = (passedIsSignup) => {
         setIsSignup(passedIsSignup);
     };
+
+    useEffect(() => {
+        console.log(auth);
+        if (auth?.accessToken) {
+            setIsLoading(false);
+        }
+    }, [auth]);
+
+    if (isLoading) return <div>Loading...</div>;
     return (
         <div>
             <Navbar toggleAuthModal={toggleAuthModal} auth={auth} />

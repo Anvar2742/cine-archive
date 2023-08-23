@@ -9,8 +9,8 @@ import Favorite from "./pages/Favorite";
 function App() {
     return (
         <Routes>
-            <Route element={<MainLayout />}>
-                <Route element={<PersistLogin />}>
+            <Route element={<PersistLogin />}>
+                <Route element={<MainLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/discover" element={<Catalog />} />
                     <Route path="/favorite" element={<Favorite />} />
