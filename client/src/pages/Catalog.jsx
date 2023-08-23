@@ -15,7 +15,7 @@ const Catalog = () => {
     useEffectOnce(() => {
         if (getMovieEffectRan.current) {
             getMovies().then((results) => {
-                console.log(results);
+                // console.log(results);
                 setTitleArr(results);
             });
         }

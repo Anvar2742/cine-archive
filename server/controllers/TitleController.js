@@ -18,7 +18,7 @@ module.exports.addRemoveFavorites = async (req, res) => {
     const refreshToken = cookies?.jwt;
 
     try {
-        if (!title?.id) return res.status(400).send("And id is required");
+        if (!title?.id) return res.status(400).send("An id is required");
         // evaluate jwt
         jwt.verify(
             refreshToken,
