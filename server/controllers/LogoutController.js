@@ -1,6 +1,7 @@
 const User = require("../models/User");
 
 module.exports.logout = async (req, res) => {
+    console.log('logout');
     // On client, also delete the accessToken
 
     const cookies = req.cookies;

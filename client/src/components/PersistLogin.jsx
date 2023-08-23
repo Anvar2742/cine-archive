@@ -22,13 +22,15 @@ const PersistLogin = () => {
                 }
             };
 
-            !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+            !auth?.accessToken && auth?.accessToken !== false
+                ? verifyRefreshToken()
+                : setIsLoading(false);
         }
 
         return () => (effectRan.current = true);
     }, [location.pathname]);
 
-    return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
+    return <>{isLoading ? <p>Loading persist...</p> : <Outlet />}</>;
 };
 
 export default PersistLogin;

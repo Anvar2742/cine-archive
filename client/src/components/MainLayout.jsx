@@ -20,8 +20,7 @@ const MainLayout = () => {
     };
 
     useEffect(() => {
-        console.log(auth);
-        if (auth?.accessToken) {
+        if (auth?.accessToken || auth?.accessToken === false) {
             setIsLoading(false);
         }
     }, [auth]);

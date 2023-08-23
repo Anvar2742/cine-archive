@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
 
 const Navbar = ({ toggleAuthModal, auth }) => {
+    const logout = useLogout();
     const LogedIn = () => {
         return (
             <nav className="flex gap-4">
@@ -20,6 +22,7 @@ const Navbar = ({ toggleAuthModal, auth }) => {
                 >
                     Favorite
                 </NavLink>
+                <button onClick={logout}>Sign out</button>
             </nav>
         );
     };
@@ -43,7 +46,7 @@ const Navbar = ({ toggleAuthModal, auth }) => {
     };
     return (
         <header className="py-6 shadow-header">
-            <div className="container flex mx-auto items-center justify-between">
+            <div className="container flex mx-auto items-center justify-between px-4">
                 <Link to="/" className=" text-2xl font-extrabold">
                     CINE-ARCHIVE
                 </Link>

@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
 app.use(cookieParser());
 
-// Mongoo
+// Mongooooooooo
 mongoose
     .connect(MONGO_URI)
     .then((result) => app.listen(PORT))

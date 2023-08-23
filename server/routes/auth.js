@@ -11,8 +11,8 @@ router.post("/signup", signup_post);
 
 router.post("/login", login_post);
 
-router.post("/logout", logout);
-
 router.get("/refresh", refresh);
+
+router.post("/logout", logout);
 
 module.exports = router;
