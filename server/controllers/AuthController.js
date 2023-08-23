@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const fetch = require("node-fetch");
+
+require("dotenv").config();
 
 // Error handling
 const handleErrors = (err) => {
@@ -67,6 +70,27 @@ const createJWT = (user) => {
     return refreshToken;
 };
 
+const createSessionId = async () => {
+    const createTokenUrl =
+        "https://api.themoviedb.org/3/authentication/token/new";
+    const options = {
+        method: "GET",
+        headers: {
+            accept: "application/json",
+            Authorization: "Bearer " + process.env.TMDB_TOKEN,
+        },
+    };
+
+    const reqTokenResp = await fetch(createTokenUrl, options);
+    const requestTokenData = await reqTokenResp.json();
+
+    if (requestTokenData.success) {
+        return `https://www.themoviedb.org/authenticate/${requestTokenData.request_token}?redirect_to=http://localhost:5173`;
+    }
+
+    return false;
+};
+
 module.exports.signup_post = async (req, res) => {
     const { email, password, passwordRep } = req.body;
 
@@ -99,7 +123,14 @@ module.exports.signup_post = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        res.status(201).json(createdUser);
+        const reqToken = await createSessionId();
+
+        const dataToReturn = {
+            createdUser,
+            createSessionIdUrl: reqToken,
+        };
+
+        res.status(201).json(dataToReturn);
     } catch (error) {
         // console.log(error);
         const errors = handleErrors(error);

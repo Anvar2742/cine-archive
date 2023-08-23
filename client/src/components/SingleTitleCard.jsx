@@ -23,7 +23,7 @@ const SingleTitleCard = ({
                     const resp = await axiosPrivate.put("/favorite", {
                         title,
                     });
-                    // console.log(resp.data);
+                    console.log(resp.data);
                 } catch (error) {
                     console.log(error);
                 }

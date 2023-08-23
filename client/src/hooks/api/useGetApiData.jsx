@@ -20,7 +20,7 @@ const useGetApiData = (mediaType, listType, page, size = 1280) => {
             const user = await getUser();
             const favoriteTitleIds = user.favoriteTitleIds;
             const watchlistTitleIds = user.watchlistTitleIds;
-            // console.log(resp.data);
+            console.log(resp.data);
             const updatedResults = await resp.data.results.map((el) => {
                 const userFavId = favoriteTitleIds.filter(
                     (elF) => elF === el.id
