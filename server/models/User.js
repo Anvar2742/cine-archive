@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema({
             request_token: false,
         },
     },
+    session_id: {
+        type: String,
+    },
 });
 
 // static method to login user

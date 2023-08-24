@@ -54,6 +54,11 @@ module.exports.approveAndCreateSession = async (req, res) => {
 
                 const sessionData = await createSession(requestToken);
                 if (sessionData.success) {
+                    const sessionId = sessionData.session_id;
+                    // Save session id to user
+                    foundUser.session_id = sessionId;
+                    await foundUser.save();
+
                     return res.status(200).json(sessionData);
                 }
 
@@ -65,3 +70,4 @@ module.exports.approveAndCreateSession = async (req, res) => {
         res.sendStatus(400);
     }
 };
+

@@ -1,8 +1,11 @@
 const { Router } = require("express");
-const { addRemoveFavorites, addRemoveWatchlist } = require("../controllers/TitleController");
+const {
+    addRemoveWatchlist,
+    add_to_favs,
+} = require("../controllers/TitleController");
 const router = Router();
 
-router.put("/favorite", addRemoveFavorites);
+router.put("/favorite", add_to_favs);
 
 router.put("/watchlist", addRemoveWatchlist);
 

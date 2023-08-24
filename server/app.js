@@ -29,5 +29,5 @@ mongoose
 
 app.use(auth);
 app.use(user);
-app.use(verifyJWT);
+// app.use(verifyJWT);
 app.use(title);
