@@ -21,8 +21,8 @@ const addToFavorites = async (body, sessionId) => {
     return data;
 };
 
-module.exports.add_to_favs = async (req, res) => {
-    const { titleId } = req.body;
+module.exports.add_remove_favs = async (req, res) => {
+    const { titleId, isFav } = req.body;
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
 
@@ -31,7 +31,7 @@ module.exports.add_to_favs = async (req, res) => {
         const bodyToSend = {
             media_type: "movie",
             media_id: titleId,
-            favorite: true,
+            favorite: !isFav,
         };
         // evaluate jwt
         jwt.verify(
@@ -47,9 +47,9 @@ module.exports.add_to_favs = async (req, res) => {
                     sessionId
                 );
 
-                console.log(addToFavoritesResp);
+                // console.log(addToFavoritesResp);
 
-                res.status(200).json(foundUser);
+                res.status(200).json(addToFavoritesResp);
             }
         );
     } catch (error) {

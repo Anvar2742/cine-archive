@@ -11,13 +11,12 @@ const useGetApiData = (mediaType, listType, page, size = 1280) => {
         const config = {
             headers: {
                 accept: "application/json",
-                Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwOWYzYWFmNGY1ZTk4YzRkMTJlM2VjZTI4NDI4NzFiZiIsInN1YiI6IjYzN2Y4Mjg0MjI5YWUyMTU1NDI2NTEyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lM2ZBMJJoT0GkS4xdQlRcxK0AjR9DBzxYN1t0c9_hyw",
+                Authorization: "Bearer " + authToken,
             },
         };
 
         const resp = await axios.get(url, config);
-        // console.log(resp);
+
         return resp.data;
     };
 

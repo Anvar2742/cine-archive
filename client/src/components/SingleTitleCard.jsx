@@ -19,9 +19,12 @@ const SingleTitleCard = ({
         if (e.target === favRef.current || favRef.current.contains(e.target)) {
             e.preventDefault();
             const addRemoveFavoritesServer = async () => {
+                const titleId = title?.id;
+                const isFav = title?.isFav;
                 try {
                     const resp = await axiosPrivate.put("/favorite", {
-                        title,
+                        titleId,
+                        isFav,
                     });
                     console.log(resp.data);
                 } catch (error) {
