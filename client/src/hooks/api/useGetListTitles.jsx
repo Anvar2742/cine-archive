@@ -6,11 +6,12 @@ const useGetApiData = () => {
     const axiosPrivate = useAxiosPrivate();
     const getUser = useGetUser();
     const updateResults = useUpdateResults();
-    const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
 
     const getListTitles = async (size = 1280) => {
         try {
-            const resp = await axiosPrivate.get(url, { withCredentials: true });
+            const resp = await axiosPrivate.get("/default_lists", {
+                withCredentials: true,
+            });
             const user = await getUser();
             if (!user) return console.log("User not found");
 
