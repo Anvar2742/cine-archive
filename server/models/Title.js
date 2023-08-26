@@ -8,12 +8,12 @@ const titleSchema = new mongoose.Schema({
     original_language: String,
     original_title: String,
     overview: String,
-    popularity: Float32Array,
+    popularity: Number,
     poster_path: String,
     release_date: String,
     title: String,
     video: Boolean,
-    vote_average: Float32Array,
+    vote_average: Number,
     vote_count: Number,
 });
 

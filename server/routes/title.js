@@ -1,7 +1,7 @@
 const { Router } = require("express");
-const { add_remove_list } = require("../controllers/TitleController");
+const { add_remove_default_list } = require("../controllers/TitleController");
 const router = Router();
 
-router.put("/list", add_remove_list);
+router.put("/default_lists", add_remove_default_list);
 
 module.exports = router;

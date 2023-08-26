@@ -67,10 +67,10 @@ module.exports.add_remove_default_list = async (req, res) => {
                     await foundUser.save();
                 }
 
-                const foundMovie = Title.findOne({ titleId });
+                const foundMovie = await Title.findOne({ id: titleId });
 
                 if (!foundMovie) {
-                    const createdTitle = await Title.create({ ...title });
+                    const createdTitle = await Title.create(title);
                     if (!createdTitle) return res.sendStatus(400);
                     return res.sendStatus(201);
                 }
