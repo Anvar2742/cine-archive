@@ -15,15 +15,10 @@ const SingleTitleCard = ({
     const saveRef = useRef(null);
 
     const onClick = (e) => {
-        const titleId = title?.id;
-        const isFav = title?.isFav;
-        const isWatch = title?.isWatch;
-
-        const addToList = async (listType, isFav = null, isWatch = null) => {
+        const addToList = async (isFav = null, isWatch = null) => {
             try {
-                const resp = await axiosPrivate.put("/list", {
-                    listType,
-                    titleId,
+                const resp = await axiosPrivate.put("/default_lists", {
+                    title,
                     isFav,
                     isWatch,
                 });
@@ -38,7 +33,7 @@ const SingleTitleCard = ({
             e.preventDefault();
 
             addRemoveFavoritesClient(title?.id);
-            addToList("favorite", isFav, null);
+            addToList(true, null);
         }
 
         // Add to watchlist
@@ -49,7 +44,7 @@ const SingleTitleCard = ({
             e.preventDefault();
 
             addRemoveWatchlistClient(title?.id);
-            addToList("watchlist", null, isWatch);
+            addToList(null, true);
         }
     };
     return (

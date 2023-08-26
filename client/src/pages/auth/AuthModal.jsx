@@ -37,13 +37,6 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
                 );
 
                 if (resp.status === 200 || 201) {
-                    const requestTokenObj = resp.data.requestTokenObj;
-                    if (!requestTokenObj.isApproved) {
-                        const requestToken = requestTokenObj.request_token;
-
-                        window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/`;
-                        return;
-                    }
                     navigate("/discover", { replace: true });
                 }
             } catch (error) {

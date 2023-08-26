@@ -119,14 +119,6 @@ module.exports.signup_post = async (req, res) => {
 
         // Saving refreshToken with current user
         createdUser.refreshToken = refreshToken;
-
-        // Saving request token for TMDB access
-        const requestToken = await createSessionId();
-
-        createdUser.requestTokenObj = {
-            isApproved: false,
-            request_token: requestToken,
-        };
         await createdUser.save();
 
         // Creates Secure Cookie with refresh token
