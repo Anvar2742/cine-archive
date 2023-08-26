@@ -15,47 +15,41 @@ const SingleTitleCard = ({
     const saveRef = useRef(null);
 
     const onClick = (e) => {
+        const titleId = title?.id;
+        const isFav = title?.isFav;
+        const isWatch = title?.isWatch;
+
+        const addToList = async (listType, isFav = null, isWatch = null) => {
+            try {
+                const resp = await axiosPrivate.put("/list", {
+                    listType,
+                    titleId,
+                    isFav,
+                    isWatch,
+                });
+                console.log(resp.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         // Add to favorites
         if (e.target === favRef.current || favRef.current.contains(e.target)) {
             e.preventDefault();
-            const addRemoveFavoritesServer = async () => {
-                const titleId = title?.id;
-                const isFav = title?.isFav;
-                try {
-                    const resp = await axiosPrivate.put("/favorite", {
-                        titleId,
-                        isFav,
-                    });
-                    console.log(resp.data);
-                } catch (error) {
-                    console.log(error);
-                }
-            };
 
             addRemoveFavoritesClient(title?.id);
-            addRemoveFavoritesServer();
+            addToList("favorite", isFav, null);
         }
 
-        // Add to seen
+        // Add to watchlist
         if (
             e.target === saveRef.current ||
             saveRef.current.contains(e.target)
         ) {
             e.preventDefault();
 
-            const addRemoveWatchlistServer = async () => {
-                try {
-                    const resp = await axiosPrivate.put("/watchlist", {
-                        title,
-                    });
-                    console.log(resp.data);
-                } catch (error) {
-                    console.log(error);
-                }
-            };
-
             addRemoveWatchlistClient(title?.id);
-            addRemoveWatchlistServer();
+            addToList("watchlist", null, isWatch);
         }
     };
     return (

@@ -18,15 +18,11 @@ const userSchema = new mongoose.Schema({
     refreshToken: {
         type: String,
     },
-    requestTokenObj: {
-        type: Object,
-        default: {
-            isApproved: false,
-            request_token: false,
-        },
+    favIds: {
+        type: Array,
     },
-    session_id: {
-        type: String,
+    watchIds: {
+        type: Array,
     },
 });
 

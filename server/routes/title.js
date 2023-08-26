@@ -1,12 +1,7 @@
 const { Router } = require("express");
-const {
-    addRemoveWatchlist,
-    add_remove_favs,
-} = require("../controllers/TitleController");
+const { add_remove_list } = require("../controllers/TitleController");
 const router = Router();
 
-router.put("/favorite", add_remove_favs);
-
-router.put("/watchlist", addRemoveWatchlist);
+router.put("/list", add_remove_list);
 
 module.exports = router;
