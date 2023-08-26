@@ -62,3 +62,23 @@ module.exports.add_remove_default_lists = async (req, res) => {
         res.sendStatus(400);
     }
 };
+
+module.exports.get_collectioin_titles = async (req, res) => {
+    try {
+        // verify token
+        jwt.verify(
+            refreshToken,
+            process.env.REFRESH_TOKEN_SECRET,
+            async (err, decoded) => {
+                if (err) return res.status(403).json(err);
+                const foundUser = await User.findOne(decoded.id);
+                const favIds = foundUser.favIds;
+                const favMovies = await Title.find({ id: { $in: favIds } });
+
+                if (!favMovies) return res.status(404);
+
+                res.status(200).json(favMovies);
+            }
+        );
+    } catch (error) {}
+};
