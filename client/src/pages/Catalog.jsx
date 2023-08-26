@@ -6,19 +6,16 @@ import SingleTitleCard from "../components/SingleTitleCard";
 
 const Catalog = () => {
     const location = useLocation();
-    const getMovieEffectRan = useRef(true);
     const [titleArr, setTitleArr] = useState(null);
     const [titleElements, setTitleElements] = useState(null);
 
-    const getMovies = useGetApiData("movie", "now_playing", "1");
+    const getMovies = useGetApiData();
 
     useEffectOnce(() => {
-        if (getMovieEffectRan.current) {
-            getMovies().then((results) => {
-                // console.log(results);
-                setTitleArr(results);
-            });
-        }
+        getMovies("movie", "now_playing", "1").then((results) => {
+            // console.log(results);
+            setTitleArr(results);
+        });
     }, [location?.pathname]);
 
     const addRemoveFavoritesClient = (titleId) => {

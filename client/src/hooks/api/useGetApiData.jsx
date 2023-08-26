@@ -1,39 +1,33 @@
 import axios, { axiosMovies } from "../../api/axios";
 import useGetUser from "./useGetUser";
+import useUpdateResults from "./useUpdateResults";
 
-const useGetApiData = (mediaType, listType, page, size = 1280) => {
+const useGetApiData = () => {
     const getUser = useGetUser();
+    const updateResults = useUpdateResults();
     const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
-    const IMG_BASE_URL = "https://image.tmdb.org/t/p/";
 
-    const getMovies = async () => {
+    const getMovies = async (mediaType, listType, page, size = 1280) => {
+        let url = `${mediaType}/${listType}?language=en-US&page=${page}`;
         try {
-            const resp = await axiosMovies.get(
-                `${mediaType}/${listType}?language=en-US&page=${page}`,
-                {
-                    headers: {
-                        Authorization: "Bearer " + authToken,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const resp = await axiosMovies.get(url, {
+                headers: {
+                    Authorization: "Bearer " + authToken,
+                    "Content-Type": "application/json",
+                },
+            });
             const user = await getUser();
             if (!user) return console.log("User not found");
+
             const favIds = user.favIds;
             const watchIds = user.watchIds;
+            const updatedResults = updateResults(
+                resp.data.results,
+                favIds,
+                watchIds,
+                size
+            );
 
-            const updatedResults = await resp.data.results.map((el) => {
-                const isTitleFav = favIds.includes(el.id);
-                const isTitleWatch = watchIds.includes(el.id);
-
-                return {
-                    ...el,
-                    backdrop_path: IMG_BASE_URL + `w${size}` + el.backdrop_path,
-                    poster_path: IMG_BASE_URL + `w${size}` + el.poster_path,
-                    isFav: isTitleFav,
-                    isWatch: isTitleWatch,
-                };
-            });
             console.log(resp.data);
 
             return updatedResults;

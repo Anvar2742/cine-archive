@@ -3,12 +3,14 @@ import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 import SingleTitleCard from "./../components/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
+import useGetApiData from "../hooks/api/useGetApiData";
 
 const Favorite = () => {
     const [favTitleArr, setFavTitleArr] = useState([]);
     const [favElements, setFavElements] = useState(null);
     const axiosPrivate = useAxiosPrivate();
     const location = useLocation();
+    const getMovies = useGetApiData();
 
     const addRemoveFavoritesClient = (titleId) => {
         setFavTitleArr((prevArr) => {
@@ -20,8 +22,7 @@ const Favorite = () => {
 
     const getFavorites = async () => {
         try {
-            const resp = await axiosPrivate.get("/user");
-            const favoriteTitles = await resp?.data?.favoriteTitles;
+            // const favoriteResp = getMovies()
             setFavTitleArr(favoriteTitles);
         } catch (error) {
             console.log(error);
