@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const fetch = require("node-fetch");
+const Title = require("../models/Title");
 require("dotenv").config();
 
 const BASE_URL =
@@ -24,25 +25,13 @@ const addToList = async (listType, body, sessionId) => {
     return data;
 };
 
-module.exports.add_remove_list = async (req, res) => {
-    const { listType, titleId, isFav, isWatch } = req.body;
+module.exports.add_remove_default_list = async (req, res) => {
+    const { title, isFav, isWatch } = req.body;
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
 
     try {
-        if (!titleId) return res.status(400).send("An id is required");
-        const bodyToSend = {
-            media_type: "movie",
-            media_id: titleId,
-        };
-
-        if (isFav !== null) {
-            bodyToSend.favorite = !isFav;
-        }
-
-        if (isWatch !== null) {
-            bodyToSend.watchlist = !isWatch;
-        }
+        if (!title) return res.status(400).send("Title is required");
 
         // evaluate jwt
         jwt.verify(
@@ -50,16 +39,43 @@ module.exports.add_remove_list = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             async (err, decoded) => {
                 console.log(err);
-                if (err) return res.sendStatus(403);
+                if (err) return res.status(403).json(err);
                 const foundUser = await User.findById(decoded.id);
-                const sessionId = foundUser.session_id;
-                const addToListResp = await addToList(
-                    listType,
-                    bodyToSend,
-                    sessionId
-                );
+                const titleId = title?.id;
 
-                res.status(200).json(addToListResp);
+                // Add to fav ids of user if not there
+                // or delete if there
+                if (isFav) {
+                    const titleIndex = foundUser.favIds.indexOf(titleId);
+                    if (titleIndex === -1) {
+                        foundUser.favIds.push(titleId);
+                    } else {
+                        foundUser.favIds.splice(titleIndex, 1);
+                    }
+                    await foundUser.save();
+                }
+
+                // Add to watchlist ids of user if not there
+                // or delete if there
+                if (isWatch) {
+                    const titleIndex = foundUser.watchIds.indexOf(titleId);
+                    if (titleIndex === -1) {
+                        foundUser.watchIds.push(titleId);
+                    } else {
+                        foundUser.watchIds.splice(titleIndex, 1);
+                    }
+                    await foundUser.save();
+                }
+
+                const foundMovie = Title.findOne({ titleId });
+
+                if (!foundMovie) {
+                    const createdTitle = await Title.create({ ...title });
+                    if (!createdTitle) return res.sendStatus(400);
+                    return res.sendStatus(201);
+                }
+
+                res.status(200).json(foundUser);
             }
         );
     } catch (error) {
@@ -67,7 +83,7 @@ module.exports.add_remove_list = async (req, res) => {
         res.sendStatus(400);
     }
 };
- 
+
 module.exports.addRemoveWatchlist = async (req, res) => {
     const { title } = req.body;
     const cookies = req.cookies;
