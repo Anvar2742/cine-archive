@@ -70,7 +70,7 @@ const SingleTitleCard = ({
                             <HeartIcon isFilled={title?.isFav} />
                         </button>
                         <button className="save_btn" ref={saveRef}>
-                            <SaveIcon isFilled={title?.isSaved} />
+                            <SaveIcon isFilled={title?.isWatch} />
                         </button>
                     </div>
                 </div>

@@ -42,7 +42,7 @@ const Catalog = () => {
                 if (titleId === elMap.id) {
                     return {
                         ...elMap,
-                        isSaved: !elMap.isSaved,
+                        isWatch: !elMap.isWatch,
                     };
                 } else {
                     return elMap;
