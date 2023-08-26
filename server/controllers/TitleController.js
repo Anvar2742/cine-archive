@@ -64,6 +64,8 @@ module.exports.add_remove_default_lists = async (req, res) => {
 };
 
 module.exports.get_collectioin_titles = async (req, res) => {
+    const cookies = req.cookies;
+    const refreshToken = cookies?.jwt;
     try {
         // verify token
         jwt.verify(
@@ -71,7 +73,7 @@ module.exports.get_collectioin_titles = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             async (err, decoded) => {
                 if (err) return res.status(403).json(err);
-                const foundUser = await User.findOne(decoded.id);
+                const foundUser = await User.findById(decoded.id);
                 const favIds = foundUser.favIds;
                 const favMovies = await Title.find({ id: { $in: favIds } });
 
@@ -80,5 +82,8 @@ module.exports.get_collectioin_titles = async (req, res) => {
                 res.status(200).json(favMovies);
             }
         );
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
 };

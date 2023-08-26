@@ -2,7 +2,7 @@ import useAxiosPrivate from "./useAxiosPrivate";
 import useGetUser from "./useGetUser";
 import useUpdateResults from "./useUpdateResults";
 
-const useGetApiData = () => {
+const useGetListTitles = () => {
     const axiosPrivate = useAxiosPrivate();
     const getUser = useGetUser();
     const updateResults = useUpdateResults();
@@ -17,14 +17,14 @@ const useGetApiData = () => {
 
             const favIds = user.favIds;
             const watchIds = user.watchIds;
-            const updatedResults = updateResults(
-                resp.data.results,
+            const updatedResults = await updateResults(
+                resp.data,
                 favIds,
                 watchIds,
                 size
             );
 
-            console.log(resp.data);
+            // console.log(updatedResults);
 
             return updatedResults;
         } catch (error) {
@@ -34,4 +34,4 @@ const useGetApiData = () => {
     return getListTitles;
 };
 
-export default useGetApiData;
+export default useGetListTitles;

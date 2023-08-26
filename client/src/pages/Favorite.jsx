@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 import SingleTitleCard from "./../components/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
-import useGetApiData from "../hooks/api/useGetApiData";
+import useGetListTitles from "../hooks/api/useGetListTitles";
 
 const Favorite = () => {
-    const [favTitleArr, setFavTitleArr] = useState([]);
+    const [favTitleArr, setFavTitleArr] = useState(null);
     const [favElements, setFavElements] = useState(null);
-    const axiosPrivate = useAxiosPrivate();
     const location = useLocation();
-    const getMovies = useGetApiData();
+    const getListTitles = useGetListTitles();
 
     const addRemoveFavoritesClient = (titleId) => {
         setFavTitleArr((prevArr) => {
@@ -22,8 +20,13 @@ const Favorite = () => {
 
     const getFavorites = async () => {
         try {
-            // const favoriteResp = getMovies()
-            setFavTitleArr(favoriteTitles);
+            const results = await getListTitles(1280);
+
+            if (results?.length) {
+                setFavTitleArr(results);
+            } else {
+                setFavTitleArr([]);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -34,21 +37,26 @@ const Favorite = () => {
     }, [location?.pathname]);
 
     useEffect(() => {
-        if (favTitleArr?.length) {
-            setFavElements(
-                favTitleArr.map((el) => {
-                    return (
-                        <SingleTitleCard
-                            key={el.id}
-                            title={el}
-                            mediaType={"movie"}
-                            addRemoveFavoritesClient={addRemoveFavoritesClient}
-                        />
-                    );
-                })
-            );
-        } else {
-            setFavElements("No favorites");
+        console.log(favTitleArr);
+        if (favTitleArr) {
+            if (favTitleArr.length) {
+                setFavElements(
+                    favTitleArr.map((el) => {
+                        return (
+                            <SingleTitleCard
+                                key={el.id}
+                                title={el}
+                                mediaType={"movie"}
+                                addRemoveFavoritesClient={
+                                    addRemoveFavoritesClient
+                                }
+                            />
+                        );
+                    })
+                );
+            } else {
+                setFavElements("No favorites");
+            }
         }
     }, [favTitleArr]);
 
