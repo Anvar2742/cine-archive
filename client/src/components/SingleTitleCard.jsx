@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { HeartIcon, SaveIcon, StarIcon } from "./svgIcons";
 import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 const SingleTitleCard = ({
     title,
@@ -9,6 +10,7 @@ const SingleTitleCard = ({
     addRemoveFavoritesClient,
     addRemoveWatchlistClient,
 }) => {
+    const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
     // References
     const favRef = useRef(null);
@@ -40,7 +42,9 @@ const SingleTitleCard = ({
             e.preventDefault();
 
             addRemoveFavoritesClient(title?.id);
-            addToList(true, null);
+            if (auth?.accessToken) {
+                addToList(true, null);
+            }
         }
 
         // Add to watchlist
@@ -51,7 +55,9 @@ const SingleTitleCard = ({
             e.preventDefault();
 
             addRemoveWatchlistClient(title?.id);
-            addToList(null, true);
+            if (auth?.accessToken) {
+                addToList(null, true);
+            }
         }
     };
     return (
