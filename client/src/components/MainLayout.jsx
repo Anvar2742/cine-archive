@@ -25,8 +25,10 @@ const MainLayout = () => {
         }
     }, []);
 
-    const toggleAuthModal = (passedIsSignup) => {
-        setIsSignup(passedIsSignup);
+    const toggleAuthModal = (passedIsSignup = null) => {
+        if (passedIsSignup !== null) {
+            setIsSignup(passedIsSignup);
+        }
         setIsAuth((prev) => !prev);
     };
 

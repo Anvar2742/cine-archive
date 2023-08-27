@@ -38,6 +38,7 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
 
                 if (resp.status === 200 || 201) {
                     navigate("/discover", { replace: true });
+                    toggleAuthModal();
                 }
             } catch (error) {
                 console.log(error);
