@@ -66,6 +66,8 @@ module.exports.add_remove_default_lists = async (req, res) => {
 module.exports.get_collectioin_titles = async (req, res) => {
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
+    const { isFavPage } = req.body;
+
     try {
         // verify token
         jwt.verify(
@@ -74,12 +76,19 @@ module.exports.get_collectioin_titles = async (req, res) => {
             async (err, decoded) => {
                 if (err) return res.status(403).json(err);
                 const foundUser = await User.findById(decoded.id);
-                const favIds = foundUser.favIds;
-                const favMovies = await Title.find({ id: { $in: favIds } });
+                let idsForSearch;
 
-                if (!favMovies) return res.status(404);
+                if (isFavPage) {
+                    idsForSearch = foundUser.favIds;
+                } else {
+                    idsForSearch = foundUser.watchIds;
+                }
 
-                res.status(200).json(favMovies);
+                const titles = await Title.find({ id: { $in: idsForSearch } });
+
+                if (!titles) return res.status(404);
+
+                res.status(200).json(titles);
             }
         );
     } catch (error) {

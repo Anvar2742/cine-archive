@@ -18,9 +18,24 @@ const Favorite = () => {
         });
     };
 
+    const addRemoveWatchlistClient = (titleId) => {
+        setFavTitleArr((prevArr) => {
+            return prevArr.map((elMap) => {
+                if (titleId === elMap.id) {
+                    return {
+                        ...elMap,
+                        isWatch: !elMap.isWatch,
+                    };
+                } else {
+                    return elMap;
+                }
+            });
+        });
+    };
+
     const getFavorites = async () => {
         try {
-            const results = await getListTitles(1280);
+            const results = await getListTitles(true, 1280);
 
             if (results?.length) {
                 setFavTitleArr(results);
@@ -49,6 +64,9 @@ const Favorite = () => {
                                 mediaType={"movie"}
                                 addRemoveFavoritesClient={
                                     addRemoveFavoritesClient
+                                }
+                                addRemoveWatchlistClient={
+                                    addRemoveWatchlistClient
                                 }
                             />
                         );

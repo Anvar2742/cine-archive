@@ -7,16 +7,20 @@ const useGetListTitles = () => {
     const getUser = useGetUser();
     const updateResults = useUpdateResults();
 
-    const getListTitles = async (size = 1280) => {
+    const getListTitles = async (isFavPage, size = 1280) => {
         try {
-            const resp = await axiosPrivate.get("/default_lists", {
-                withCredentials: true,
-            });
+            const resp = await axiosPrivate.post(
+                "/default_lists",
+                { isFavPage },
+                {
+                    withCredentials: true,
+                }
+            );
             const user = await getUser();
             if (!user) return console.log("User not found");
-
             const favIds = user.favIds;
             const watchIds = user.watchIds;
+
             const updatedResults = await updateResults(
                 resp.data,
                 favIds,
