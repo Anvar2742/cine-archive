@@ -17,10 +17,14 @@ const useGetApiData = () => {
                 },
             });
             const user = await getUser();
-            if (!user) return console.log("User not found");
+            let favIds = [];
+            let watchIds = [];
 
-            const favIds = user.favIds;
-            const watchIds = user.watchIds;
+            if (user) {
+                favIds = user.favIds;
+                watchIds = user.watchIds;
+            }
+
             resp.data.results = await updateResults(
                 resp.data.results,
                 favIds,

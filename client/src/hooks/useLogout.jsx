@@ -5,7 +5,6 @@ const useLogout = () => {
     const { setAuth } = useAuth();
 
     const logout = async () => {
-        setAuth({});
         try {
             const resp = await axios.post(
                 "/logout",
@@ -15,6 +14,10 @@ const useLogout = () => {
                 }
             );
             console.log(resp);
+            if (resp.status === 204) {
+                window.location.reload();
+                setAuth({});
+            }
         } catch (err) {
             console.error(err);
         }

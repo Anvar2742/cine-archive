@@ -31,7 +31,7 @@ module.exports.add_remove_default_lists = async (req, res) => {
 
                 // Add to fav ids of user if not there
                 // or delete if there
-                console.log(isFav);
+                // console.log(isFav);
                 if (isFav) {
                     const titleIndex = foundUser.favIds.indexOf(titleId);
                     if (titleIndex === -1) {
@@ -59,7 +59,7 @@ module.exports.add_remove_default_lists = async (req, res) => {
                 if (!foundMovie) {
                     title.backdrop_path = cutOutImageName(title.backdrop_path);
                     title.poster_path = cutOutImageName(title.poster_path);
-                    
+
                     const createdTitle = await Title.create(title);
                     if (!createdTitle) return res.sendStatus(400);
                     return res.sendStatus(201);

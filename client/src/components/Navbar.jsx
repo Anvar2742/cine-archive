@@ -1,8 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import useLogout from "../hooks/useLogout";
 
-const Navbar = ({ toggleAuthModal, auth }) => {
-    const logout = useLogout();
+const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
     const LogedIn = () => {
         return (
             <nav className="flex gap-4">
@@ -30,7 +28,7 @@ const Navbar = ({ toggleAuthModal, auth }) => {
                 >
                     Watchlist
                 </NavLink>
-                <button onClick={logout}>Sign out</button>
+                <button onClick={logoutHandle}>Sign out</button>
             </nav>
         );
     };

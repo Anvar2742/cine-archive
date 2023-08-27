@@ -2,9 +2,10 @@ import { useState } from "react";
 import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
+    const location = useLocation();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -37,6 +38,9 @@ const AuthModal = ({ isSignup, switchSignUpLogin, toggleAuthModal }) => {
                 );
 
                 if (resp.status === 200 || 201) {
+                    if (location?.pathname === "/discover") {
+                        return window.location.reload();
+                    }
                     navigate("/discover", { replace: true });
                     toggleAuthModal();
                 }

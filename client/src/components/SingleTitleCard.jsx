@@ -17,11 +17,18 @@ const SingleTitleCard = ({
     const onClick = (e) => {
         const addToList = async (isFav = null, isWatch = null) => {
             try {
-                const resp = await axiosPrivate.put("/default_lists", {
-                    title,
-                    isFav,
-                    isWatch,
-                });
+                const resp = await axiosPrivate.put(
+                    "/default_lists",
+                    {
+                        title,
+                        isFav,
+                        isWatch,
+                    },
+                    {
+                        headers: { "Content-Type": "application/json" },
+                        withCredentials: true,
+                    }
+                );
                 console.log(resp.data);
             } catch (error) {
                 console.log(error);

@@ -5,6 +5,7 @@ import AuthModal from "../pages/auth/AuthModal";
 import useAuth from "../hooks/useAuth";
 import useApproveReqToken from "../hooks/useApproveReqToken";
 import { useEffectOnce } from "./../hooks/useEffectOnce";
+import useLogout from "../hooks/useLogout";
 
 const MainLayout = () => {
     const { auth } = useAuth();
@@ -18,6 +19,7 @@ const MainLayout = () => {
         reqTokenFromQuery,
         isTokenApproved
     );
+    const logout = useLogout();
 
     useEffectOnce(() => {
         if (reqTokenFromQuery && isTokenApproved) {
@@ -36,6 +38,25 @@ const MainLayout = () => {
         setIsSignup(passedIsSignup);
     };
 
+    const logoutHandle = () => {
+        setIsLoading((prev) => !prev);
+        logout();
+    };
+
+    useEffect(() => {
+        if (auth?.accessToken || auth?.accessToken === false) {
+            setIsLoading(false);
+        }
+    }, [auth]);
+
+    useEffect(() => {
+        if (isAuth) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "visible";
+        }
+    }, [isAuth]);
+
     useEffect(() => {
         if (auth?.accessToken || auth?.accessToken === false) {
             setIsLoading(false);
@@ -45,7 +66,11 @@ const MainLayout = () => {
     if (isLoading) return <div>Loading...</div>;
     return (
         <div>
-            <Navbar toggleAuthModal={toggleAuthModal} auth={auth} />
+            <Navbar
+                toggleAuthModal={toggleAuthModal}
+                auth={auth}
+                logoutHandle={logoutHandle}
+            />
             {isAuth ? (
                 <AuthModal
                     isSignup={isSignup}

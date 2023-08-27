@@ -6,6 +6,7 @@ const verifyJWT = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     // console.log(token);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        console.log(err);
         if (err) return res.sendStatus(403); //invalid token
         req.user = decoded.UserInfo.email;
         next();
