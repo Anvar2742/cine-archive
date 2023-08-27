@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import useApproveReqToken from "../hooks/useApproveReqToken";
 import { useEffectOnce } from "./../hooks/useEffectOnce";
 import useLogout from "../hooks/useLogout";
+import Footer from "./Footer";
 
 const MainLayout = () => {
     const { auth } = useAuth();
@@ -81,6 +82,7 @@ const MainLayout = () => {
                 ""
             )}
             <Outlet />
+            <Footer />
         </div>
     );
 };
