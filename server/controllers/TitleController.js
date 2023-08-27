@@ -3,6 +3,14 @@ const User = require("../models/User");
 const Title = require("../models/Title");
 require("dotenv").config();
 
+// Cut out url to just image name
+const cutOutImageName = (imageUrl) => {
+    const index = imageUrl.lastIndexOf("/");
+    const imageName = imageUrl.slice(index, imageUrl.length);
+
+    return imageName;
+};
+
 module.exports.add_remove_default_lists = async (req, res) => {
     const { title, isFav, isWatch } = req.body;
     const cookies = req.cookies;
@@ -49,6 +57,9 @@ module.exports.add_remove_default_lists = async (req, res) => {
                 const foundMovie = await Title.findOne({ id: titleId });
 
                 if (!foundMovie) {
+                    title.backdrop_path = cutOutImageName(title.backdrop_path);
+                    title.poster_path = cutOutImageName(title.poster_path);
+                    
                     const createdTitle = await Title.create(title);
                     if (!createdTitle) return res.sendStatus(400);
                     return res.sendStatus(201);
