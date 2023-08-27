@@ -21,16 +21,14 @@ const useGetApiData = () => {
 
             const favIds = user.favIds;
             const watchIds = user.watchIds;
-            const updatedResults = updateResults(
+            resp.data.results = await updateResults(
                 resp.data.results,
                 favIds,
                 watchIds,
                 size
             );
 
-            console.log(resp.data);
-
-            return updatedResults;
+            return resp.data;
         } catch (error) {
             console.log(error);
         }
