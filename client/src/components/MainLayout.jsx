@@ -36,7 +36,8 @@ const MainLayout = () => {
         setIsAuth((prev) => !prev);
     };
 
-    const switchSignUpLogin = (passedIsSignup) => {
+    const toggleAuthForms = (passedIsSignup) => {
+        setFormErrors({});
         setIsSignup(passedIsSignup);
     };
 
@@ -76,7 +77,7 @@ const MainLayout = () => {
             {isAuth ? (
                 <AuthModal
                     isSignup={isSignup}
-                    switchSignUpLogin={switchSignUpLogin}
+                    toggleAuthForms={toggleAuthForms}
                     toggleAuthModal={toggleAuthModal}
                 />
             ) : (

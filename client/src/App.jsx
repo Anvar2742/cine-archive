@@ -7,6 +7,8 @@ import PersistLogin from "./components/PersistLogin";
 import Favorite from "./pages/Favorite";
 import Watchlist from "./pages/Watchlist";
 import Single from "./pages/Single";
+import RequireAuth from "./components/RequireAuth";
+import Auth from "./pages/auth/Auth";
 
 function App() {
     return (
@@ -15,9 +17,12 @@ function App() {
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/discover" element={<Catalog />} />
-                    <Route path="/favorite" element={<Favorite />} />
-                    <Route path="/watchlist" element={<Watchlist />} />
                     <Route path="/:titleId" element={<Single />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route element={<RequireAuth />}>
+                        <Route path="/favorite" element={<Favorite />} />
+                        <Route path="/watchlist" element={<Watchlist />} />
+                    </Route>
                 </Route>
             </Route>
         </Routes>

@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { useLocation, useNavigate } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
+import Loader from "../../components/Loader";
+import useAuth from "../../hooks/useAuth";
 
-const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
-    const location = useLocation();
+const Auth = () => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         passwordRep: "",
     });
     const [formErrors, setFormErrors] = useState({});
+    const [isSignup, setIsSignup] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
     const navigate = useNavigate();
+    const { auth } = useAuth();
+
+    const toggleAuthForms = (passedIsSignup) => {
+        setFormErrors({});
+        setIsSignup(passedIsSignup);
+    };
 
     const onChange = (e) => {
         setFormData((prevFormData) => {
@@ -75,9 +86,18 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
         return true;
     };
 
+    useEffect(() => {
+        if (auth?.accessToken || auth?.accessToken === false) {
+            setIsLoading(false);
+        }
+    }, [auth]);
+
+    if (isLoading) return <Loader />;
+
     return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center">
-            <div className=" max-w-xs w-full h-96">
+        <div className="pt-32 pb-26">
+            <div className=" max-w-xs w-full h-96 mx-auto">
+                <h1>Log in</h1>
                 <button
                     onClick={() => toggleAuthModal(isSignup)}
                     className=" block ml-auto mb-4 bg-sec font-bold w-6 h-6"
@@ -129,4 +149,4 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
     );
 };
 
-export default AuthModal;
+export default Auth;
