@@ -17,18 +17,10 @@ const useGetApiData = () => {
                 },
             });
             const user = await getUser();
-            let favIds = [];
-            let watchIds = [];
-
-            if (user) {
-                favIds = user.favIds;
-                watchIds = user.watchIds;
-            }
 
             resp.data.results = await updateResults(
                 resp.data.results,
-                favIds,
-                watchIds,
+                user,
                 size
             );
 

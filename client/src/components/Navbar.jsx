@@ -51,7 +51,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
         );
     };
     return (
-        <header className="py-6 shadow-header">
+        <header className="py-6 shadow-header relative z-10">
             <div className="container flex mx-auto items-center justify-between px-4">
                 <Link to="/" className=" text-2xl font-extrabold">
                     CINE-ARCHIVE

@@ -2,12 +2,18 @@ import { useLocation, useParams } from "react-router-dom";
 import { axiosMovies } from "../api/axios";
 import { useEffect, useState } from "react";
 import { useEffectOnce } from "../hooks/useEffectOnce";
+import useUpdateResults from "../hooks/api/useUpdateResults";
+import useGetUser from "../hooks/api/useGetUser";
 
 const Single = () => {
     const location = useLocation();
     const { titleId } = useParams();
     const [title, setTitle] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
+    const updateResults = useUpdateResults();
+    const getUser = useGetUser();
+
     const getSingleTitle = async () => {
         try {
             const resp = await axiosMovies(`movie/${titleId}?language=en-US`, {
@@ -16,8 +22,17 @@ const Single = () => {
                     Authorization: "Bearer " + authToken,
                 },
             });
-            console.log(resp.data);
-            setTitle(resp.data);
+
+            const user = await getUser();
+            const updatedResult = await updateResults(
+                [resp.data],
+                user,
+                1280,
+                300
+            );
+            console.log(updatedResult[0]);
+            setTitle(updatedResult[0]);
+            setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -27,10 +42,30 @@ const Single = () => {
         getSingleTitle();
     }, [location?.pathname]);
 
+    if (isLoading) return <div>Loading...</div>;
+
     return (
-        <div>
-            <h2>{title?.title}</h2>
-            <p>{title?.tagline}</p>
+        <div className=" pt-20x relative">
+            <img
+                src={title?.backdrop_path}
+                alt=""
+                className="w-full absolute blur-sm pointer-events-none"
+            />
+            <p className="py-1 px-4 rounded-lg left-1/2 -translate-x-1/2 absolute top-32 bg-primary">
+                {title?.tagline}
+            </p>
+            <div className=" pt-32">
+                <div className="container mx-auto grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
+                    <div>
+                        <img src={title?.poster_path} alt="" />
+                    </div>
+                    <div className=" py-10">
+                        <h1 className=" text-2xl font-bold">{title?.title}</h1>
+                        <p className="mt-4">{title?.overview}</p>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
