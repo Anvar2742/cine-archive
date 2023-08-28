@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import useUpdateResults from "../hooks/api/useUpdateResults";
 import useGetUser from "../hooks/api/useGetUser";
+import Loader from "../components/Loader";
 
 const Single = () => {
     const location = useLocation();
@@ -42,7 +43,7 @@ const Single = () => {
         getSingleTitle();
     }, [location?.pathname]);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loader />;
 
     return (
         <div className=" pt-20x relative">

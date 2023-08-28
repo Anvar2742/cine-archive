@@ -7,6 +7,7 @@ import useApproveReqToken from "../hooks/useApproveReqToken";
 import { useEffectOnce } from "./../hooks/useEffectOnce";
 import useLogout from "../hooks/useLogout";
 import Footer from "./Footer";
+import Loader from "./Loader";
 
 const MainLayout = () => {
     const { auth } = useAuth();
@@ -64,7 +65,7 @@ const MainLayout = () => {
         }
     }, [auth]);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loader />;
     return (
         <div>
             <Navbar
