@@ -18,15 +18,8 @@ const useGetListTitles = () => {
             );
             const user = await getUser();
             if (!user) return console.log("User not found");
-            const favIds = user.favIds;
-            const watchIds = user.watchIds;
 
-            const updatedResults = await updateResults(
-                resp.data,
-                favIds,
-                watchIds,
-                size
-            );
+            const updatedResults = await updateResults(resp.data, user, size);
 
             // console.log(updatedResults);
 

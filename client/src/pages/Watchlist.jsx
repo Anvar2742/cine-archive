@@ -73,7 +73,7 @@ const Watchlist = () => {
                     })
                 );
             } else {
-                setFavElements("No watchlist titles");
+                setWatchElements("No watchlist titles");
             }
         }
     }, [watchTitleArr]);
