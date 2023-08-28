@@ -4,6 +4,7 @@ import useGetApiData from "../hooks/api/useGetApiData";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import SingleTitleCard from "../components/SingleTitleCard";
 import useAuth from "../hooks/useAuth";
+import Loader from "../components/Loader";
 
 const AskLoginModal = ({ handleAskLoginModal }) => {
     return (
@@ -28,6 +29,7 @@ const Catalog = () => {
     const [titleElements, setTitleElements] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [isPageUpdate, setIsPageUpdate] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const scrollContainerRef = useRef();
     const { auth } = useAuth();
     const [isAskLogin, setIsAskLogin] = useState(false);
@@ -35,10 +37,14 @@ const Catalog = () => {
     const getMovies = useGetApiData();
 
     useEffectOnce(() => {
-        getMovies("movie", "now_playing", currentPage).then((data) => {
-            // console.log(data);
-            setTitleArr(data.results);
-        });
+        getMovies("movie", "now_playing", currentPage)
+            .then((data) => {
+                // console.log(data);
+                setTitleArr(data.results);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [location?.pathname]);
 
     useEffect(() => {
@@ -144,7 +150,7 @@ const Catalog = () => {
         };
     }, [location?.pathname, scrollContainerRef, isPageUpdate]);
 
-    if (!titleElements) return <div>Loading...</div>;
+    if (isLoading) return <Loader />;
 
     return (
         <div className="container mx-auto" ref={scrollContainerRef}>

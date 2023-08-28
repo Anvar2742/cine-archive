@@ -3,12 +3,14 @@ import SingleTitleCard from "./../components/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
 import useGetListTitles from "../hooks/api/useGetListTitles";
+import Loader from "../components/Loader";
 
 const Favorite = () => {
     const [favTitleArr, setFavTitleArr] = useState(null);
     const [favElements, setFavElements] = useState(null);
     const location = useLocation();
     const getListTitles = useGetListTitles();
+    const [isLoading, setIsLoading] = useState(true);
 
     const addRemoveFavoritesClient = (titleId) => {
         setFavTitleArr((prevArr) => {
@@ -44,6 +46,8 @@ const Favorite = () => {
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -78,6 +82,7 @@ const Favorite = () => {
         }
     }, [favTitleArr]);
 
+    if (isLoading) return <Loader />;
     return (
         <div className="container mx-auto">
             <h1 className=" text-4xl font-bold my-12">My favorites</h1>

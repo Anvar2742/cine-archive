@@ -3,12 +3,14 @@ import SingleTitleCard from "./../components/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
 import useGetListTitles from "../hooks/api/useGetListTitles";
+import Loader from "../components/Loader";
 
 const Watchlist = () => {
     const [watchTitleArr, setWatchTitleArr] = useState(null);
     const [watchElements, setWatchElements] = useState(null);
     const location = useLocation();
     const getListTitles = useGetListTitles();
+    const [isLoading, setIsLoading] = useState(true);
 
     const addRemoveWatchlistClient = (titleId) => {
         setWatchTitleArr((prevArr) => {
@@ -44,6 +46,8 @@ const Watchlist = () => {
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -77,6 +81,8 @@ const Watchlist = () => {
             }
         }
     }, [watchTitleArr]);
+
+    if (isLoading) return <Loader />;
 
     return (
         <div className="container mx-auto">
