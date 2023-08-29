@@ -7,9 +7,8 @@ const auth = require("./routes/auth");
 const title = require("./routes/title");
 const user = require("./routes/user");
 const verifyJWT = require("./middleware/verifyJWT");
-
-// Models
-const User = require("./models/User");
+const updateTitles = require("./middleware/updateTitles");
+const cron = require("node-cron");
 
 // env vars
 require("dotenv").config();
@@ -26,6 +25,13 @@ mongoose
     .connect(MONGO_URI)
     .then((result) => app.listen(PORT))
     .catch((err) => console.log(err));
+
+// Periodic update for titles
+
+// cron.schedule("* * * * *", () => {
+
+// });
+updateTitles();
 
 app.use(auth);
 app.use(user);
