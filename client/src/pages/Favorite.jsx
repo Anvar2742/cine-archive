@@ -56,7 +56,7 @@ const Favorite = () => {
     }, [location?.pathname]);
 
     useEffect(() => {
-        console.log(favTitleArr);
+        // console.log(favTitleArr);
         if (favTitleArr) {
             if (favTitleArr.length) {
                 setFavElements(

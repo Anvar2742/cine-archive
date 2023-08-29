@@ -13,7 +13,7 @@ const useLogout = () => {
                     withCredentials: true,
                 }
             );
-            console.log(resp);
+            // console.log(resp);
             if (resp.status === 204) {
                 window.location.reload();
                 setAuth({});

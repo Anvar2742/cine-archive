@@ -108,7 +108,7 @@ const Catalog = () => {
     };
 
     useEffect(() => {
-        console.log(titleArr);
+        // console.log(titleArr);
         if (titleArr) {
             setTitleElements(() => {
                 return titleArr.map((el) => {

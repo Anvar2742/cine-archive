@@ -46,7 +46,7 @@ const MainLayout = () => {
     }, [isAuth]);
 
     useEffect(() => {
-        console.log(auth);
+        // console.log(auth);
         if (auth?.accessToken || auth?.accessToken === false) {
             setIsLoading(false);
         }

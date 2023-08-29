@@ -60,7 +60,7 @@ const Single = () => {
                     <div>
                         <img src={title?.poster_path} alt="" />
                     </div>
-                    <div className=" py-10">
+                    <div className=" py-10 pr-5">
                         <h1 className=" text-2xl font-bold">{title?.title}</h1>
                         <p className="mt-4">{title?.overview}</p>
                         <div className="mt-4">
