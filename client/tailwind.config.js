@@ -11,7 +11,10 @@ export default {
                 header: "0px 1px 20px -3px #FFFFFF",
             },
             backgroundImage: {
-                "hero": "url('/img/hero-bg.png')",
+                hero: "url('/img/hero-bg.png')",
+            },
+            screens: {
+                phone: "420px",
             },
         },
     },

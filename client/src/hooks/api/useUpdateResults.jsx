@@ -17,12 +17,15 @@ const useUpdateResults = () => {
             if (backSize) {
                 backDropSize = backSize;
             }
+            const fixedVoteAverage = el.vote_average.toFixed(2);
             return {
                 ...el,
-                backdrop_path: IMG_BASE_URL + `w${backDropSize}` + el.backdrop_path,
+                backdrop_path:
+                    IMG_BASE_URL + `w${backDropSize}` + el.backdrop_path,
                 poster_path: IMG_BASE_URL + `w${size}` + el.poster_path,
                 isFav: isTitleFav,
                 isWatch: isTitleWatch,
+                vote_average: fixedVoteAverage,
             };
         });
 

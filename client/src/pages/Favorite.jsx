@@ -84,9 +84,9 @@ const Favorite = () => {
 
     if (isLoading) return <Loader />;
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4">
             <h1 className=" text-4xl font-bold my-12">My favorites</h1>
-            <div className=" grid grid-cols-3 gap-8">{favElements}</div>
+            <div className=" grid gap-8 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 phone:grid-cols-2">{favElements}</div>
         </div>
     );
 };

@@ -56,7 +56,7 @@ const Single = () => {
                 {title?.tagline}
             </p>
             <div className=" pt-32">
-                <div className="container mx-auto grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
+                <div className="container mx-auto px-4 grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
                     <div>
                         <img src={title?.poster_path} alt="" />
                     </div>
