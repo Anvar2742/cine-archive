@@ -6,12 +6,13 @@ module.exports.single_user_get = async (req, res) => {
     const refreshToken = cookies?.jwt;
 
     try {
+        if (!refreshToken) return res.sendStatus(401);
         // evaluate jwt
         jwt.verify(
             refreshToken,
             process.env.REFRESH_TOKEN_SECRET,
             async (err, decoded) => {
-                console.log(err);
+                // console.log(err);
                 if (err) return res.sendStatus(403);
 
                 const foundUser = await User.findById(decoded.id);
@@ -20,7 +21,7 @@ module.exports.single_user_get = async (req, res) => {
             }
         );
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.sendStatus(400);
     }
 };

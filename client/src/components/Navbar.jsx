@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
+    const [isLoged, setIsLoged] = useState(null);
+
     const LogedIn = () => {
         return (
             <nav className="flex gap-4">
@@ -50,13 +53,22 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
             </div>
         );
     };
+
+    useEffect(() => {
+        if (auth?.accessToken) {
+            setIsLoged(true);
+        } else if (auth?.accessToken === false) {
+            setIsLoged(false);
+        }
+    }, [auth]);
+
     return (
         <header className="py-6 shadow-header relative z-10">
             <div className="container flex mx-auto items-center justify-between px-4">
                 <Link to="/" className=" text-2xl font-extrabold">
                     CINE-ARCHIVE
                 </Link>
-                {auth?.accessToken ? <LogedIn /> : <NotLogedIn />}
+                {isLoged ? <LogedIn /> : <NotLogedIn />}
             </div>
         </header>
     );

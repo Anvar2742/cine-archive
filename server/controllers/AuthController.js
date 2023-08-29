@@ -68,7 +68,7 @@ const createJWT = (user) => {
         { expiresIn: "1d" }
     );
 
-    return refreshToken;
+    return { accessToken, refreshToken };
 };
 
 const createSessionId = async () => {
@@ -115,7 +115,7 @@ module.exports.signup_post = async (req, res) => {
 
         const createdUser = await User.create({ email, password: hashedPass });
 
-        const refreshToken = createJWT(createdUser);
+        const { accessToken, refreshToken } = createJWT(createdUser);
 
         // Saving refreshToken with current user
         createdUser.refreshToken = refreshToken;
@@ -129,7 +129,7 @@ module.exports.signup_post = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        res.status(201).json(createdUser);
+        res.status(201).json(accessToken);
     } catch (error) {
         console.log(error);
         const errors = handleErrors(error);
@@ -146,11 +146,10 @@ module.exports.login_post = async (req, res) => {
         }
 
         const logedInUser = await User.login(email, password);
-        const auth = bcrypt.compare(password, logedInUser.password);
 
-        if (!auth) return res.sendStatus(401);
+        if (!logedInUser) return res.sendStatus(401);
 
-        const refreshToken = createJWT(logedInUser);
+        const { accessToken, refreshToken } = createJWT(logedInUser);
         // Saving refreshToken with current user
         logedInUser.refreshToken = refreshToken;
         await logedInUser.save();
@@ -163,7 +162,7 @@ module.exports.login_post = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        res.status(200).json(logedInUser);
+        res.status(200).json(accessToken);
     } catch (error) {
         console.log(error);
         const errors = handleErrors(error);

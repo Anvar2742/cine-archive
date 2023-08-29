@@ -3,6 +3,7 @@ import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
     const location = useLocation();
@@ -13,6 +14,7 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
     });
     const [formErrors, setFormErrors] = useState({});
     const navigate = useNavigate();
+    const { setAuth } = useAuth();
 
     const onChange = (e) => {
         setFormData((prevFormData) => {
@@ -39,10 +41,17 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
 
                 if (resp.status === 200 || 201) {
                     if (location?.pathname === "/discover") {
+                        // TODO: set is loading to true instead of reload
                         return window.location.reload();
                     }
-                    navigate("/discover", { replace: true });
+
+                    // console.log(resp?.data);
+                    const accessToken = resp?.data;
+                    setAuth({ accessToken });
                     toggleAuthModal();
+                    navigate("/discover", {
+                        replace: true,
+                    });
                 }
             } catch (error) {
                 console.log(error);

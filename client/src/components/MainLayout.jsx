@@ -3,8 +3,6 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthModal from "../pages/auth/AuthModal";
 import useAuth from "../hooks/useAuth";
-import useApproveReqToken from "../hooks/useApproveReqToken";
-import { useEffectOnce } from "./../hooks/useEffectOnce";
 import useLogout from "../hooks/useLogout";
 import Footer from "./Footer";
 import Loader from "./Loader";
@@ -14,20 +12,7 @@ const MainLayout = () => {
     const [isAuth, setIsAuth] = useState(false);
     const [isSignup, setIsSignup] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const urlParams = new URLSearchParams(window.location.search);
-    const reqTokenFromQuery = urlParams.get("request_token");
-    const isTokenApproved = urlParams.get("approved");
-    const approveReqToken = useApproveReqToken(
-        reqTokenFromQuery,
-        isTokenApproved
-    );
     const logout = useLogout();
-
-    useEffectOnce(() => {
-        if (reqTokenFromQuery && isTokenApproved) {
-            approveReqToken();
-        }
-    }, []);
 
     const toggleAuthModal = (passedIsSignup = null) => {
         if (passedIsSignup !== null) {
@@ -61,6 +46,7 @@ const MainLayout = () => {
     }, [isAuth]);
 
     useEffect(() => {
+        console.log(auth);
         if (auth?.accessToken || auth?.accessToken === false) {
             setIsLoading(false);
         }
