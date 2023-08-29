@@ -90,13 +90,7 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
 
     return (
         <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center z-50">
-            <div className=" max-w-xs w-full h-96">
-                <button
-                    onClick={() => toggleAuthModal(isSignup)}
-                    className=" block ml-auto mb-4 bg-sec font-bold w-6 h-6"
-                >
-                    X
-                </button>
+            <div className="relative max-w-xs w-full backdrop-blur bg-opacity-5 bg-white p-8 pb-12 rounded-3xl">
                 <div className=" mb-5 flex rounded-xl overflow-hidden">
                     <button
                         className={`font-semibold w-1/2 py-1 hover:bg-sec transition-colors ${
@@ -137,6 +131,13 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
                         {isSignup ? "Sign up" : "Log in"}
                     </button>
                 </form>
+                <button
+                    onClick={() => toggleAuthModal(isSignup)}
+                    className="absolute block bg-sec font-semibold w-10 h-10 rounded-full -bottom-3 right-0 left-0 mx-auto 
+                    hover:rotate-45 transition-transform
+                    after:block after:w-4 after:h-[2px] after:bg-white after:left-0 after:right-1/2 after:mx-auto after:rotate-45 after:translate-y-[-1px]
+                    before:translate-y-[1px] before:block before:w-4 before:h-[2px] before:bg-white before:left-0 before:right-1/2 before:mx-auto before:-rotate-45"
+                ></button>
             </div>
         </div>
     );

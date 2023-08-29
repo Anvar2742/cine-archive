@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthModal from "../pages/auth/AuthModal";
 import useAuth from "../hooks/useAuth";
@@ -13,6 +13,7 @@ const MainLayout = () => {
     const [isSignup, setIsSignup] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const logout = useLogout();
+    const location = useLocation();
 
     const toggleAuthModal = (passedIsSignup = null) => {
         if (passedIsSignup !== null) {
@@ -69,7 +70,7 @@ const MainLayout = () => {
                 ""
             )}
             <Outlet />
-            {/* <Footer /> */}
+            {location?.pathname === "/" ? "" : <Footer />}
         </div>
     );
 };
