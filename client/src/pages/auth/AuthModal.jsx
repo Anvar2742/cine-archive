@@ -84,8 +84,12 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
         return true;
     };
 
+    useState(() => {
+        setFormErrors({});
+    }, [isSignup]);
+
     return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center">
+        <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center z-50">
             <div className=" max-w-xs w-full h-96">
                 <button
                     onClick={() => toggleAuthModal(isSignup)}

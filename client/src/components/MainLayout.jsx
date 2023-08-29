@@ -22,7 +22,6 @@ const MainLayout = () => {
     };
 
     const toggleAuthForms = (passedIsSignup) => {
-        setFormErrors({});
         setIsSignup(passedIsSignup);
     };
 
