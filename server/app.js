@@ -28,10 +28,9 @@ mongoose
 
 // Periodic update for titles
 
-// cron.schedule("* * * * *", () => {
-
-// });
-updateTitles();
+cron.schedule("0 4 * * *", () => {
+    updateTitles();
+});
 
 app.use(auth);
 app.use(user);
