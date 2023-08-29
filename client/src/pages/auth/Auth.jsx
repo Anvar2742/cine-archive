@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
 
@@ -96,6 +96,8 @@ const Auth = () => {
             setIsLoading(false);
         }
     }, [auth]);
+
+    if (auth?.accessToken) return <Navigate to="/discover" replace />;
 
     if (isLoading) return <Loader />;
 
