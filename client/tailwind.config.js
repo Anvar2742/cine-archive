@@ -10,6 +10,9 @@ export default {
             boxShadow: {
                 header: "0px 1px 20px -3px #FFFFFF",
             },
+            backgroundImage: {
+                "hero": "url('/img/hero-bg.png')",
+            },
         },
     },
     plugins: [],
