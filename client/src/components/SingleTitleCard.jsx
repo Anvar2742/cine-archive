@@ -68,7 +68,7 @@ const SingleTitleCard = ({
                 className="rounded-lg"
             />
             <div className="mt-4 px-2">
-                <h3 className=" text-3xl font-bold mb-4">{title?.title}</h3>
+                <h3 className=" md:text-xl phone:text-lg text-3xl font-bold mb-4">{title?.title}</h3>
                 <div className="flex justify-between">
                     <div className="flex items-center gap-1 text-2xl">
                         {title?.vote_average}

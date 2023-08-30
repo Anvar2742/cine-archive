@@ -34,7 +34,9 @@ const MainLayout = () => {
     };
 
     const handleAskLoginModal = () => {
-        if (auth?.accessToken === false) {
+        if (isAskLogin) {
+            setIsAskLogin(false);
+        } else if (auth?.accessToken === false) {
             setIsAskLogin(true);
         }
     };
@@ -79,7 +81,6 @@ const MainLayout = () => {
                 toggleAuthModal={toggleAuthModal}
                 auth={auth}
                 logoutHandle={logoutHandle}
-                handleAskLoginModal={handleAskLoginModal}
             />
             {isAuth ? (
                 <AuthModal
@@ -91,7 +92,11 @@ const MainLayout = () => {
                 ""
             )}
 
-            {isAskLogin ? <AskLoginModal /> : ""}
+            {isAskLogin ? (
+                <AskLoginModal handleAskLoginModal={handleAskLoginModal} />
+            ) : (
+                ""
+            )}
             <Outlet context={{ handleAskLoginModal }} />
             {location?.pathname === "/" ? "" : <Footer />}
         </div>
