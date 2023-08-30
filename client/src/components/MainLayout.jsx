@@ -6,12 +6,14 @@ import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 import Footer from "./Footer";
 import Loader from "./Loader";
+import AskLoginModal from "./AskLoginModal";
 
 const MainLayout = () => {
     const { auth } = useAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [isSignup, setIsSignup] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isAskLogin, setIsAskLogin] = useState(false);
     const logout = useLogout();
     const location = useLocation();
 
@@ -29,6 +31,12 @@ const MainLayout = () => {
     const logoutHandle = () => {
         setIsLoading((prev) => !prev);
         logout();
+    };
+
+    const handleAskLoginModal = () => {
+        if (auth?.accessToken === false) {
+            setIsAskLogin(true);
+        }
     };
 
     useEffect(() => {
@@ -52,6 +60,18 @@ const MainLayout = () => {
         }
     }, [auth]);
 
+    useEffect(() => {
+        if (isAskLogin) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "visible";
+        }
+    }, [isAskLogin]);
+
+    useEffect(() => {
+        setIsAskLogin(false);
+    }, [location?.pathname]);
+
     if (isLoading) return <Loader />;
     return (
         <div>
@@ -59,6 +79,7 @@ const MainLayout = () => {
                 toggleAuthModal={toggleAuthModal}
                 auth={auth}
                 logoutHandle={logoutHandle}
+                handleAskLoginModal={handleAskLoginModal}
             />
             {isAuth ? (
                 <AuthModal
@@ -69,7 +90,9 @@ const MainLayout = () => {
             ) : (
                 ""
             )}
-            <Outlet />
+
+            {isAskLogin ? <AskLoginModal /> : ""}
+            <Outlet context={{ handleAskLoginModal }} />
             {location?.pathname === "/" ? "" : <Footer />}
         </div>
     );

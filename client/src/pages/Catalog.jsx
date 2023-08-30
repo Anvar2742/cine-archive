@@ -1,27 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import useGetApiData from "../hooks/api/useGetApiData";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import SingleTitleCard from "../components/SingleTitleCard";
 import useAuth from "../hooks/useAuth";
 import Loader from "../components/Loader";
-
-const AskLoginModal = ({ handleAskLoginModal }) => {
-    return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center">
-            <div className=" max-w-xs w-full bg-primary p-6 rounded-xl shadow-header">
-                <h3 className=" text-xl font-bold">Log in required</h3>
-                <p>Please log in to add movies to your lists.</p>
-                <button
-                    onClick={handleAskLoginModal}
-                    className="font-semibold bg-sec py-1 px-4 mt-4 mx-auto block"
-                >
-                    OK
-                </button>
-            </div>
-        </div>
-    );
-};
 
 const Catalog = () => {
     const location = useLocation();
@@ -32,7 +15,7 @@ const Catalog = () => {
     const [isLoading, setIsLoading] = useState(true);
     const scrollContainerRef = useRef();
     const { auth } = useAuth();
-    const [isAskLogin, setIsAskLogin] = useState(false);
+    const { handleAskLoginModal } = useOutletContext();
 
     const getMovies = useGetApiData();
 
@@ -58,7 +41,7 @@ const Catalog = () => {
     }, [currentPage]);
 
     const addRemoveSeensClient = (titleId) => {
-        if (auth.accessToken) {
+        if (auth?.accessToken && auth?.accessToken !== false) {
             setTitleArr((prevArr) => {
                 return prevArr.map((elMap) => {
                     if (titleId === elMap.id) {
@@ -72,12 +55,12 @@ const Catalog = () => {
                 });
             });
         } else {
-            setIsAskLogin(true);
+            handleAskLoginModal();
         }
     };
 
     const addRemoveWatchlistClient = (titleId) => {
-        if (auth.accessToken) {
+        if (auth?.accessToken && auth?.accessToken !== false) {
             setTitleArr((prevArr) => {
                 return prevArr.map((elMap) => {
                     if (titleId === elMap.id) {
@@ -91,20 +74,8 @@ const Catalog = () => {
                 });
             });
         } else {
-            setIsAskLogin(true);
+            handleAskLoginModal();
         }
-    };
-
-    useEffect(() => {
-        if (isAskLogin) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "visible";
-        }
-    }, [isAskLogin]);
-
-    const handleAskLoginModal = () => {
-        setIsAskLogin((prev) => !prev);
     };
 
     useEffect(() => {
@@ -154,11 +125,6 @@ const Catalog = () => {
 
     return (
         <div className="container mx-auto px-4" ref={scrollContainerRef}>
-            {isAskLogin ? (
-                <AskLoginModal handleAskLoginModal={handleAskLoginModal} />
-            ) : (
-                ""
-            )}
             <h1 className=" text-4xl font-bold my-12">Now playing</h1>
             <div className=" grid gap-8 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 phone:grid-cols-2">
                 {titleElements}
