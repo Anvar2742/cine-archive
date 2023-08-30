@@ -7,6 +7,7 @@ import useLogout from "../hooks/useLogout";
 import Footer from "./Footer";
 import Loader from "./Loader";
 import AskLoginModal from "./AskLoginModal";
+import { ArrowUp } from "./svgIcons";
 
 const MainLayout = () => {
     const { auth } = useAuth();
@@ -14,6 +15,7 @@ const MainLayout = () => {
     const [isSignup, setIsSignup] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isAskLogin, setIsAskLogin] = useState(false);
+    const [isTopBtn, setIsTopBtn] = useState(false);
     const logout = useLogout();
     const location = useLocation();
 
@@ -40,6 +42,37 @@ const MainLayout = () => {
             setIsAskLogin(true);
         }
     };
+
+    const toTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth", // You can also use 'auto' or 'instant'
+        });
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY || window.pageYOffset;
+            const scrollThreshold = 300; // Adjust this value as needed
+
+            if (scrollPosition >= scrollThreshold) {
+                // console.log(
+                //     "Scrolled by " + scrollThreshold + " pixels or more."
+                // );
+                // Perform your desired action here
+                setIsTopBtn(true);
+            } else {
+                setIsTopBtn(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            // Clean up the event listener when the component unmounts
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         if (auth?.accessToken || auth?.accessToken === false) {
@@ -75,6 +108,7 @@ const MainLayout = () => {
     }, [location?.pathname]);
 
     if (isLoading) return <Loader />;
+
     return (
         <div>
             <Navbar
@@ -99,6 +133,14 @@ const MainLayout = () => {
             )}
             <Outlet context={{ handleAskLoginModal }} />
             {location?.pathname === "/" ? "" : <Footer />}
+            <button
+                onClick={toTop}
+                className={`fixed bottom-5 bg-slate-700 w-10 h-10 rounded-full transition-all ${
+                    isTopBtn ? "right-5" : "-right-full"
+                }`}
+            >
+                <ArrowUp />
+            </button>
         </div>
     );
 };

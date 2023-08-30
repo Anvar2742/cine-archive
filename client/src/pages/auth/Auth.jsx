@@ -103,14 +103,10 @@ const Auth = () => {
 
     return (
         <div className="pt-32 pb-26">
-            <div className=" max-w-xs w-full h-96 mx-auto">
-                <h1>Log in</h1>
-                <button
-                    onClick={() => toggleAuthModal(isSignup)}
-                    className=" block ml-auto mb-4 bg-sec font-bold w-6 h-6"
-                >
-                    X
-                </button>
+            <div className=" max-w-xs w-full mx-auto">
+                <h1 className=" text-4xl font-bold text-center mb-8">
+                    {isSignup ? "Sign up" : "Log in"}
+                </h1>
                 <div className=" mb-5 flex rounded-xl overflow-hidden">
                     <button
                         className={`font-semibold w-1/2 py-1 hover:bg-sec transition-colors ${
