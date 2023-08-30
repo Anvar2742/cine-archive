@@ -4,7 +4,7 @@ import MainLayout from "./components/MainLayout";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import PersistLogin from "./components/PersistLogin";
-import Favorite from "./pages/Favorite";
+import Seen from "./pages/Seen";
 import Watchlist from "./pages/Watchlist";
 import Single from "./pages/Single";
 import RequireAuth from "./components/RequireAuth";
@@ -20,7 +20,7 @@ function App() {
                     <Route path="/:titleId" element={<Single />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route element={<RequireAuth />}>
-                        <Route path="/favorite" element={<Favorite />} />
+                        <Route path="/seen" element={<Seen />} />
                         <Route path="/watchlist" element={<Watchlist />} />
                     </Route>
                 </Route>

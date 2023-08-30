@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import SingleTitleCard from "./../components/SingleTitleCard";
+import SingleTitleCard from "../components/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
 import useGetListTitles from "../hooks/api/useGetListTitles";
 import Loader from "../components/Loader";
 
-const Favorite = () => {
+const Seen = () => {
     const [favTitleArr, setFavTitleArr] = useState(null);
     const [favElements, setFavElements] = useState(null);
     const location = useLocation();
     const getListTitles = useGetListTitles();
     const [isLoading, setIsLoading] = useState(true);
 
-    const addRemoveFavoritesClient = (titleId) => {
+    const addRemoveSeensClient = (titleId) => {
         setFavTitleArr((prevArr) => {
             return prevArr.filter((elMap) => {
                 return !(titleId === elMap.id);
@@ -35,7 +35,7 @@ const Favorite = () => {
         });
     };
 
-    const getFavorites = async () => {
+    const getSeens = async () => {
         try {
             const results = await getListTitles(true, 1280);
 
@@ -52,7 +52,7 @@ const Favorite = () => {
     };
 
     useEffectOnce(() => {
-        getFavorites();
+        getSeens();
     }, [location?.pathname]);
 
     useEffect(() => {
@@ -66,8 +66,8 @@ const Favorite = () => {
                                 key={el.id}
                                 title={el}
                                 mediaType={"movie"}
-                                addRemoveFavoritesClient={
-                                    addRemoveFavoritesClient
+                                addRemoveSeensClient={
+                                    addRemoveSeensClient
                                 }
                                 addRemoveWatchlistClient={
                                     addRemoveWatchlistClient
@@ -77,7 +77,7 @@ const Favorite = () => {
                     })
                 );
             } else {
-                setFavElements("No favorites");
+                setFavElements("No seens");
             }
         }
     }, [favTitleArr]);
@@ -85,10 +85,10 @@ const Favorite = () => {
     if (isLoading) return <Loader />;
     return (
         <div className="container mx-auto px-4">
-            <h1 className=" text-4xl font-bold my-12">My favorites</h1>
+            <h1 className=" text-4xl font-bold my-12">My seens</h1>
             <div className=" grid gap-8 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 phone:grid-cols-2">{favElements}</div>
         </div>
     );
 };
 
-export default Favorite;
+export default Seen;

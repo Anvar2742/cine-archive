@@ -57,14 +57,14 @@ const Catalog = () => {
         }
     }, [currentPage]);
 
-    const addRemoveFavoritesClient = (titleId) => {
+    const addRemoveSeensClient = (titleId) => {
         if (auth.accessToken) {
             setTitleArr((prevArr) => {
                 return prevArr.map((elMap) => {
                     if (titleId === elMap.id) {
                         return {
                             ...elMap,
-                            isFav: !elMap.isFav,
+                            isSeen: !elMap.isSeen,
                         };
                     } else {
                         return elMap;
@@ -117,7 +117,7 @@ const Catalog = () => {
                             key={el?.id}
                             title={el}
                             mediaType={"movie"}
-                            addRemoveFavoritesClient={addRemoveFavoritesClient}
+                            addRemoveSeensClient={addRemoveSeensClient}
                             addRemoveWatchlistClient={addRemoveWatchlistClient}
                         />
                     );

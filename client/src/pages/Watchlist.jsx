@@ -20,13 +20,13 @@ const Watchlist = () => {
         });
     };
 
-    const addRemoveFavoritesClient = (titleId) => {
+    const addRemoveSeensClient = (titleId) => {
         setWatchTitleArr((prevArr) => {
             return prevArr.map((elMap) => {
                 if (titleId === elMap.id) {
                     return {
                         ...elMap,
-                        isFav: !elMap.isFav,
+                        isSeen: !elMap.isSeen,
                     };
                 } else {
                     return elMap;
@@ -66,8 +66,8 @@ const Watchlist = () => {
                                 key={el.id}
                                 title={el}
                                 mediaType={"movie"}
-                                addRemoveFavoritesClient={
-                                    addRemoveFavoritesClient
+                                addRemoveSeensClient={
+                                    addRemoveSeensClient
                                 }
                                 addRemoveWatchlistClient={
                                     addRemoveWatchlistClient

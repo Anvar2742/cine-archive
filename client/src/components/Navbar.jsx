@@ -16,12 +16,12 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
                     Discover
                 </NavLink>
                 <NavLink
-                    to="/favorite"
+                    to="/seen"
                     className={({ isActive }) =>
                         isActive ? " underline font-bold" : ""
                     }
                 >
-                    Favorite
+                    Seen
                 </NavLink>
                 <NavLink
                     to="/watchlist"

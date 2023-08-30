@@ -23,7 +23,7 @@ const useUpdateResults = () => {
                 backdrop_path:
                     IMG_BASE_URL + `w${backDropSize}` + el.backdrop_path,
                 poster_path: IMG_BASE_URL + `w${size}` + el.poster_path,
-                isFav: isTitleFav,
+                isSeen: isTitleFav,
                 isWatch: isTitleWatch,
                 vote_average: fixedVoteAverage,
             };

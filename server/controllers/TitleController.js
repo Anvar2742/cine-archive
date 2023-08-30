@@ -12,7 +12,7 @@ const cutOutImageName = (imageUrl) => {
 };
 
 module.exports.add_remove_default_lists = async (req, res) => {
-    const { title, isFav, isWatch } = req.body;
+    const { title, isSeen, isWatch } = req.body;
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
 
@@ -31,8 +31,8 @@ module.exports.add_remove_default_lists = async (req, res) => {
 
                 // Add to fav ids of user if not there
                 // or delete if there
-                // console.log(isFav);
-                if (isFav) {
+                // console.log(isSeen);
+                if (isSeen) {
                     const titleIndex = foundUser.favIds.indexOf(titleId);
                     if (titleIndex === -1) {
                         foundUser.favIds.push(titleId);
@@ -77,7 +77,7 @@ module.exports.add_remove_default_lists = async (req, res) => {
 module.exports.get_collectioin_titles = async (req, res) => {
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
-    const { isFavPage } = req.body;
+    const { isSeenPage } = req.body;
 
     try {
         // verify token
@@ -89,7 +89,7 @@ module.exports.get_collectioin_titles = async (req, res) => {
                 const foundUser = await User.findById(decoded.id);
                 let idsForSearch;
 
-                if (isFavPage) {
+                if (isSeenPage) {
                     idsForSearch = foundUser.favIds;
                 } else {
                     idsForSearch = foundUser.watchIds;

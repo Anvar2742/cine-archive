@@ -7,11 +7,11 @@ const useGetListTitles = () => {
     const getUser = useGetUser();
     const updateResults = useUpdateResults();
 
-    const getListTitles = async (isFavPage, size = 1280) => {
+    const getListTitles = async (isSeenPage, size = 1280) => {
         try {
             const resp = await axiosPrivate.post(
                 "/default_lists",
-                { isFavPage },
+                { isSeenPage },
                 {
                     withCredentials: true,
                 }

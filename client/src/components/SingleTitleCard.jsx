@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { HeartIcon, SaveIcon, StarIcon } from "./svgIcons";
+import { PlusIcon, SaveIcon, StarIcon } from "./svgIcons";
 import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 const SingleTitleCard = ({
     title,
     mediaType,
-    addRemoveFavoritesClient,
+    addRemoveSeensClient,
     addRemoveWatchlistClient,
 }) => {
     const { auth } = useAuth();
@@ -17,13 +17,13 @@ const SingleTitleCard = ({
     const saveRef = useRef(null);
 
     const onClick = (e) => {
-        const addToList = async (isFav = null, isWatch = null) => {
+        const addToList = async (isSeen = null, isWatch = null) => {
             try {
                 const resp = await axiosPrivate.put(
                     "/default_lists",
                     {
                         title,
-                        isFav,
+                        isSeen,
                         isWatch,
                     },
                     {
@@ -37,11 +37,11 @@ const SingleTitleCard = ({
             }
         };
 
-        // Add to favorites
+        // Add to seens
         if (e.target === favRef.current || favRef.current.contains(e.target)) {
             e.preventDefault();
 
-            addRemoveFavoritesClient(title?.id);
+            addRemoveSeensClient(title?.id);
             if (auth?.accessToken) {
                 addToList(true, null);
             }
@@ -76,7 +76,11 @@ const SingleTitleCard = ({
                     </div>
                     <div className="flex gap-1">
                         <button className="fav_btn" ref={favRef}>
-                            <HeartIcon isFilled={title?.isFav} />
+                            <PlusIcon
+                                isFilled={title?.isSeen}
+                                size={30}
+                                fill="white"
+                            />
                         </button>
                         <button className="save_btn" ref={saveRef}>
                             <SaveIcon isFilled={title?.isWatch} />
