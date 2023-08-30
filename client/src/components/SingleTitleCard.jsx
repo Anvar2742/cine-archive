@@ -67,14 +67,14 @@ const SingleTitleCard = ({
                 alt={title?.title}
                 className="rounded-lg"
             />
-            <div className="mt-4">
-                <h3>{title?.title}</h3>
+            <div className="mt-4 px-2">
+                <h3 className=" text-3xl font-bold mb-4">{title?.title}</h3>
                 <div className="flex justify-between">
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 text-2xl">
                         {title?.vote_average}
                         <StarIcon />
                     </div>
-                    <div className="flex gap-1">
+                    <div className="flex sm:gap-1 gap-3">
                         <button className="fav_btn" ref={favRef}>
                             <PlusIcon
                                 isFilled={title?.isSeen}
