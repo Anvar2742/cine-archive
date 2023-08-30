@@ -37,15 +37,15 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
     };
     const NotLogedIn = () => {
         return (
-            <div className="flex gap-4">
+            <div className="flex sm:gap-4 gap-2">
                 <button
-                    className="font-semibold border py-1 px-6 rounded-xl hover:bg-sec transition-colors"
+                    className="font-semibold border py-1 sm:px-6 px-4 rounded-xl hover:bg-sec transition-colors text-lg"
                     onClick={() => toggleAuthModal(true)}
                 >
                     Sign up
                 </button>
                 <button
-                    className="font-semibold border py-1 px-6 rounded-xl hover:bg-sec transition-colors"
+                    className="font-semibold border py-1 sm:px-6 px-4 rounded-xl hover:bg-sec transition-colors text-lg sm:block hidden"
                     onClick={() => toggleAuthModal(false)}
                 >
                     Log in
@@ -65,8 +65,11 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
     return (
         <header className="py-6 shadow-header relative z-10">
             <div className="container flex mx-auto items-center justify-between px-4">
-                <Link to="/" className=" text-2xl font-extrabold">
-                    CINE-ARCHIVE
+                <Link
+                    to="/"
+                    className="sm:text-2xl text-xl font-extrabold leading-5"
+                >
+                    CINE <span className="block sm:inline">ARCHIVE</span>
                 </Link>
                 {isLoged ? <LogedIn /> : <NotLogedIn />}
             </div>

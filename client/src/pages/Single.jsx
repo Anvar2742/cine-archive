@@ -56,16 +56,16 @@ const Single = () => {
                 {title?.tagline}
             </p>
             <div className=" pt-32">
-                <div className="container mx-auto px-4 grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
+                <div className=" max-w-4xl mx-auto grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
                     <div>
                         <img src={title?.poster_path} alt="" />
                     </div>
-                    <div className=" py-10 pr-5">
+                    <div className=" py-10 pr-6">
                         <h1 className=" text-2xl font-bold">{title?.title}</h1>
                         <p className="mt-4">{title?.overview}</p>
                         <div className="mt-4">
                             <h3 className=" text-lg">Genres</h3>
-                            <div className="flex gap-2 mt-2">
+                            <div className="flex flex-wrap gap-2 mt-2">
                                 {title?.genres.map((genre) => {
                                     return (
                                         <div
