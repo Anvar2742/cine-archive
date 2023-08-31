@@ -39,10 +39,10 @@ const Auth = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setisSubmit(true);
         setServerErr("");
         setFormErrors({});
         if (handleAuthErrors(formData)) {
+            setisSubmit(true);
             try {
                 const resp = await axios.post(
                     isSignup ? "/signup" : "/login",
