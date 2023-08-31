@@ -1,8 +1,10 @@
 import axios, { axiosMovies } from "../../api/axios";
+import useAuth from "../useAuth";
 import useGetUser from "./useGetUser";
 import useUpdateResults from "./useUpdateResults";
 
 const useGetApiData = () => {
+    const { auth } = useAuth();
     const getUser = useGetUser();
     const updateResults = useUpdateResults();
     const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
@@ -16,7 +18,11 @@ const useGetApiData = () => {
                     "Content-Type": "application/json",
                 },
             });
-            const user = await getUser();
+
+            let user = null;
+            if (auth?.accessToken !== false) {
+                user = await getUser();
+            }
 
             resp.data.results = await updateResults(
                 resp.data.results,

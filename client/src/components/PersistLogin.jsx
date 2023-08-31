@@ -23,9 +23,9 @@ const PersistLogin = () => {
                 }
             };
 
-            !auth?.accessToken && auth?.accessToken !== false
-                ? verifyRefreshToken()
-                : setIsLoading(false);
+            auth?.accessToken && auth?.accessToken === false
+                ? setIsLoading(false)
+                : verifyRefreshToken();
         }
 
         return () => (effectRan.current = true);

@@ -8,16 +8,18 @@ import useAuth from "../../hooks/useAuth";
 
 const Auth = () => {
     const [formData, setFormData] = useState({
-        email: "",
-        password: "",
+        email: "anvarmusa12@gmail.com",
+        password: "test123",
         passwordRep: "",
     });
     const [formErrors, setFormErrors] = useState({});
     const [isSignup, setIsSignup] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [IsSubmit , setIsSubmit ] = useState(true);
     const location = useLocation();
     const navigate = useNavigate();
     const { auth, setAuth } = useAuth();
+    const [serverErr, setServerErr] = useState(null);
 
     const toggleAuthForms = (passedIsSignup) => {
         setFormErrors({});
@@ -62,7 +64,11 @@ const Auth = () => {
                 }
             } catch (error) {
                 console.log(error);
-                setFormErrors(error?.response?.data);
+                if (error?.response?.data) {
+                    setFormErrors(error?.response?.data);
+                } else {
+                    setServerErr("Server is not responding...");
+                }
             }
         }
     };
@@ -147,6 +153,13 @@ const Auth = () => {
                         {isSignup ? "Sign up" : "Log in"}
                     </button>
                 </form>
+                {serverErr ? (
+                    <p className=" first-letter:capitalize text-red-500 mt-4">
+                        {serverErr}
+                    </p>
+                ) : (
+                    ""
+                )}
             </div>
         </div>
     );
