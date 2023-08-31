@@ -99,7 +99,7 @@ module.exports.signup_post = async (req, res) => {
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite: "None",
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000,
         });
 
@@ -132,7 +132,7 @@ module.exports.login_post = async (req, res) => {
         await res.cookie("jwt", refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite: "None",
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000,
         });
 
