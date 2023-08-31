@@ -71,32 +71,6 @@ const createJWT = (user) => {
     return { accessToken, refreshToken };
 };
 
-const createSessionId = async () => {
-    try {
-        const createTokenUrl =
-            "https://api.themoviedb.org/3/authentication/token/new";
-        const options = {
-            method: "GET",
-            headers: {
-                accept: "application/json",
-                Authorization: "Bearer " + process.env.TMDB_TOKEN,
-            },
-        };
-
-        const reqTokenResp = await fetch(createTokenUrl, options);
-        const requestTokenData = await reqTokenResp.json();
-
-        if (requestTokenData.success) {
-            return requestTokenData.request_token;
-        }
-    } catch (error) {
-        console.log(error);
-        throw Error(error);
-    }
-
-    return false;
-};
-
 module.exports.signup_post = async (req, res) => {
     const { email, password, passwordRep } = req.body;
 
@@ -124,8 +98,8 @@ module.exports.signup_post = async (req, res) => {
         // Creates Secure Cookie with refresh token
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: "None",
+            // secure: true,
+            // sameSite: "None",
             maxAge: 24 * 60 * 60 * 1000,
         });
 
@@ -155,12 +129,14 @@ module.exports.login_post = async (req, res) => {
         await logedInUser.save();
 
         // Creates Secure Cookie with refresh token
-        res.cookie("jwt", refreshToken, {
+        await res.cookie("jwt", refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: "None",
+            // secure: true,
+            // sameSite: "None",
             maxAge: 24 * 60 * 60 * 1000,
         });
+
+        if (!req.cookies.jwt) return res.status(401).json("Cookie not saved")
 
         res.status(200).json(accessToken);
     } catch (error) {
