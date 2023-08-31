@@ -9,10 +9,8 @@ const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
     const { auth, persist } = useAuth();
-    const effectRan = useRef(false);
 
     useEffect(() => {
-        console.log("effect running");
         const verifyRefreshToken = async () => {
             try {
                 await refresh();
@@ -26,11 +24,9 @@ const PersistLogin = () => {
         auth?.accessToken && auth?.accessToken === false
             ? setIsLoading(false)
             : verifyRefreshToken();
-
-        return () => (effectRan.current = true);
     }, [location.pathname]);
 
-    return <>{isLoading ? "Persist" : <Outlet />}</>;
+    return <>{isLoading ? <Loader /> : <Outlet />}</>;
 };
 
 export default PersistLogin;
