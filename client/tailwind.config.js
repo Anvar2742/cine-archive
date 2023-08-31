@@ -22,7 +22,7 @@ export default {
             keyframes: {
                 "curtain-down": {
                     "0%": { transform: "translateY(-120%)" },
-                    "50%": { transform: "translateY(10px)" },
+                    "50%": { transform: "translateY(50px)" },
                     "100%": { transform: "translateY(0)" },
                 },
             },
