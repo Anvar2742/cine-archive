@@ -14,6 +14,7 @@ const cron = require("node-cron");
 require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
+const ENV = process.env.ENVIRONMENT;
 const HOST = "192.168.1.22" || "localhost";
 
 // Middleware
@@ -24,7 +25,13 @@ app.use(cookieParser());
 // Mongooooooooo
 mongoose
     .connect(MONGO_URI)
-    .then((result) => app.listen(PORT, HOST))
+    .then((result) => {
+        if (ENV === "dev") {
+            app.listen(PORT, HOST);
+        } else {
+            app.listen(PORT);
+        }
+    })
     .catch((err) => console.log(err));
 
 // Periodic update for titles
