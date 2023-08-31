@@ -87,7 +87,7 @@ const Watchlist = () => {
     return (
         <div className="container mx-auto px-4">
             <h1 className=" text-4xl font-bold my-12">My watchlist titles</h1>
-            <div className=" grid gap-8 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 phone:grid-cols-2">
+            <div className=" grid phone:gap-8 gap-4 gap-y-8 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2">
                 {watchElements}
             </div>
         </div>
