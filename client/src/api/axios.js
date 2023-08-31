@@ -1,5 +1,8 @@
 import axios from "axios";
-const BASE_URL = "http://192.168.1.22:7000";
+const BASE_URL =
+    ENV === "dev"
+        ? "http://192.168.1.22:7000"
+        : "https://cine-archive.onrender.com";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
 export default axios.create({ baseURL: BASE_URL, timeout: 2000 });
