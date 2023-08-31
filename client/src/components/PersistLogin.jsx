@@ -31,7 +31,7 @@ const PersistLogin = () => {
         return () => (effectRan.current = true);
     }, [location.pathname]);
 
-    return <>{isLoading ? "Persist" : <Outlet />}</>;
+    return <>{false ? "Persist" : <Outlet />}</>;
 };
 
 export default PersistLogin;
