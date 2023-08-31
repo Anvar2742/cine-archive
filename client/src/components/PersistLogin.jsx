@@ -12,6 +12,7 @@ const PersistLogin = () => {
     const effectRan = useRef(false);
 
     useEffect(() => {
+        console.log("effect running");
         if (effectRan.current) {
             const verifyRefreshToken = async () => {
                 try {
@@ -31,7 +32,7 @@ const PersistLogin = () => {
         return () => (effectRan.current = true);
     }, [location.pathname]);
 
-    return <>{false ? "Persist" : <Outlet />}</>;
+    return <>{isLoading ? "Persist" : <Outlet />}</>;
 };
 
 export default PersistLogin;
