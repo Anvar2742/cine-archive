@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL =
-    ENV === "dev"
+    import.meta.env.VITE_ENV === "dev"
         ? "http://192.168.1.22:7000"
         : "https://cine-archive.onrender.com";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
