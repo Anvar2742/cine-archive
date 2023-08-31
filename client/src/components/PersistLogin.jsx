@@ -13,21 +13,19 @@ const PersistLogin = () => {
 
     useEffect(() => {
         console.log("effect running");
-        if (effectRan.current) {
-            const verifyRefreshToken = async () => {
-                try {
-                    await refresh();
-                } catch (err) {
-                    console.error(err);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
+        const verifyRefreshToken = async () => {
+            try {
+                await refresh();
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-            auth?.accessToken && auth?.accessToken === false
-                ? setIsLoading(false)
-                : verifyRefreshToken();
-        }
+        auth?.accessToken && auth?.accessToken === false
+            ? setIsLoading(false)
+            : verifyRefreshToken();
 
         return () => (effectRan.current = true);
     }, [location.pathname]);
