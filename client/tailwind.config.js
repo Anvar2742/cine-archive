@@ -25,9 +25,15 @@ export default {
                     "50%": { transform: "translateY(50px)" },
                     "100%": { transform: "translateY(0)" },
                 },
+                underline: {
+                    "0%": { width: "0" },
+                    "100%": { width: "100%" },
+                },
             },
             animation: {
                 "curtain-down": "curtain-down 1000ms ease-in-out 1",
+                // underline: "underline 1000ms ease-in-out 10",
+                underline: "underline 1500ms ease 0ms 1 normal forwards running",
             },
         },
     },
