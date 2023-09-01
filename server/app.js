@@ -9,12 +9,14 @@ const user = require("./routes/user");
 const verifyJWT = require("./middleware/verifyJWT");
 const updateTitles = require("./middleware/updateTitles");
 const cron = require("node-cron");
+const https = require("https");
+const fs = require("fs");
 
 // env vars
 require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
-const ENV = process.env.ENVIRONMENT;
+const ENV = process.env.ENV;
 const HOST = "192.168.1.22" || "localhost";
 
 // Middleware
@@ -22,12 +24,20 @@ app.use(express.json());
 app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
 app.use(cookieParser());
 
+const options = {
+    key: fs.readFileSync("dev/localhost.key"), // Path to your SSL private key
+    cert: fs.readFileSync("dev/localhost.crt"), // Path to your SSL certificate
+};
+const server = https.createServer(options, app);
+
 // Mongooooooooo
 mongoose
     .connect(MONGO_URI)
     .then((result) => {
         if (ENV === "dev") {
-            app.listen(PORT, HOST);
+            server.listen(PORT, HOST, () => {
+                console.log(`Server is running on ${HOST}:${PORT}`);
+            });
         } else {
             app.listen(PORT);
         }
@@ -35,7 +45,6 @@ mongoose
     .catch((err) => console.log(err));
 
 // Periodic update for titles
-
 cron.schedule("0 4 * * *", () => {
     updateTitles();
 });
