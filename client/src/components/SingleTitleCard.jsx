@@ -61,7 +61,7 @@ const SingleTitleCard = ({
         }
     };
     return (
-        <Link to={`/${title?.id}`} className="" onClick={onClick}>
+        <Link to={`/titles/${title?.id}`} className="" onClick={onClick}>
             <img
                 src={title?.poster_path}
                 alt={title?.title}

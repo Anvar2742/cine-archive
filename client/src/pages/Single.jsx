@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { axiosMovies } from "../api/axios";
 import { useEffect, useState } from "react";
 import { useEffectOnce } from "../hooks/useEffectOnce";
@@ -14,6 +14,7 @@ const Single = () => {
     const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
     const updateResults = useUpdateResults();
     const getUser = useGetUser();
+    const navigate = useNavigate();
 
     const getSingleTitle = async () => {
         try {
@@ -36,6 +37,9 @@ const Single = () => {
             setIsLoading(false);
         } catch (error) {
             console.log(error);
+            if (error?.response?.status === 404) {
+                navigate("/404", { replace: true });
+            }
         }
     };
 

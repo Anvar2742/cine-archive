@@ -8,7 +8,7 @@ const AskLoginModal = ({ handleAskLoginModal }) => {
                 <p>Log in to add movies to your lists.</p>
                 <Link
                     to="/auth"
-                    className="ont-semibold bg-sec py-1 px-4 mt-4 mx-auto inline-block rounded-full"
+                    className="font-semibold border py-1 sm:px-6 px-4 rounded-xl hover:bg-sec transition-colors text-lg mt-4 inline-block"
                 >
                     Log in
                 </Link>
