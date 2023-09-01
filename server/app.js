@@ -24,17 +24,16 @@ app.use(express.json());
 app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
 app.use(cookieParser());
 
-const options = {
-    key: fs.readFileSync("dev/localhost.key"), // Path to your SSL private key
-    cert: fs.readFileSync("dev/localhost.crt"), // Path to your SSL certificate
-};
-const server = https.createServer(options, app);
-
 // Mongooooooooo
 mongoose
     .connect(MONGO_URI)
     .then((result) => {
         if (ENV === "dev") {
+            const options = {
+                key: fs.readFileSync("dev/localhost.key"), // Path to your SSL private key
+                cert: fs.readFileSync("dev/localhost.crt"), // Path to your SSL certificate
+            };
+            const server = https.createServer(options, app);
             server.listen(PORT, HOST, () => {
                 console.log(`Server is running on ${HOST}:${PORT}`);
             });

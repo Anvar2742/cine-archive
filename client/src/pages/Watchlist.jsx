@@ -56,7 +56,7 @@ const Watchlist = () => {
     }, [location?.pathname]);
 
     useEffect(() => {
-        console.log(watchTitleArr);
+        // console.log(watchTitleArr);
         if (watchTitleArr) {
             if (watchTitleArr.length) {
                 setWatchElements(

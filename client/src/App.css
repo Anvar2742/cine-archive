@@ -5,7 +5,3 @@
 *:focus {
     @apply outline-none;
 }
-
-.animation-fill-forward:after {
-    animation-fill-mode: forwards;
-}
