@@ -8,8 +8,8 @@ import useAuth from "../../hooks/useAuth";
 
 const Auth = () => {
     const [formData, setFormData] = useState({
-        email: "anvarmusa12@gmail.com",
-        password: "test123",
+        email: "",
+        password: "",
         passwordRep: "",
     });
     const [formErrors, setFormErrors] = useState({});
@@ -94,10 +94,18 @@ const Auth = () => {
             return false;
         }
 
-        if (!formData.passwordRep && isSignup) {
-            authErrors.passwordRep = "Repeat your password please";
-            setFormErrors(authErrors);
-            return false;
+        if (isSignup) {
+            if (!formData.passwordRep) {
+                authErrors.passwordRep = "Repeat your password please";
+                setFormErrors(authErrors);
+                return false;
+            }
+
+            if (formData.password !== formData.passwordRep) {
+                authErrors.passwordRep = "Passwords need to match";
+                setFormErrors(authErrors);
+                return false;
+            }
         }
 
         return true;
