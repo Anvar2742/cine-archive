@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const fetch = require("node-fetch");
+const ENV = process.env.ENV;
 
 require("dotenv").config();
 
@@ -135,8 +136,6 @@ module.exports.login_post = async (req, res) => {
             sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000,
         });
-
-        if (!req.cookies.jwt) return res.status(401).json("Cookie not saved")
 
         res.status(200).json(accessToken);
     } catch (error) {
