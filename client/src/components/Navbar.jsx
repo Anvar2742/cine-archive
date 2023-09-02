@@ -24,7 +24,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
                     ""
                 )}
                 <div
-                    className={`flex sm:gap-4 gap-2 fixed sm:static right-0 left-0 mx-auto transform top-0 transition-all sm:transition-none duration-500 ${
+                    className={`flex sm:gap-4 gap-2 fixed sm:static right-0 left-0 mx-auto sm:mx-0 transform top-0 transition-all sm:transition-none duration-500 ${
                         isMobileMenu ? " animate-curtain-down duration-150" : "-translate-y-[120%] sm:translate-y-0"
                     }  phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-header sm:shadow-none`}
                 >
@@ -96,8 +96,8 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
     }, [auth]);
 
     return (
-        <header className="flex items-center shadow-header relative z-10 h-20">
-            <div className="container flex mx-auto items-center justify-between px-4">
+        <header className="flex items-center z-10 h-20 fixed left-0 top-0 w-full">
+            <div className="container flex mx-auto items-center justify-between px-4 relative">
                 <Link
                     to="/"
                     className="sm:text-2xl text-xl font-extrabold leading-5"
