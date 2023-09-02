@@ -14,6 +14,7 @@ const HomeHero = () => {
     const [swiper, setSwiper] = useState(null);
     const [swiperEl, setSwiperEl] = useState(null);
     const [isHover, setIsHover] = useState(false);
+    const [currentListType, setCurrentListType] = useState("now_playing");
     const swiperRef = useRef(null);
     const getMovies = useGetApiData();
     const location = useLocation();
@@ -30,15 +31,18 @@ const HomeHero = () => {
     };
 
     const updateList = (listType) => {
-        setIsLoadingSlider(true);
-        setTimeout(() => {
-            setSwiper(null);
-            setSwiperEl(null);
-            setTitlesEls(null);
-            getMovies("movie", listType, 1).then((data) => {
-                setTitlesArr(data?.results);
-            });
-        }, 300);
+        if (listType !== currentListType) {
+            setCurrentListType(listType);
+            setIsLoadingSlider(true);
+            setTimeout(() => {
+                setSwiper(null);
+                setSwiperEl(null);
+                setTitlesEls(null);
+                getMovies("movie", listType, 1).then((data) => {
+                    setTitlesArr(data?.results);
+                });
+            }, 300);
+        }
     };
 
     useEffect(() => {
@@ -158,13 +162,13 @@ const HomeHero = () => {
             <div className="absolute left-[5%] top-1/3 z-10">
                 <button
                     onClick={() => updateList("now_playing")}
-                    className="block"
+                    className={`block ${currentListType === "now_playing" ? "font-bold underline" : ""}`}
                 >
                     Now playing
                 </button>
                 <button
                     onClick={() => updateList("upcoming")}
-                    className="block"
+                    className={`block ${currentListType !== "now_playing" ? "font-bold underline" : ""}`}
                 >
                     Upcoming
                 </button>
