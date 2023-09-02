@@ -30,13 +30,15 @@ const HomeHero = () => {
     };
 
     const updateList = (listType) => {
-        setSwiper(null);
-        setSwiperEl(null);
-        setTitlesEls(null);
         setIsLoadingSlider(true);
-        getMovies("movie", listType, 1).then((data) => {
-            setTitlesArr(data?.results);
-        });
+        setTimeout(() => {
+            setSwiper(null);
+            setSwiperEl(null);
+            setTitlesEls(null);
+            getMovies("movie", listType, 1).then((data) => {
+                setTitlesArr(data?.results);
+            });
+        }, 300);
     };
 
     useEffect(() => {
@@ -70,7 +72,7 @@ const HomeHero = () => {
                                     <PlusIcon
                                         isFilled={true}
                                         fill="white"
-                                        className="absolute top-3 right-4"
+                                        className="absolute bottom-1 right-1 transition-all scale-75 group-hover:bottom-0 group-hover:right-0 group-hover:scale-50 z-10"
                                     />
                                 ) : (
                                     ""
@@ -86,7 +88,9 @@ const HomeHero = () => {
                 });
             });
 
-            setHeroBg(titlesArr[0].backdrop_path);
+            if (isLoadingSlider) {
+                setHeroBg(titlesArr[0].backdrop_path);
+            }
         }
     }, [titlesArr, isHover]);
 
