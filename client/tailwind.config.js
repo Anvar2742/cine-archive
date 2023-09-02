@@ -34,9 +34,11 @@ export default {
             },
             animation: {
                 "curtain-down": "curtain-down 1000ms ease-in-out 1",
-                // underline: "underline 1000ms ease-in-out 10",
                 underline:
                     "underline 1500ms ease 0ms 1 normal forwards running",
+            },
+            fontFamily: {
+                noto: ["Noto Sans", "sans-serif"],
             },
         },
     },

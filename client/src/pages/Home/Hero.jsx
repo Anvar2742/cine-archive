@@ -57,7 +57,7 @@ const HomeHero = () => {
                                     ""
                                 )}
                                 <div className="absolute bottom-0 left-0 right-0 mx-auto h-full flex items-end justify-center bg-opacity-50 bg-sliderGrad transition-all group-hover:opacity-100 opacity-0">
-                                    <h3 className="pb-4 text-xl px-4 overflow-hidden text-ellipsis whitespace-nowrap font-bold transition-all duration-300 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                                    <h3 className="pb-4 text-sm px-4 overflow-hidden text-ellipsis whitespace-nowrap font-semibold transition-all duration-300 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
                                         {el?.title}
                                     </h3>
                                 </div>
@@ -75,13 +75,13 @@ const HomeHero = () => {
         if (titlesEls) {
             setSwiper(
                 <swiper-container
-                    class={`w-full overflow-visible pt-36 transition-opacity ${
-                        isLoadingSlider ? "opacity-0" : "opacity-100"
+                    class={`w-full overflow-visible transition-opacity ${
+                        isLoadingSlider ? "opacity-0 pointer-events-none" : ""
                     }`}
                     loop="true"
                     centered-slides="true"
-                    slides-per-view="6"
-                    space-between="60"
+                    slides-per-view="8"
+                    space-between="30"
                     init="false"
                     ref={(el) => {
                         setSwiperRef(el);
@@ -97,9 +97,8 @@ const HomeHero = () => {
     useEffect(() => {
         if (swiperRef) {
             swiperEl.current = swiperRef;
-            console.log(swiperEl);
+            // console.log(swiperEl);
             const params = {
-                // array with CSS styles
                 injectStyles: [
                     `
                     .swiper {
@@ -109,7 +108,6 @@ const HomeHero = () => {
                 ],
                 on: {
                     afterInit: function () {
-                        console.log("swiper initialized");
                         setIsLoadingSlider(false);
                     },
                 },
@@ -120,10 +118,6 @@ const HomeHero = () => {
             swiperEl.current.initialize();
         }
     }, [swiperRef]);
-
-    // useEffect(() => {
-    //     console.log(isLoadingSlider);
-    // }, [isLoadingSlider]);
 
     register();
 

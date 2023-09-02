@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    @apply font-noto;
+}
+
 *:focus {
     @apply outline-none;
 }
