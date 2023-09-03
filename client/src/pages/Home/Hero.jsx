@@ -159,16 +159,16 @@ const HomeHero = () => {
                 heroBg ? `bg-[image:var(--image-url)]` : "bg-hero"
             }`}
         >
-            <div className="absolute left-[5%] top-1/3 z-10">
+            <div className="absolute left-0 top-1/3 z-10">
                 <button
                     onClick={() => updateList("now_playing")}
-                    className={`block ${currentListType === "now_playing" ? "font-bold underline" : ""}`}
+                    className={`flex items-center gap-[1px] capitalize font-thin transition-font before:block before:bg-white before:transition-all before:w-24 before:h-[1px] hover:before:w-32 ${currentListType === "now_playing" ? "text-xl before:w-32" : "text-sm"}`}
                 >
                     Now playing
                 </button>
                 <button
                     onClick={() => updateList("upcoming")}
-                    className={`block ${currentListType !== "now_playing" ? "font-bold underline" : ""}`}
+                    className={`flex items-center gap-[1px] capitalize font-thin transition-font before:block before:bg-white before:transition-all before:w-24 before:h-[1px] hover:before:w-32 ${currentListType !== "now_playing" ? "text-xl before:w-32" : "text-sm"}`}
                 >
                     Upcoming
                 </button>

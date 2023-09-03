@@ -40,6 +40,9 @@ export default {
             fontFamily: {
                 noto: ["Noto Sans", "sans-serif"],
             },
+            transitionProperty: {
+                font: "font-size",
+            },
         },
     },
     plugins: [],
