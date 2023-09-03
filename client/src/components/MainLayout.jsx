@@ -56,9 +56,6 @@ const MainLayout = () => {
             const scrollThreshold = 300; // Adjust this value as needed
 
             if (scrollPosition >= scrollThreshold) {
-                // console.log(
-                //     "Scrolled by " + scrollThreshold + " pixels or more."
-                // );
                 // Perform your desired action here
                 setIsTopBtn(true);
             } else {
@@ -115,6 +112,7 @@ const MainLayout = () => {
                 toggleAuthModal={toggleAuthModal}
                 auth={auth}
                 logoutHandle={logoutHandle}
+                isTopBtn={isTopBtn}
             />
             {isAuth ? (
                 <AuthModal
@@ -135,7 +133,7 @@ const MainLayout = () => {
             {location?.pathname === "/" ? "" : <Footer />}
             <button
                 onClick={toTop}
-                className={`fixed bottom-5 bg-slate-700 w-10 h-10 rounded-full transition-all ${
+                className={`fixed bottom-5 bg-slate-700 w-10 h-10 rounded-full transition-all z-50 ${
                     isTopBtn ? "right-5" : "-right-full"
                 }`}
             >

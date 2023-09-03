@@ -1,15 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useGetApiData from "../../hooks/api/useGetApiData";
-import Loader from "../../components/Loader";
 import { useEffect, useRef, useState } from "react";
 import { register } from "swiper/element/bundle";
 import { PlusIcon } from "../../components/svgIcons";
 
-const HomeHero = () => {
-    const [titlesArr, setTitlesArr] = useState(null);
+const HomeHero = ({titlesArr, updateTitlesArr}) => {
     const [titlesEls, setTitlesEls] = useState(null);
     const [isLoadingSlider, setIsLoadingSlider] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
     const [heroBg, setHeroBg] = useState(null);
     const [swiper, setSwiper] = useState(null);
     const [swiperEl, setSwiperEl] = useState(null);
@@ -17,7 +14,6 @@ const HomeHero = () => {
     const [currentListType, setCurrentListType] = useState("now_playing");
     const swiperRef = useRef(null);
     const getMovies = useGetApiData();
-    const location = useLocation();
 
     const handleMouseEnter = (i) => {
         setHeroBg(() => {
@@ -39,21 +35,11 @@ const HomeHero = () => {
                 setSwiperEl(null);
                 setTitlesEls(null);
                 getMovies("movie", listType, 1).then((data) => {
-                    setTitlesArr(data?.results);
+                    updateTitlesArr(data?.results)
                 });
             }, 300);
         }
     };
-
-    useEffect(() => {
-        getMovies("movie", "now_playing", 1)
-            .then((data) => {
-                setTitlesArr(data?.results);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, [location?.pathname]);
 
     useEffect(() => {
         if (titlesArr?.length) {
@@ -62,7 +48,7 @@ const HomeHero = () => {
                     return (
                         <swiper-slide
                             class={`transition-all rounded-md overflow-hidden hover:scale-[2] hover:-translate-y-[50%] hover:z-50 group relative ${
-                                isHover ? "opacity-50" : ""
+                                isHover ? "opacity-40" : ""
                             } hover:opacity-100`}
                             key={el?.id}
                         >
@@ -150,8 +136,6 @@ const HomeHero = () => {
 
     register();
 
-    if (isLoading) return <Loader />;
-
     return (
         <div
             style={{ "--image-url": `url(${heroBg})` }}
@@ -162,13 +146,21 @@ const HomeHero = () => {
             <div className="absolute left-0 top-1/3 z-10">
                 <button
                     onClick={() => updateList("now_playing")}
-                    className={`flex items-center gap-[1px] capitalize font-thin transition-font before:block before:bg-white before:transition-all before:w-24 before:h-[1px] hover:before:w-32 ${currentListType === "now_playing" ? "text-xl before:w-32" : "text-sm"}`}
+                    className={`flex items-center gap-[1px] capitalize font-thin transition-font before:block before:bg-white before:transition-all before:w-24 before:h-[1px] hover:before:w-32 ${
+                        currentListType === "now_playing"
+                            ? "text-xl before:w-32"
+                            : "text-sm"
+                    }`}
                 >
                     Now playing
                 </button>
                 <button
                     onClick={() => updateList("upcoming")}
-                    className={`flex items-center gap-[1px] capitalize font-thin transition-font before:block before:bg-white before:transition-all before:w-24 before:h-[1px] hover:before:w-32 ${currentListType !== "now_playing" ? "text-xl before:w-32" : "text-sm"}`}
+                    className={`flex items-center gap-[1px] capitalize font-thin transition-font before:block before:bg-white before:transition-all before:w-24 before:h-[1px] hover:before:w-32 ${
+                        currentListType !== "now_playing"
+                            ? "text-xl before:w-32"
+                            : "text-sm"
+                    }`}
                 >
                     Upcoming
                 </button>
