@@ -53,7 +53,7 @@ const MainLayout = () => {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY || window.pageYOffset;
-            const scrollThreshold = 300; // Adjust this value as needed
+            const scrollThreshold = 600; // Adjust this value as needed
 
             if (scrollPosition >= scrollThreshold) {
                 // Perform your desired action here

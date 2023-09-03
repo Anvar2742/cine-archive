@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
+const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
     const [isLoged, setIsLoged] = useState(null);
 
     const LogedIn = () => {
@@ -25,7 +25,9 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
                 )}
                 <div
                     className={`flex sm:gap-4 gap-2 fixed sm:static right-0 left-0 mx-auto sm:mx-0 transform top-0 transition-all sm:transition-none duration-500 ${
-                        isMobileMenu ? " animate-curtain-down duration-150" : "-translate-y-[120%] sm:translate-y-0"
+                        isMobileMenu
+                            ? " animate-curtain-down duration-150"
+                            : "-translate-y-[120%] sm:translate-y-0"
                     }  phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-header sm:shadow-none`}
                 >
                     <nav
@@ -34,7 +36,9 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
                         <NavLink
                             to="/discover"
                             className={({ isActive }) =>
-                                isActive ? " underline font-bold text-xl sm:text-base" : " text-xl sm:text-base"
+                                isActive
+                                    ? " underline font-bold text-xl sm:text-base"
+                                    : " text-xl sm:text-base"
                             }
                         >
                             Discover
@@ -42,7 +46,9 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
                         <NavLink
                             to="/seen"
                             className={({ isActive }) =>
-                                isActive ? " underline font-bold text-xl sm:text-base" : " text-xl sm:text-base"
+                                isActive
+                                    ? " underline font-bold text-xl sm:text-base"
+                                    : " text-xl sm:text-base"
                             }
                         >
                             Seen
@@ -50,13 +56,20 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
                         <NavLink
                             to="/watchlist"
                             className={({ isActive }) =>
-                                isActive ? " underline font-bold text-xl sm:text-base" : " text-xl sm:text-base"
+                                isActive
+                                    ? " underline font-bold text-xl sm:text-base"
+                                    : " text-xl sm:text-base"
                             }
                         >
                             Watchlist
                         </NavLink>
                     </nav>
-                    <button onClick={logoutHandle} className="text-xl sm:text-base">Sign out</button>
+                    <button
+                        onClick={logoutHandle}
+                        className="text-xl sm:text-base"
+                    >
+                        Sign out
+                    </button>
                     <button
                         onClick={handleMobileMenu}
                         className="absolute block bg-sec font-semibold w-10 h-10 rounded-full -bottom-3 right-0 left-0 mx-auto 
@@ -96,7 +109,11 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle }) => {
     }, [auth]);
 
     return (
-        <header className="flex items-center z-10 h-20 fixed left-0 top-0 w-full">
+        <header
+            className={`flex items-center z-10 h-16 fixed left-0 top-0 w-full transition-all ${
+                isTopBtn ? "bg-primary" : ""
+            }`}
+        >
             <div className="container flex mx-auto items-center justify-between px-4 relative">
                 <Link
                     to="/"
