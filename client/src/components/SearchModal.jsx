@@ -13,10 +13,24 @@ const SearchModal = ({ isSearchModal, openSearchRef, toggleSearchModal }) => {
 
     const handleSearch = (e) => {
         e.preventDefault();
+
+        if (!query) {
+            setTitlesEls(
+                <div className="px-4">
+                    <p className="text-lg">Silence isn't for this occasion</p>
+                    <p className="text-xs">
+                        Type a movie name that you're searching for
+                    </p>
+                </div>
+            );
+            setTitlesArr([]);
+            return;
+        }
         searchMovies("movie", query).then((data) => {
             if (data?.results.length) {
                 setTitlesArr(data?.results);
             } else {
+                setTitlesArr([]);
                 setTitlesEls(<div className="px-4">Nothing for "{query}"</div>);
             }
         });
