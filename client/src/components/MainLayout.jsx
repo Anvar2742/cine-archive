@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import Loader from "./Loader";
 import AskLoginModal from "./AskLoginModal";
 import { ArrowUp } from "./svgIcons";
+import SearchModal from "./SearchModal";
 
 const MainLayout = () => {
     const { auth } = useAuth();
@@ -16,9 +17,15 @@ const MainLayout = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isAskLogin, setIsAskLogin] = useState(false);
     const [isTopBtn, setIsTopBtn] = useState(false);
+    const [isSearch, setIsSearch] = useState(false);
     const logout = useLogout();
     const location = useLocation();
 
+    /**
+     * Show or hide authentication modal with the clicked form turned on.
+     * @param {boolean} passedIsSignup
+     *
+     */
     const toggleAuthModal = (passedIsSignup = null) => {
         if (passedIsSignup !== null) {
             setIsSignup(passedIsSignup);
@@ -26,15 +33,25 @@ const MainLayout = () => {
         setIsAuth((prev) => !prev);
     };
 
+    /**
+     * Toggle authentication forms
+     * @param {*} passedIsSignup
+     */
     const toggleAuthForms = (passedIsSignup) => {
         setIsSignup(passedIsSignup);
     };
 
+    /**
+     * Log out from account
+     */
     const logoutHandle = () => {
         setIsLoading((prev) => !prev);
         logout();
     };
 
+    /**
+     * Whether to turn on the "login required" modal
+     */
     const handleAskLoginModal = () => {
         if (isAskLogin) {
             setIsAskLogin(false);
@@ -43,6 +60,9 @@ const MainLayout = () => {
         }
     };
 
+    /**
+     * Scroll to top
+     */
     const toTop = () => {
         window.scrollTo({
             top: 0,
@@ -50,6 +70,14 @@ const MainLayout = () => {
         });
     };
 
+    /**
+     * Show/hide search bar
+     */
+    const toggleSearchModal = () => {
+        setIsSearch((prev) => !prev);
+    };
+
+    // Use effects
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
@@ -111,6 +139,7 @@ const MainLayout = () => {
                 auth={auth}
                 logoutHandle={logoutHandle}
                 isTopBtn={isTopBtn}
+                toggleSearchModal={toggleSearchModal}
             />
             {isAuth ? (
                 <AuthModal
@@ -127,6 +156,8 @@ const MainLayout = () => {
             ) : (
                 ""
             )}
+
+            {isSearch ? <SearchModal /> : ""}
             <Outlet context={{ handleAskLoginModal }} />
             <Footer />
             <button

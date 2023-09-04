@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { SearchIcon } from "./svgIcons";
 
-const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
+const Navbar = ({
+    toggleAuthModal,
+    auth,
+    logoutHandle,
+    isTopBtn,
+    toggleSearchModal,
+}) => {
     const [isLoged, setIsLoged] = useState(null);
-    const location = useLocation()
+    const location = useLocation();
 
     const LogedIn = () => {
         const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -31,6 +38,9 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
                             : "-translate-y-[120%] sm:translate-y-0"
                     }  phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-sm-custom sm:shadow-none`}
                 >
+                    <button onClick={toggleSearchModal}>
+                        <SearchIcon className="fill-white w-5 h-5" />
+                    </button>
                     <nav
                         className={`flex sm:gap-4 gap-2 flex-col sm:flex-row items-center`}
                     >
