@@ -18,11 +18,18 @@ const useUpdateResults = () => {
                 backDropSize = backSize;
             }
             const fixedVoteAverage = el.vote_average.toFixed(2);
+
+            const backdrop = el?.backdrop_path
+                ? IMG_BASE_URL + `w${backDropSize}` + el.backdrop_path
+                : "https://placehold.co/1280x720?text=No%20image";
+            const poster = el?.poster_path
+                ? IMG_BASE_URL + `w${size}` + el.poster_path
+                : "https://placehold.co/1280x1920?text=No%20image";
+
             return {
                 ...el,
-                backdrop_path:
-                    IMG_BASE_URL + `w${backDropSize}` + el.backdrop_path,
-                poster_path: IMG_BASE_URL + `w${size}` + el.poster_path,
+                backdrop_path: backdrop,
+                poster_path: poster,
                 isSeen: isTitleFav,
                 isWatch: isTitleWatch,
                 vote_average: fixedVoteAverage,

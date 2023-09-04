@@ -8,7 +8,6 @@ import Footer from "./Footer";
 import Loader from "./Loader";
 import AskLoginModal from "./AskLoginModal";
 import { ArrowUp } from "./svgIcons";
-import SearchModal from "./SearchModal";
 
 const MainLayout = () => {
     const { auth } = useAuth();
@@ -17,7 +16,6 @@ const MainLayout = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isAskLogin, setIsAskLogin] = useState(false);
     const [isTopBtn, setIsTopBtn] = useState(false);
-    const [isSearch, setIsSearch] = useState(false);
     const logout = useLogout();
     const location = useLocation();
 
@@ -68,13 +66,6 @@ const MainLayout = () => {
             top: 0,
             behavior: "smooth",
         });
-    };
-
-    /**
-     * Show/hide search bar
-     */
-    const toggleSearchModal = () => {
-        setIsSearch((prev) => !prev);
     };
 
     // Use effects
@@ -139,7 +130,6 @@ const MainLayout = () => {
                 auth={auth}
                 logoutHandle={logoutHandle}
                 isTopBtn={isTopBtn}
-                toggleSearchModal={toggleSearchModal}
             />
             {isAuth ? (
                 <AuthModal
@@ -156,8 +146,6 @@ const MainLayout = () => {
             ) : (
                 ""
             )}
-
-            {isSearch ? <SearchModal /> : ""}
             <Outlet context={{ handleAskLoginModal }} />
             <Footer />
             <button

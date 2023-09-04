@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { SearchIcon } from "./svgIcons";
+import { SearchIcon, XIcon } from "./svgIcons";
+import SearchModal from "./SearchModal";
 
-const Navbar = ({
-    toggleAuthModal,
-    auth,
-    logoutHandle,
-    isTopBtn,
-    toggleSearchModal,
-}) => {
+const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
     const [isLoged, setIsLoged] = useState(null);
+    const [isSearchModal, setIsSearchModal] = useState(false);
     const location = useLocation();
+
+    /**
+     * Show/hide search form
+     */
+    const toggleSearchModal = () => {
+        setIsSearchModal((prev) => !prev);
+    };
 
     const LogedIn = () => {
         const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -18,6 +21,7 @@ const Navbar = ({
         const handleMobileMenu = () => {
             setIsMobileMenu((prev) => !prev);
         };
+
         return (
             <>
                 <button
@@ -32,15 +36,12 @@ const Navbar = ({
                     ""
                 )}
                 <div
-                    className={`flex sm:gap-4 gap-2 fixed sm:static right-0 left-0 mx-auto sm:mx-0 transform top-0 transition-all sm:transition-none duration-500 ${
+                    className={`flex sm:gap-4 gap-2 fixed sm:static right-0 left-0 mx-auto sm:mx-0 top-0 transition-all sm:transition-none duration-500 ${
                         isMobileMenu
                             ? " animate-curtain-down duration-150"
                             : "-translate-y-[120%] sm:translate-y-0"
-                    }  phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-sm-custom sm:shadow-none`}
+                    } sm:w-auto phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-sm-custom sm:shadow-none`}
                 >
-                    <button onClick={toggleSearchModal}>
-                        <SearchIcon className="fill-white w-5 h-5" />
-                    </button>
                     <nav
                         className={`flex sm:gap-4 gap-2 flex-col sm:flex-row items-center`}
                     >
@@ -77,7 +78,7 @@ const Navbar = ({
                     </nav>
                     <button
                         onClick={logoutHandle}
-                        className="text-xl sm:text-base"
+                        className="text-xl sm:text-base whitespace-nowrap"
                     >
                         Sign out
                     </button>
@@ -122,7 +123,7 @@ const Navbar = ({
     return (
         <header
             className={`flex items-center z-10 fixed left-0 top-0 w-full transition-all ${
-                isTopBtn ? "bg-primary shadow-xs-custom h-10" : "h-16"
+                isTopBtn ? "bg-primary shadow-xs-custom h-11" : "h-16"
             }
             ${location?.pathname === "/" ? "" : "bg-primary shadow-sm-custom"}`}
         >
@@ -133,7 +134,31 @@ const Navbar = ({
                 >
                     CINE <span className="block sm:inline">ARCHIVE</span>
                 </Link>
-                {isLoged ? <LogedIn /> : <NotLogedIn />}
+
+                <div className="flex gap-5 items-center">
+                    <div className="flex gap-2">
+                        <div
+                            className={`rounded-3xl transition-all duration-500 ${
+                                isSearchModal ? "max-w-sm opacity-100" : "max-w-0 opacity-0 overflow-hidden"
+                            }`}
+                        >
+                            <div
+                                className={`max-w-xs flex flex-col h-8`}
+                            >
+                                <SearchModal />
+                            </div>
+                        </div>
+
+                        <button onClick={toggleSearchModal}>
+                            {isSearchModal ? (
+                                <XIcon className="w-5 h-5 fill-white"/>
+                            ) : (
+                                <SearchIcon className="fill-white w-5 h-5" />
+                            )}
+                        </button>
+                    </div>
+                    {isLoged ? <LogedIn /> : <NotLogedIn />}
+                </div>
             </div>
         </header>
     );
