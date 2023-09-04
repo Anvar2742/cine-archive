@@ -8,7 +8,8 @@ export default {
                 sec: "#5454D4",
             },
             boxShadow: {
-                header: "0px 1px 20px -3px #FFFFFF",
+                "sm-custom": "0px 1px 20px -3px #FFFFFF",
+                "xs-custom": "0px 3px 10px -7px #FFFFFF",
             },
             backgroundImage: {
                 hero: "url('/img/hero-bg.png')",

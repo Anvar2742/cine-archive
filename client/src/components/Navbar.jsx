@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
     const [isLoged, setIsLoged] = useState(null);
+    const location = useLocation()
 
     const LogedIn = () => {
         const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -28,7 +29,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
                         isMobileMenu
                             ? " animate-curtain-down duration-150"
                             : "-translate-y-[120%] sm:translate-y-0"
-                    }  phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-header sm:shadow-none`}
+                    }  phone:w-3/4 w-full h-1/2 bg-primary sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-sm-custom sm:shadow-none`}
                 >
                     <nav
                         className={`flex sm:gap-4 gap-2 flex-col sm:flex-row items-center`}
@@ -110,9 +111,10 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
 
     return (
         <header
-            className={`flex items-center z-10 h-16 fixed left-0 top-0 w-full transition-all ${
-                isTopBtn ? "bg-primary shadow-header" : ""
-            }`}
+            className={`flex items-center z-10 fixed left-0 top-0 w-full transition-all ${
+                isTopBtn ? "bg-primary shadow-xs-custom h-10" : "h-16"
+            }
+            ${location?.pathname === "/" ? "" : "bg-primary shadow-sm-custom"}`}
         >
             <div className="container flex mx-auto items-center justify-between px-4 relative">
                 <Link
