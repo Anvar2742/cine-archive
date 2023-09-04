@@ -46,6 +46,7 @@ export default {
             },
             transitionProperty: {
                 font: "font-size",
+                "max-w": "max-width",
             },
         },
     },

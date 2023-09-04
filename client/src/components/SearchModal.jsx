@@ -56,8 +56,7 @@ const SearchModal = ({ isSearchModal, openSearchRef, toggleSearchModal }) => {
             if (openSearchRef.current.contains(e.target)) {
                 setIsSearch((prev) => !prev);
             } else if (!formRef.current.contains(e.target)) {
-                setIsSearch((prev) => !prev);
-                toggleSearchModal(false);
+                setIsSearch(false);
             }
         };
 
