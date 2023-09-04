@@ -46,17 +46,16 @@ const MainLayout = () => {
     const toTop = () => {
         window.scrollTo({
             top: 0,
-            behavior: "smooth", // You can also use 'auto' or 'instant'
+            behavior: "smooth",
         });
     };
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollPosition = window.scrollY || window.pageYOffset;
-            const scrollThreshold = 600; // Adjust this value as needed
+            const scrollPosition = window.scrollY;
+            const scrollThreshold = 600;
 
             if (scrollPosition >= scrollThreshold) {
-                // Perform your desired action here
                 setIsTopBtn(true);
             } else {
                 setIsTopBtn(false);
@@ -66,7 +65,6 @@ const MainLayout = () => {
         window.addEventListener("scroll", handleScroll);
 
         return () => {
-            // Clean up the event listener when the component unmounts
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
@@ -130,7 +128,7 @@ const MainLayout = () => {
                 ""
             )}
             <Outlet context={{ handleAskLoginModal }} />
-            {location?.pathname === "/" ? "" : <Footer />}
+            <Footer />
             <button
                 onClick={toTop}
                 className={`fixed bottom-5 bg-slate-700 w-10 h-10 rounded-full transition-all z-50 ${

@@ -111,7 +111,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
     return (
         <header
             className={`flex items-center z-10 h-16 fixed left-0 top-0 w-full transition-all ${
-                isTopBtn ? "bg-primary" : ""
+                isTopBtn ? "bg-primary shadow-header" : ""
             }`}
         >
             <div className="container flex mx-auto items-center justify-between px-4 relative">

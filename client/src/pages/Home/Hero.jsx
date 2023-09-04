@@ -47,7 +47,7 @@ const HomeHero = ({titlesArr, updateTitlesArr}) => {
                 return titlesArr.map((el, i) => {
                     return (
                         <swiper-slide
-                            class={`transition-all rounded-md overflow-hidden hover:scale-[2] hover:-translate-y-[50%] hover:z-50 group relative ${
+                            class={`transition-all rounded-md overflow-hidden hover:scale-150 hover:-translate-y-[25%] hover:z-50 group relative ${
                                 isHover ? "opacity-40" : ""
                             } hover:opacity-100`}
                             key={el?.id}
@@ -62,13 +62,13 @@ const HomeHero = ({titlesArr, updateTitlesArr}) => {
                                     <PlusIcon
                                         isFilled={true}
                                         fill="white"
-                                        className="absolute bottom-1 right-1 transition-all scale-75 group-hover:bottom-0 group-hover:right-0 group-hover:scale-50 z-10"
+                                        className="absolute bottom-1 right-1 transition-all scale-75 group-hover:bottom-0 group-hover:right-0 z-10"
                                     />
                                 ) : (
                                     ""
                                 )}
                                 <div className="absolute bottom-0 left-0 right-0 mx-auto h-full flex items-end justify-center bg-opacity-50 bg-sliderGrad transition-all group-hover:opacity-100 opacity-0">
-                                    <h3 className="pb-4 text-[9px] px-4 overflow-hidden text-ellipsis whitespace-nowrap font-medium transition-all duration-300 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                                    <h3 className="pb-4 text-xs px-4 overflow-hidden text-ellipsis whitespace-nowrap font-medium transition-all duration-300 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
                                         {el?.title}
                                     </h3>
                                 </div>

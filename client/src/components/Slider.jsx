@@ -1,17 +1,28 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, PlusIcon } from "./svgIcons";
 import { getFormatedDate } from "../utils/utils";
+import useGetApiData from "../hooks/api/useGetApiData";
 
-const Slider = ({ heading, link, titlesArr }) => {
+const Slider = ({ heading, link, listType, showDate }) => {
     const [isLoadingSlider, setIsLoadingSlider] = useState(true);
     const [titlesEls, setTitlesEls] = useState(null);
     const [swiper, setSwiper] = useState(null);
     const [swiperEl, setSwiperEl] = useState(null);
     const swiperRef = useRef(null);
 
+    const [titlesArr, setTitlesArr] = useState(null);
+    const location = useLocation();
+    const getMovies = useGetApiData();
+
     useEffect(() => {
-        if (titlesArr.length) {
+        getMovies("movie", listType, 1).then((data) => {
+            setTitlesArr(data?.results);
+        });
+    }, [location?.pathname]);
+
+    useEffect(() => {
+        if (titlesArr?.length) {
             setTitlesEls(
                 titlesArr.map((el) => {
                     return (
@@ -35,7 +46,13 @@ const Slider = ({ heading, link, titlesArr }) => {
                                         {el?.title}
                                     </h3>
                                     <p>{}</p>
-                                    <p>{getFormatedDate(el?.release_date)}</p>
+                                    {showDate ? (
+                                        <p>
+                                            {getFormatedDate(el?.release_date)}
+                                        </p>
+                                    ) : (
+                                        ""
+                                    )}
                                 </div>
                             </Link>
                         </swiper-slide>
@@ -74,7 +91,7 @@ const Slider = ({ heading, link, titlesArr }) => {
                             : "translate-y-0"
                     }`}
                     loop="true"
-                    slides-per-view="4"
+                    slides-per-view="5"
                     space-between="30"
                     init="false"
                     ref={(el) => {
@@ -91,8 +108,9 @@ const Slider = ({ heading, link, titlesArr }) => {
         <div className="container mx-auto px-4 pt-28 pb-36">
             <div className="flex justify-between items-center mb-16">
                 <h2 className=" text-4xl font-bold">{heading}</h2>
-                <Link to={link} className=" flex items-center gap-2">
-                    See more <ArrowRight className="fill-white w-5 -rotate-90" />
+                <Link to={link} className=" flex items-center gap-3 hover:gap-5 transition-all">
+                    See more{" "}
+                    <ArrowRight className="fill-white w-5" />
                 </Link>
             </div>
             {swiper ? swiper : ""}

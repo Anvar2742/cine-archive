@@ -4,12 +4,16 @@ import HomeHero from "./Hero";
 import { useLocation } from "react-router-dom";
 import useGetApiData from "../../hooks/api/useGetApiData";
 import Loader from "../../components/Loader";
+import useGetGenres from "../../hooks/api/useGetGenres";
+import TitlesGenres from "../../components/TitlesGenres";
 
 const Home = () => {
     const [titlesArr, setTitlesArr] = useState(null);
+    const [genresArr, setGenresArr] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
     const getMovies = useGetApiData();
-    const [isLoading, setIsLoading] = useState(true);
+    const getGenres = useGetGenres();
 
     const updateTitlesArr = (results) => {
         setTitlesArr(results);
@@ -23,13 +27,27 @@ const Home = () => {
             .finally(() => {
                 setIsLoading(false);
             });
+        getGenres("movie").then((data) => {
+            setGenresArr(data?.genres);
+        });
     }, [location?.pathname]);
 
     if (isLoading) return <Loader />;
     return (
         <>
             <HomeHero titlesArr={titlesArr} updateTitlesArr={updateTitlesArr} />
-            <Slider heading="Currently playing" link="/top_rated" titlesArr={titlesArr} />
+            <Slider
+                heading="Top rated"
+                link="/top_rated"
+                listType="top_rated"
+                showDate={false}
+            />
+            <Slider
+                heading="Popular"
+                link="/popular"
+                listType="popular"
+                showDate={false}
+            />
         </>
     );
 };
