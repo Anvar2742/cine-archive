@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { SearchIcon, XIcon } from "./svgIcons";
 import SearchModal from "./SearchModal";
@@ -7,12 +7,13 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
     const [isLoged, setIsLoged] = useState(null);
     const [isSearchModal, setIsSearchModal] = useState(false);
     const location = useLocation();
+    const openSearchRef = useRef();
 
     /**
      * Show/hide search form
      */
-    const toggleSearchModal = () => {
-        setIsSearchModal((prev) => !prev);
+    const toggleSearchModal = (isOpen) => {
+        setIsSearchModal(isOpen);
     };
 
     const LogedIn = () => {
@@ -93,6 +94,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
             </>
         );
     };
+
     const NotLogedIn = () => {
         return (
             <div className="flex sm:gap-4 gap-2">
@@ -139,19 +141,23 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
                     <div className="flex gap-2">
                         <div
                             className={`rounded-3xl transition-all duration-500 ${
-                                isSearchModal ? "max-w-sm opacity-100" : "max-w-0 opacity-0 overflow-hidden"
+                                isSearchModal
+                                    ? "max-w-sm opacity-100"
+                                    : "max-w-0 opacity-0 overflow-hidden"
                             }`}
                         >
-                            <div
-                                className={`max-w-xs flex flex-col h-8`}
-                            >
-                                <SearchModal />
+                            <div className={`max-w-xs flex flex-col h-8`}>
+                                <SearchModal
+                                    toggleSearchModal={toggleSearchModal}
+                                    openSearchRef={openSearchRef}
+                                    isSearchModal={isSearchModal}
+                                />
                             </div>
                         </div>
 
-                        <button onClick={toggleSearchModal}>
+                        <button ref={openSearchRef}>
                             {isSearchModal ? (
-                                <XIcon className="w-5 h-5 fill-white"/>
+                                <XIcon className="w-5 h-5 fill-white" />
                             ) : (
                                 <SearchIcon className="fill-white w-5 h-5" />
                             )}

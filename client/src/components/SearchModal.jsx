@@ -1,19 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useSearchMovies from "../hooks/api/useSearchMovies";
 import { SearchIcon } from "./svgIcons";
 import { Link, useLocation } from "react-router-dom";
 
-const SearchModal = () => {
+const SearchModal = ({ isSearchModal, openSearchRef, toggleSearchModal }) => {
     const [titlesArr, setTitlesArr] = useState([]);
     const [titlesEls, setTitlesEls] = useState(null);
     const [query, setQuery] = useState("");
-    const location = useLocation();
+    const [isSearch, setIsSearch] = useState(false);
     const searchMovies = useSearchMovies();
+    const formRef = useRef();
 
     const handleSearch = (e) => {
         e.preventDefault();
         searchMovies("movie", query).then((data) => {
-            setTitlesArr(data?.results);
+            if (data?.results.length) {
+                setTitlesArr(data?.results);
+            } else {
+                setTitlesEls(<div className="px-4">Nothing for "{query}"</div>);
+            }
         });
     };
 
@@ -32,7 +37,7 @@ const SearchModal = () => {
                             className="flex items-center gap-2 w-full pl-4 pr-1 py-2 hover:backdrop-blur-md"
                         >
                             <img
-                                src={el?.backdrop_path}
+                                src={el?.poster_path}
                                 alt=""
                                 className="w-1/3 rounded-xl"
                             />
@@ -46,11 +51,33 @@ const SearchModal = () => {
         }
     }, [titlesArr]);
 
+    useEffect(() => {
+        const handleWindowClick = (e) => {
+            if (openSearchRef.current.contains(e.target)) {
+                setIsSearch((prev) => !prev);
+            } else if (!formRef.current.contains(e.target)) {
+                setIsSearch((prev) => !prev);
+                toggleSearchModal(false);
+            }
+        };
+
+        document.addEventListener("click", handleWindowClick);
+
+        return () => {
+            document.removeEventListener("click", handleWindowClick);
+        };
+    }, []);
+
+    useEffect(() => {
+        toggleSearchModal(isSearch);
+    }, [isSearch]);
+
     return (
         <>
             <form
                 className="h-full flex bg-blurred backdrop-blur-md border border-white rounded-full pr-1"
                 onSubmit={handleSearch}
+                ref={formRef}
             >
                 <input
                     type="text"

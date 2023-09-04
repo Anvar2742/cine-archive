@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { register } from "swiper/element/bundle";
 import { PlusIcon } from "../../components/svgIcons";
 
-const HomeHero = ({titlesArr, updateTitlesArr}) => {
+const HomeHero = ({ titlesArr, updateTitlesArr }) => {
     const [titlesEls, setTitlesEls] = useState(null);
     const [isLoadingSlider, setIsLoadingSlider] = useState(true);
     const [heroBg, setHeroBg] = useState(null);
@@ -35,7 +35,7 @@ const HomeHero = ({titlesArr, updateTitlesArr}) => {
                 setSwiperEl(null);
                 setTitlesEls(null);
                 getMovies("movie", listType, 1).then((data) => {
-                    updateTitlesArr(data?.results)
+                    updateTitlesArr(data?.results);
                 });
             }, 300);
         }
