@@ -9,3 +9,23 @@
 *:focus {
     @apply outline-none;
 }
+
+/* width */
+::-webkit-scrollbar {
+    @apply w-[6px];
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @apply rounded-lg bg-white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-lg;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-sec;
+}

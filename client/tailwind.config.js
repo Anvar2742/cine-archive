@@ -15,6 +15,9 @@ export default {
                 hero: "url('/img/hero-bg.png')",
                 sliderGrad:
                     "linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,0,0,.8) 100%)",
+                blurred:
+                    "radial-gradient(1877.04% 167.98% at -23.29% -16.67%, rgba(84, 148, 216, 0.24) 0%, rgba(255, 255, 255, 0.24) 100%)",
+                cyan: "linear-gradient(265deg, #3F377F -36.05%, #43A8D4 140.05%)",
             },
             screens: {
                 phone: "420px",
