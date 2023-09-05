@@ -17,7 +17,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
 
     return (
         <header
-            className={`flex items-center z-10 fixed left-0 top-0 w-full transition-all ${
+            className={`flex items-center z-20 fixed left-0 top-0 w-full transition-all ${
                 isTopBtn ? "bg-primary shadow-xs-custom h-11" : "h-16"
             }
             ${location?.pathname === "/" ? "" : "bg-primary shadow-sm-custom"}`}
