@@ -56,7 +56,11 @@ const Single = () => {
                             </h1>
                             <p className="mt-4">{title?.overview}</p>
                             <Genres genres={title?.genres} />
-                            <Money title={title} />
+                            {title?.status === "Released" ? (
+                                <Money title={title} />
+                            ) : (
+                                ""
+                            )}
                             <div className="mt-4">
                                 <h3 className="text-lg">Rating</h3>
                                 <p className="flex items-center">

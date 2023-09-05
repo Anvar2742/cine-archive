@@ -95,7 +95,7 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
                     }`}
                     loop="true"
                     centered-slides="true"
-                    slides-per-view="8"
+                    slides-per-view="2"
                     space-between="30"
                     init="false"
                     ref={(el) => {
@@ -124,6 +124,17 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
                 on: {
                     afterInit: function () {
                         setIsLoadingSlider(false);
+                    },
+                },
+                breakpoints: {
+                    380: {
+                        slidesPerView: 4,
+                    },
+                    567: {
+                        slidesPerView: 6,
+                    },
+                    1024: {
+                        slidesPerView: 8,
                     },
                 },
             };
