@@ -45,6 +45,7 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
                     }
                 );
 
+                console.log(resp);
                 if (resp.status === 200 || 201) {
                     if (location?.pathname === "/discover") {
                         // TODO: set is loading to true instead of reload
@@ -60,9 +61,9 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
                         password: "",
                         passwordRep: "",
                     });
-                    navigate("/discover", {
-                        replace: true,
-                    });
+                    // navigate("/discover", {
+                    //     replace: true,
+                    // });
                     setisSubmit(false);
                 }
             } catch (error) {
