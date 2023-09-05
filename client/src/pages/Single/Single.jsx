@@ -45,7 +45,7 @@ const Single = () => {
                 <p className="py-1 px-4 rounded-lg left-1/2 -translate-x-1/2 absolute top-32 bg-primary">
                     {title?.tagline}
                 </p>
-                <div className="pt-32">
+                <div className="pt-32 mb-24">
                     <div className=" max-w-4xl mx-auto grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
                         <div>
                             <img src={title?.poster_path} alt="" />
