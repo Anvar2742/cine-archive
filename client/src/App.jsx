@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import MainLayout from "./components/MainLayout";
+import MainLayout from "./components/Functionality/MainLayout";
+import PersistLogin from "./components/Functionality/PersistLogin";
+import RequireAuth from "./components/Functionality/RequireAuth";
 import Home from "./pages/Home/Home";
 import Catalog from "./pages/Catalog";
-import PersistLogin from "./components/PersistLogin";
 import Seen from "./pages/Seen";
 import Watchlist from "./pages/Watchlist";
 import Single from "./pages/Single";
-import RequireAuth from "./components/RequireAuth";
 import Auth from "./pages/auth/Auth";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/UI/NotFound";
 
 function App() {
     return (

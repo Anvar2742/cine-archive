@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import useGetApiData from "../hooks/api/useGetApiData";
 import { useEffectOnce } from "../hooks/useEffectOnce";
-import SingleTitleCard from "../components/SingleTitleCard";
+import SingleTitleCard from "../components/UI/SingleTitleCard";
 import useAuth from "../hooks/useAuth";
-import Loader from "../components/Loader";
+import Loader from "../components/UI/Loader";
 
 const Catalog = () => {
     const location = useLocation();

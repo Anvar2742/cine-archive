@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useSearchMovies from "../../hooks/api/useSearchMovies";
-import { SearchIcon } from "../svgIcons";
+import { SearchIcon } from "../UI/svgIcons";
 import { Link } from "react-router-dom";
 
 const SearchForm = ({ openSearchRef, toggleSearchForm }) => {

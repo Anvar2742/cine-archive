@@ -1,8 +1,8 @@
 import { Outlet, useLocation, useOutletContext } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import useRefreshToken from "../hooks/useRefreshToken";
-import useAuth from "../hooks/useAuth";
-import Loader from "./Loader";
+import useRefreshToken from "../../hooks/useRefreshToken";
+import useAuth from "../../hooks/useAuth";
+import Loader from "../UI/Loader";
 
 const PersistLogin = () => {
     const location = useLocation();

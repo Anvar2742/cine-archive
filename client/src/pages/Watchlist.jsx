@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SingleTitleCard from "./../components/SingleTitleCard";
+import SingleTitleCard from "./../components/UI/SingleTitleCard";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import { useLocation } from "react-router-dom";
 import useGetListTitles from "../hooks/api/useGetListTitles";
-import Loader from "../components/Loader";
+import Loader from "../components/UI/Loader";
 
 const Watchlist = () => {
     const [watchTitleArr, setWatchTitleArr] = useState(null);

@@ -1,13 +1,13 @@
-import Navbar from "./NavbarFooter/Navbar";
+import Navbar from "../NavbarFooter/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import AuthModal from "../pages/auth/AuthModal";
-import useAuth from "../hooks/useAuth";
-import useLogout from "../hooks/useLogout";
-import Footer from "./NavbarFooter/Footer";
-import Loader from "./Loader";
-import AskLoginModal from "./AskLoginModal";
-import { ArrowUp } from "./svgIcons";
+import AuthModal from "../../pages/auth/AuthModal";
+import useAuth from "../../hooks/useAuth";
+import useLogout from "../../hooks/useLogout";
+import Footer from "../NavbarFooter/Footer";
+import Loader from "../UI/Loader";
+import AskLoginModal from "../UI/AskLoginModal";
+import { ArrowUp } from "../UI/svgIcons";
 
 const MainLayout = () => {
     const { auth } = useAuth();

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useEffectOnce } from "../hooks/useEffectOnce";
 import useUpdateResults from "../hooks/api/useUpdateResults";
 import useGetUser from "../hooks/api/useGetUser";
-import Loader from "../components/Loader";
+import Loader from "../components/UI/Loader";
 
 const Single = () => {
     const location = useLocation();

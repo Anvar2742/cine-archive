@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useGetApiData from "../../hooks/api/useGetApiData";
 import { useEffect, useRef, useState } from "react";
 import { register } from "swiper/element/bundle";
-import { PlusIcon } from "../../components/svgIcons";
+import { PlusIcon } from "../../components/UI/svgIcons";
 
 const HomeHero = ({ titlesArr, updateTitlesArr }) => {
     const [titlesEls, setTitlesEls] = useState(null);

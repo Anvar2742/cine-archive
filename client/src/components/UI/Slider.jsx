@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, PlusIcon } from "./svgIcons";
-import { getFormatedDate } from "../utils/utils";
-import useGetApiData from "../hooks/api/useGetApiData";
+import { getFormatedDate } from "../../utils/utils";
+import useGetApiData from "../../hooks/api/useGetApiData";
 
 const Slider = ({ heading, link, listType, showDate }) => {
     const [isLoadingSlider, setIsLoadingSlider] = useState(true);
@@ -108,9 +108,11 @@ const Slider = ({ heading, link, listType, showDate }) => {
         <div className="container mx-auto px-4 pt-28 pb-36">
             <div className="flex justify-between items-center mb-16">
                 <h2 className=" text-4xl font-bold">{heading}</h2>
-                <Link to={link} className=" flex items-center gap-3 hover:gap-5 transition-all">
-                    See more{" "}
-                    <ArrowRight className="fill-white w-5" />
+                <Link
+                    to={link}
+                    className=" flex items-center gap-3 hover:gap-5 transition-all"
+                >
+                    See more <ArrowRight className="fill-white w-5" />
                 </Link>
             </div>
             {swiper ? swiper : ""}

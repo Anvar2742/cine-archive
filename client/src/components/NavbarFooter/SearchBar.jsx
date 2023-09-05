@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import SearchForm from "./SearchForm";
-import { SearchIcon, XIcon } from "../svgIcons";
+import { SearchIcon, XIcon } from "../UI/svgIcons";
 
 const SearchBar = () => {
     const [isSearchForm, setIsSearchForm] = useState(false);

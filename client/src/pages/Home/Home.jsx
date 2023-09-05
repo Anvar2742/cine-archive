@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Slider from "../../components/Slider";
+import Slider from "../../components/UI/Slider";
 import HomeHero from "./Hero";
 import { useLocation } from "react-router-dom";
 import useGetApiData from "../../hooks/api/useGetApiData";
-import Loader from "../../components/Loader";
+import Loader from "../../components/UI/Loader";
 import useGetGenres from "../../hooks/api/useGetGenres";
-import TitlesGenres from "../../components/TitlesGenres";
+import TitlesGenres from "../../components/UI/TitlesGenres";
 
 const Home = () => {
     const [titlesArr, setTitlesArr] = useState(null);

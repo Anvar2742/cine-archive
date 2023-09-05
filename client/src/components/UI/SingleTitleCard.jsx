@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { PlusIcon, SaveIcon, StarIcon } from "./svgIcons";
-import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
-import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/api/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
 
 const SingleTitleCard = ({
     title,

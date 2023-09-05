@@ -3,7 +3,7 @@ import axios from "../../api/axios";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader";
+import Loader from "../../components/UI/Loader";
 import useAuth from "../../hooks/useAuth";
 
 const Auth = () => {
