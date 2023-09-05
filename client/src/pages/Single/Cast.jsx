@@ -4,7 +4,7 @@ const Cast = ({ cast }) => {
     return (
         <div>
             <h2 className="text-3xl font-bold mb-10">Cast</h2>
-            <div className="grid grid-cols-4 gap-x-6 gap-y-8">
+            <div className="grid grid-cols-6 gap-x-6 gap-y-8">
                 {cast?.map((el) => {
                     return (
                         <div key={el?.id}>
