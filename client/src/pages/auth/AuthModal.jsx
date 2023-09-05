@@ -62,10 +62,10 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
                         passwordRep: "",
                     });
                     setIsSubmit(false);
-                    
-                    navigate("/discover", {
-                        replace: true,
-                    });
+
+                    // navigate("/discover", {
+                    //     replace: true,
+                    // });
                 }
             } catch (error) {
                 console.log(error);
