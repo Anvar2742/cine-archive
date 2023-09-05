@@ -27,7 +27,7 @@ const SearchBar = () => {
                         : "lg:max-w-0 -top-40 lg:opacity-0 overflow-hidden"
                 }`}
             >
-                <div className={`max-w-xs mx-auto flex h-8`}>
+                <div className={`max-w-xs mx-auto h-8`}>
                     <SearchForm
                         toggleSearchForm={toggleSearchForm}
                         openSearchRef={openSearchRef}
