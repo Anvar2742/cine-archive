@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
-    const [isSubmit, setisSubmit] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false);
     const location = useLocation();
     const [formData, setFormData] = useState({
         email: "",
@@ -34,7 +34,7 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
         setServerErr("");
         setFormErrors({});
         if (handleAuthErrors(formData)) {
-            setisSubmit(true);
+            setIsSubmit(true);
             try {
                 const resp = await axios.post(
                     isSignup ? "/signup" : "/login",
@@ -61,10 +61,11 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
                         password: "",
                         passwordRep: "",
                     });
-                    // navigate("/discover", {
-                    //     replace: true,
-                    // });
-                    setisSubmit(false);
+                    setIsSubmit(false);
+                    
+                    navigate("/discover", {
+                        replace: true,
+                    });
                 }
             } catch (error) {
                 console.log(error);
@@ -73,7 +74,7 @@ const AuthModal = ({ isSignup, toggleAuthForms, toggleAuthModal }) => {
                 } else {
                     setServerErr("Server is not responding...");
                 }
-                setisSubmit(false);
+                setIsSubmit(false);
             }
         }
     };
