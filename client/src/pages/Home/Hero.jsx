@@ -47,8 +47,8 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
                 return titlesArr.map((el, i) => {
                     return (
                         <swiper-slide
-                            class={`transition-all rounded-md overflow-hidden hover:scale-150 hover:-translate-y-[25%] hover:z-50 group relative ${
-                                isHover ? "opacity-40" : ""
+                            class={`transition-all rounded-md overflow-hidden sm:hover:scale-150 sm:hover:-translate-y-[25%] sm:hover:z-50 group relative ${
+                                isHover ? "sm:opacity-40" : ""
                             } hover:opacity-100`}
                             key={el?.id}
                         >

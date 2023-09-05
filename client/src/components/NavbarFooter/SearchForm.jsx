@@ -10,6 +10,7 @@ const SearchForm = ({ openSearchRef, toggleSearchForm }) => {
     const [isSearch, setIsSearch] = useState(false);
     const searchMovies = useSearchMovies();
     const formRef = useRef();
+    const inputRef = useRef();
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -83,6 +84,9 @@ const SearchForm = ({ openSearchRef, toggleSearchForm }) => {
 
     useEffect(() => {
         toggleSearchForm(isSearch);
+        if (isSearch) {
+            inputRef.current.focus();
+        }
         setQuery("");
         setTitlesArr([]);
         setTitlesEls(null);
@@ -101,6 +105,7 @@ const SearchForm = ({ openSearchRef, toggleSearchForm }) => {
                     placeholder="Movie title"
                     value={query}
                     onChange={onChange}
+                    ref={inputRef}
                 />
                 <button
                     type="submit"
