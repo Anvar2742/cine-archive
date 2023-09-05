@@ -10,7 +10,7 @@ const useGetApiData = () => {
     const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
 
     const getMovies = async (mediaType, listType, page, size = 1280) => {
-        let url = `${mediaType}/${listType}?language=en-US&page=${page}`;
+        let url = `${mediaType}/${listType}?language=en-US&page=${page}&region=US`;
         try {
             const resp = await axiosMovies.get(url, {
                 headers: {

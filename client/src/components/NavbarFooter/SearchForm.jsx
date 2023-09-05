@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import useSearchMovies from "../hooks/api/useSearchMovies";
-import { SearchIcon } from "./svgIcons";
-import { Link, useLocation } from "react-router-dom";
+import useSearchMovies from "../../hooks/api/useSearchMovies";
+import { SearchIcon } from "../svgIcons";
+import { Link } from "react-router-dom";
 
-const SearchModal = ({ isSearchModal, openSearchRef, toggleSearchModal }) => {
+const SearchForm = ({ openSearchRef, toggleSearchForm }) => {
     const [titlesArr, setTitlesArr] = useState([]);
     const [titlesEls, setTitlesEls] = useState(null);
     const [query, setQuery] = useState("");
@@ -82,7 +82,10 @@ const SearchModal = ({ isSearchModal, openSearchRef, toggleSearchModal }) => {
     }, []);
 
     useEffect(() => {
-        toggleSearchModal(isSearch);
+        toggleSearchForm(isSearch);
+        setQuery("");
+        setTitlesArr([]);
+        setTitlesEls(null);
     }, [isSearch]);
 
     return (
@@ -119,4 +122,4 @@ const SearchModal = ({ isSearchModal, openSearchRef, toggleSearchModal }) => {
     );
 };
 
-export default SearchModal;
+export default SearchForm;

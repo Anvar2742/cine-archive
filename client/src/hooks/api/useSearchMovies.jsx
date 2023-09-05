@@ -31,7 +31,7 @@ const useSearchMovies = () => {
                 size
             );
 
-            console.log(resp);
+            // console.log(resp);
             return resp?.data;
         } catch (error) {
             console.log(error);

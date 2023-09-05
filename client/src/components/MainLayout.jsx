@@ -1,10 +1,10 @@
-import Navbar from "./Navbar";
+import Navbar from "./NavbarFooter/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AuthModal from "../pages/auth/AuthModal";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
-import Footer from "./Footer";
+import Footer from "./NavbarFooter/Footer";
 import Loader from "./Loader";
 import AskLoginModal from "./AskLoginModal";
 import { ArrowUp } from "./svgIcons";
