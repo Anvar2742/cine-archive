@@ -121,7 +121,7 @@ const MainLayout = () => {
         setIsAskLogin(false);
     }, [location?.pathname]);
 
-    if (isLoading) return <Loader />;
+    // if (isLoading) return <Loader />;
 
     return (
         <div>

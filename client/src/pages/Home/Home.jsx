@@ -32,7 +32,7 @@ const Home = () => {
         });
     }, [location?.pathname]);
 
-    if (isLoading) return <Loader />;
+    // if (isLoading) return <Loader />;
     return (
         <>
             <HomeHero titlesArr={titlesArr} updateTitlesArr={updateTitlesArr} />
