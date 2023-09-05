@@ -7,7 +7,7 @@ import Home from "./pages/Home/Home";
 import Catalog from "./pages/Catalog";
 import Seen from "./pages/Seen";
 import Watchlist from "./pages/Watchlist";
-import Single from "./pages/Single";
+import Single from "./pages/Single/Single";
 import Auth from "./pages/auth/Auth";
 import NotFound from "./components/UI/NotFound";
 

@@ -1,4 +1,4 @@
-import axios, { axiosMovies } from "../../api/axios";
+import { axiosMovies } from "../../api/axios";
 import useAuth from "../useAuth";
 import useGetUser from "./useGetUser";
 import useUpdateResults from "./useUpdateResults";
