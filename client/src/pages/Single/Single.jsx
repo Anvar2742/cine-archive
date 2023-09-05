@@ -46,11 +46,11 @@ const Single = () => {
                     {title?.tagline}
                 </p>
                 <div className="pt-32 mb-24">
-                    <div className=" max-w-4xl mx-auto grid grid-cols-2 gap-10 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
+                    <div className=" max-w-4xl mx-auto grid md:grid-cols-2 sm:gap-4 relative z-10 bg-primary rounded-3xl overflow-hidden shadow-sm shadow-white">
                         <div>
                             <img src={title?.poster_path} alt="" />
                         </div>
-                        <div className=" py-10 pr-6">
+                        <div className="p-6 pt-8 sm:py-10 sm:pr-6">
                             <h1 className=" text-2xl font-bold">
                                 {title?.title}
                             </h1>
