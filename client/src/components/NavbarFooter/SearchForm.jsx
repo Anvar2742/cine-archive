@@ -110,8 +110,8 @@ const SearchForm = ({ openSearchRef, toggleSearchForm }) => {
                 </button>
             </form>
             {titlesEls ? (
-                <div className="pb-4 bg-blurred backdrop-blur-md rounded-3xl">
-                    <div className=" max-w-xs overflow-x-hidden mt-3 max-h-96">
+                <div className="pb-4 bg-blurred backdrop-blur-md pt-3 rounded-3xl">
+                    <div className=" max-w-xs overflow-x-hidden max-h-96">
                         {titlesEls}
                     </div>
                 </div>
