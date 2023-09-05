@@ -121,6 +121,7 @@ module.exports.login_post = async (req, res) => {
         }
 
         const logedInUser = await User.login(email, password);
+        console.log(logedInUser);
 
         if (!logedInUser) return res.sendStatus(402);
 
@@ -148,7 +149,7 @@ module.exports.login_post = async (req, res) => {
 module.exports.refresh = async (req, res) => {
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
-    if (!refreshToken) return res.sendStatus(402);
+    if (!refreshToken) return res.sendStatus(401);
     // console.log(refreshToken);
 
     const foundUser = await User.findOne({ refreshToken }).exec();
