@@ -23,7 +23,7 @@ const LogedNavbar = ({ logoutHandle }) => {
                     isMobileMenu
                         ? " animate-curtain-down duration-150"
                         : "-translate-y-[120%] sm:translate-y-0"
-                } sm:w-auto phone:w-3/4 w-full h-1/2 bg-blurred backdrop-blur-md sm:bg-transparent flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-sm-custom sm:shadow-none`}
+                } sm:w-auto phone:w-3/4 w-full h-1/2 bg-blurred backdrop-blur-md sm:backdrop-blur-none sm:bg-none flex-col sm:flex-row items-center justify-center sm:justify-end rounded-b-3xl shadow-sm-custom sm:shadow-none`}
             >
                 <nav
                     className={`flex sm:gap-4 gap-2 flex-col sm:flex-row items-center`}
