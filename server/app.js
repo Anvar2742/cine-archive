@@ -9,8 +9,8 @@ const user = require("./routes/user");
 const verifyJWT = require("./middleware/verifyJWT");
 const updateTitles = require("./middleware/updateTitles");
 const cron = require("node-cron");
-// const https = require("https");
-// const fs = require("fs");
+const https = require("https");
+const fs = require("fs");
 
 // env vars
 require("dotenv").config();
@@ -29,12 +29,12 @@ mongoose
     .connect(MONGO_URI)
     .then((result) => {
         if (ENV === "dev") {
-            // const options = {
-            //     key: fs.readFileSync("dev/localhost.key"), // Path to your SSL private key
-            //     cert: fs.readFileSync("dev/localhost.crt"), // Path to your SSL certificate
-            // };
-            // const server = https.createServer(options, app);
-            app.listen(PORT, HOST, () => {
+            const options = {
+                key: fs.readFileSync("dev/localhost.key"), // Path to your SSL private key
+                cert: fs.readFileSync("dev/localhost.crt"), // Path to your SSL certificate
+            };
+            const server = https.createServer(options, app);
+            server.listen(PORT, HOST, () => {
                 console.log(`Server is running on ${HOST}:${PORT}`);
             });
         } else {

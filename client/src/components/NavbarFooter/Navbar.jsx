@@ -8,6 +8,7 @@ const Navbar = ({ toggleAuthModal, auth, logoutHandle, isTopBtn }) => {
     const [isLoged, setIsLoged] = useState(null);
 
     useEffect(() => {
+        console.log(auth);
         if (auth?.accessToken) {
             setIsLoged(true);
         } else if (auth?.accessToken === false) {

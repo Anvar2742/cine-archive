@@ -1,8 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const fetch = require("node-fetch");
-const ENV = process.env.ENV;
 
 require("dotenv").config();
 
@@ -121,7 +119,6 @@ module.exports.login_post = async (req, res) => {
         }
 
         const logedInUser = await User.login(email, password);
-        console.log(logedInUser);
 
         if (!logedInUser) return res.sendStatus(402);
 
