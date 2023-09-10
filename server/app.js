@@ -49,7 +49,7 @@ cron.schedule("0 4 * * *", () => {
 });
 
 app.get("/", (req, res) => {
-    res.send("Cool!");
+    res.send("Cool!?");
 });
 
 app.use(auth);
