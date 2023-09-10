@@ -2,7 +2,7 @@ import axios from "axios";
 const BASE_URL =
     import.meta.env.VITE_ENV === "dev"
         ? "https://192.168.1.22:7000"
-        : "https://cine-archive.onrender.com";
+        : "https://seed-pinto-bobolink.glitch.me/";
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
 export default axios.create({ baseURL: BASE_URL });
