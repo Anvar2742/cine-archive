@@ -27,7 +27,7 @@ const SearchForm = ({ openSearchRef, toggleSearchForm }) => {
             setTitlesArr([]);
             return;
         }
-        searchMovies("movie", query).then((data) => {
+        searchMovies("movie", query, 185).then((data) => {
             if (data?.results.length) {
                 setTitlesArr(data?.results);
             } else {
