@@ -20,7 +20,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        getMovies("movie", "now_playing", 1, 300, 780)
+        getMovies("movie", "now_playing", 1, 300, 1280)
             .then((data) => {
                 setTitlesArr(data?.results);
             })

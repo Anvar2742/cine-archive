@@ -34,7 +34,7 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
                 setSwiper(null);
                 setSwiperEl(null);
                 setTitlesEls(null);
-                getMovies("movie", listType, 1, 300, 780).then((data) => {
+                getMovies("movie", listType, 1, 300, 1280).then((data) => {
                     updateTitlesArr(data?.results);
                 });
             }, 300);
