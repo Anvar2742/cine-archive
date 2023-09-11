@@ -48,13 +48,6 @@ cron.schedule("0 4 * * *", () => {
     updateTitles();
 });
 
-cron.schedule("* * * * *", () => {
-    fs.writeFile("cool.txt", "Hello content!", function (err) {
-        if (err) throw err;
-        console.log("Saved!");
-    });
-});
-
 app.get("/", (req, res) => {
     res.send("Cool!?");
 });
