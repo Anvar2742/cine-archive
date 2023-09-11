@@ -17,7 +17,7 @@ require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT;
 const ENV = process.env.ENV;
-const HOST = "192.168.66.168" || "localhost";
+const HOST = "172.20.10.6" || "localhost";
 
 // Middleware
 app.use(express.json());

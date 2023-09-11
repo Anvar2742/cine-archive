@@ -68,7 +68,9 @@ const SingleTitleCard = ({
                 className="rounded-lg"
             />
             <div className="mt-4 px-2">
-                <h3 className=" md:text-xl phone:text-lg sm:text-3xl sm:font-bold mb-4 overflow-hidden text-ellipsis whitespace-nowrap">{title?.title}</h3>
+                <h3 className=" md:text-xl phone:text-lg sm:text-3xl sm:font-bold mb-4 overflow-hidden text-ellipsis whitespace-nowrap">
+                    {title?.title}
+                </h3>
                 <div className="flex justify-between">
                     <div className="flex items-center gap-1 sm:text-2xl text-xl">
                         {title?.vote_average}
@@ -78,12 +80,15 @@ const SingleTitleCard = ({
                         <button className="fav_btn" ref={favRef}>
                             <PlusIcon
                                 isFilled={title?.isSeen}
-                                size={30}
+                                className="md:w-6 md:h-6 w-7 h-7"
                                 fill="white"
                             />
                         </button>
                         <button className="save_btn" ref={saveRef}>
-                            <SaveIcon isFilled={title?.isWatch} />
+                            <SaveIcon
+                                isFilled={title?.isWatch}
+                                className="md:w-6 md:h-6 w-7 h-7"
+                            />
                         </button>
                     </div>
                 </div>

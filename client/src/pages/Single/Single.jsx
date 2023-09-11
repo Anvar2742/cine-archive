@@ -4,10 +4,12 @@ import { useEffectOnce } from "../../hooks/useEffectOnce";
 import useGetCredits from "../../hooks/api/useGetCredits";
 import useGetSingle from "../../hooks/api/useGetSingle";
 import Loader from "../../components/UI/Loader";
-import { StarIcon } from "../../components/UI/svgIcons";
+import { PlusIcon, SaveIcon, StarIcon } from "../../components/UI/svgIcons";
 import Genres from "./Genres";
 import Money from "./Money";
 import Cast from "./Cast";
+import useAuth from "../../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/api/useAxiosPrivate";
 
 const Single = () => {
     const location = useLocation();
@@ -17,10 +19,13 @@ const Single = () => {
     const [isLoading, setIsLoading] = useState(true);
     const getSingleTitle = useGetSingle();
     const getCredits = useGetCredits();
+    const { auth } = useAuth();
+    const axiosPrivate = useAxiosPrivate();
 
     useEffectOnce(() => {
         getSingleTitle(titleId)
             .then((data) => {
+                console.log(data);
                 setTitle(data);
             })
             .finally(() => {
@@ -31,6 +36,51 @@ const Single = () => {
             setCast(data?.cast);
         });
     }, [location?.pathname]);
+
+    const addToListServer = async (title, isSeen = null, isWatch = null) => {
+        try {
+            const resp = await axiosPrivate.put(
+                "/default_lists",
+                {
+                    title,
+                    isSeen,
+                    isWatch,
+                },
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
+            console.log(resp.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const addToList = (title, isSeen = false) => {
+        if (auth?.accessToken) {
+            if (isSeen) {
+                setTitle((prevTitle) => {
+                    return {
+                        ...prevTitle,
+                        isSeen: !prevTitle.isSeen,
+                    };
+                });
+                addToListServer(title, true, null);
+            } else {
+                setTitle((prevTitle) => {
+                    return {
+                        ...prevTitle,
+                        isWatch: !prevTitle.isWatch,
+                    };
+                });
+                addToListServer(title, null, true);
+            }
+        } else {
+            // show login required modal
+            alert("log in required");
+        }
+    };
 
     if (isLoading) return <Loader />;
 
@@ -54,19 +104,43 @@ const Single = () => {
                             <h1 className=" text-2xl font-bold">
                                 {title?.title}
                             </h1>
-                            <p className="mt-4">{title?.overview}</p>
+                            <p className="mt-4 text-sm">{title?.overview}</p>
                             <Genres genres={title?.genres} />
                             {title?.status === "Released" ? (
                                 <Money title={title} />
                             ) : (
                                 ""
                             )}
-                            <div className="mt-4">
-                                <h3 className="text-lg">Rating</h3>
-                                <p className="flex items-center">
-                                    {title?.vote_average}
-                                    <StarIcon />
-                                </p>
+                            <div className="flex justify-between mt-4">
+                                {title?.vote_count ? (
+                                    <div className="">
+                                        <h3 className="text-lg">Rating</h3>
+                                        <p className="flex items-center">
+                                            {title?.vote_average}
+                                            <StarIcon />
+                                        </p>
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+
+                                <div className="flex">
+                                    <button
+                                        onClick={() => addToList(title, true)}
+                                    >
+                                        <PlusIcon
+                                            isFilled={title?.isSeen}
+                                            className="w-8 h-8"
+                                            fill="white"
+                                        />
+                                    </button>
+                                    <button onClick={() => addToList(title)}>
+                                        <SaveIcon
+                                            isFilled={title?.isWatch}
+                                            className="w-8 h-8"
+                                        />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
