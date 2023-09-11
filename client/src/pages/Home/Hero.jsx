@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useGetApiData from "../../hooks/api/useGetApiData";
 import { useEffect, useRef, useState } from "react";
 import { register } from "swiper/element/bundle";
-import { PlusIcon } from "../../components/UI/svgIcons";
+import { PlusIcon, SaveIcon } from "../../components/UI/svgIcons";
 
 const HomeHero = ({ titlesArr, updateTitlesArr }) => {
     const [titlesEls, setTitlesEls] = useState(null);
@@ -58,17 +58,28 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
                                 onMouseLeave={() => handleMouseLeave(i)}
                             >
                                 <img src={el?.poster_path} alt="" />
-                                {el?.isSeen ? (
-                                    <PlusIcon
-                                        isFilled={true}
-                                        fill="white"
-                                        className="absolute bottom-1 right-1 transition-all scale-75 group-hover:bottom-0 group-hover:right-0 z-10"
-                                    />
-                                ) : (
-                                    ""
-                                )}
+                                <div className="flex absolute bottom-1 right-1">
+                                    {el?.isSeen ? (
+                                        <PlusIcon
+                                            isFilled={true}
+                                            fill="white"
+                                            className="transition-all w-4 h-4 group-hover:bottom-0 group-hover:right-0 z-10"
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {el?.isWatch ? (
+                                        <SaveIcon
+                                            isFilled={true}
+                                            fill="white"
+                                            className="transition-all w-4 h-4 group-hover:bottom-0 group-hover:right-0 z-10"
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                </div>
                                 <div className="absolute bottom-0 left-0 right-0 mx-auto h-full flex items-end justify-center bg-opacity-50 bg-sliderGrad transition-all group-hover:opacity-100 opacity-0">
-                                    <h3 className="pb-4 text-xs px-4 overflow-hidden text-ellipsis whitespace-nowrap font-medium transition-all duration-300 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                                    <h3 className="pb-7 text-xs px-2 overflow-hidden text-ellipsis whitespace-nowrap font-medium transition-all duration-300 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
                                         {el?.title}
                                     </h3>
                                 </div>
