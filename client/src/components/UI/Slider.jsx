@@ -16,7 +16,7 @@ const Slider = ({ heading, link, listType, showDate }) => {
     const getMovies = useGetApiData();
 
     useEffect(() => {
-        getMovies("movie", listType, 1).then((data) => {
+        getMovies("movie", listType, 1, 300).then((data) => {
             setTitlesArr(data?.results);
         });
     }, [location?.pathname]);

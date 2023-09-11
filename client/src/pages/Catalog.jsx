@@ -20,7 +20,7 @@ const Catalog = () => {
     const getMovies = useGetApiData();
 
     useEffectOnce(() => {
-        getMovies("movie", "now_playing", currentPage)
+        getMovies("movie", "now_playing", currentPage, 300)
             .then((data) => {
                 // console.log(data);
                 setTitleArr(data.results);
@@ -32,7 +32,7 @@ const Catalog = () => {
 
     useEffect(() => {
         if (isPageUpdate) {
-            getMovies("movie", "now_playing", currentPage).then((data) => {
+            getMovies("movie", "now_playing", currentPage, 300).then((data) => {
                 // console.log(data);
                 setTitleArr((prevArr) => [...prevArr, ...data.results]);
                 setIsPageUpdate(false);

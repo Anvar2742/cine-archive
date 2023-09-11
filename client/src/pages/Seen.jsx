@@ -37,7 +37,7 @@ const Seen = () => {
 
     const getSeens = async () => {
         try {
-            const results = await getListTitles(true, 1280);
+            const results = await getListTitles(true, 300);
 
             if (results?.length) {
                 setFavTitleArr(results);

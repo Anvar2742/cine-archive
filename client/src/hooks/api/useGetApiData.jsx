@@ -9,7 +9,13 @@ const useGetApiData = () => {
     const updateResults = useUpdateResults();
     const authToken = import.meta.env.VITE_TMDB_AUTH_TOKEN;
 
-    const getMovies = async (mediaType, listType, page, size = 1280) => {
+    const getMovies = async (
+        mediaType,
+        listType,
+        page,
+        size = 1280,
+        backSize = null
+    ) => {
         let url = `${mediaType}/${listType}?language=en-US&page=${page}&region=US`;
         try {
             const resp = await axiosMovies.get(url, {
@@ -27,7 +33,8 @@ const useGetApiData = () => {
             resp.data.results = await updateResults(
                 resp.data.results,
                 user,
-                size
+                size,
+                backSize
             );
 
             return resp.data;

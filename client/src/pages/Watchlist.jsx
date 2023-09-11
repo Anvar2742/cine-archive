@@ -37,7 +37,7 @@ const Watchlist = () => {
 
     const getWatchlist = async () => {
         try {
-            const results = await getListTitles(false, 1280);
+            const results = await getListTitles(false, 300);
 
             if (results?.length) {
                 setWatchTitleArr(results);
