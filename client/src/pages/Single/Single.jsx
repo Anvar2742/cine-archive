@@ -10,6 +10,7 @@ import Money from "./Money";
 import Cast from "./Cast";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/api/useAxiosPrivate";
+import AskLoginModal from "../../components/UI/AskLoginModal";
 
 const Single = () => {
     const location = useLocation();
@@ -17,6 +18,7 @@ const Single = () => {
     const [title, setTitle] = useState(null);
     const [cast, setCast] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isAskLogin, setIsAskLogin] = useState(false);
     const getSingleTitle = useGetSingle();
     const getCredits = useGetCredits();
     const { auth } = useAuth();
@@ -78,7 +80,19 @@ const Single = () => {
             }
         } else {
             // show login required modal
-            alert("log in required");
+            console.log("cool");
+            setIsAskLogin(true);
+        }
+    };
+
+    /**
+     * Whether to turn on the "login required" modal
+     */
+    const handleAskLoginModal = () => {
+        if (isAskLogin) {
+            setIsAskLogin(false);
+        } else if (auth?.accessToken === false) {
+            setIsAskLogin(true);
         }
     };
 
@@ -86,6 +100,11 @@ const Single = () => {
 
     return (
         <div className=" pt-20x relative">
+            {isAskLogin ? (
+                <AskLoginModal handleAskLoginModal={handleAskLoginModal} />
+            ) : (
+                ""
+            )}
             <img
                 src={title?.backdrop_path}
                 alt=""

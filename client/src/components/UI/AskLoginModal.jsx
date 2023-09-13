@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const AskLoginModal = ({ handleAskLoginModal }) => {
     return (
-        <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center">
+        <div className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-stone-900 bg-opacity-75 flex justify-center items-center z-50">
             <div className=" max-w-xs w-full bg-primary p-6 rounded-xl shadow-sm-custom text-center relative pb-12">
                 <h3 className=" text-4xl font-bold mb-2">Log in required</h3>
                 <p>Log in to add movies to your lists.</p>
