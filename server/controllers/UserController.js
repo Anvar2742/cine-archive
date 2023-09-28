@@ -6,7 +6,7 @@ module.exports.single_user_get = async (req, res) => {
     const refreshToken = cookies?.jwt;
 
     try {
-        if (!refreshToken) return res.sendStatus(401);
+        if (!refreshToken) return res.sendStatus(401).json({ refreshToken });
         // evaluate jwt
         jwt.verify(
             refreshToken,
