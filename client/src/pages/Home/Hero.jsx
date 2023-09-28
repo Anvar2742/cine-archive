@@ -3,6 +3,7 @@ import useGetApiData from "../../hooks/api/useGetApiData";
 import { useEffect, useRef, useState } from "react";
 import { register } from "swiper/element/bundle";
 import { PlusIcon, SaveIcon } from "../../components/UI/svgIcons";
+import useGetUpcoming from "../../hooks/api/useGetUpcoming";
 
 const HomeHero = ({ titlesArr, updateTitlesArr }) => {
     const [titlesEls, setTitlesEls] = useState(null);
@@ -14,6 +15,7 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
     const [currentListType, setCurrentListType] = useState("now_playing");
     const swiperRef = useRef(null);
     const getMovies = useGetApiData();
+    const getUpcoming = useGetUpcoming();
 
     const handleMouseEnter = (i) => {
         setHeroBg(() => {
@@ -34,7 +36,7 @@ const HomeHero = ({ titlesArr, updateTitlesArr }) => {
                 setSwiper(null);
                 setSwiperEl(null);
                 setTitlesEls(null);
-                getMovies("movie", listType, 1, 300, 1280).then((data) => {
+                getUpcoming("movie", 1, 300, 1280).then((data) => {
                     updateTitlesArr(data?.results);
                 });
             }, 300);

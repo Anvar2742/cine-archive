@@ -146,29 +146,34 @@ module.exports.login_post = async (req, res) => {
 module.exports.refresh = async (req, res) => {
     const cookies = req.cookies;
     const refreshToken = cookies?.jwt;
-    if (!refreshToken) return res.sendStatus(401);
-    // console.log(refreshToken);
+    try {
+        if (!refreshToken) return res.sendStatus(401);
+        // console.log(refreshToken);
 
-    const foundUser = await User.findOne({ refreshToken }).exec();
-    if (!foundUser) return res.sendStatus(403); //Forbidden
-    // evaluate jwt
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        (err, decoded) => {
-            // console.log(foundUser);
-            if (err || foundUser.email !== decoded.email)
-                return res.sendStatus(403);
-            const accessToken = jwt.sign(
-                {
-                    UserInfo: {
-                        username: decoded.username,
+        const foundUser = await User.findOne({ refreshToken }).exec();
+        if (!foundUser) return res.sendStatus(403); //Forbidden
+        // evaluate jwt
+        jwt.verify(
+            refreshToken,
+            process.env.REFRESH_TOKEN_SECRET,
+            (err, decoded) => {
+                // console.log(foundUser);
+                if (err || foundUser.email !== decoded.email)
+                    return res.sendStatus(403);
+                const accessToken = jwt.sign(
+                    {
+                        UserInfo: {
+                            username: decoded.username,
+                        },
                     },
-                },
-                process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: "10s" }
-            );
-            res.json({ accessToken });
-        }
-    );
+                    process.env.ACCESS_TOKEN_SECRET,
+                    { expiresIn: "10s" }
+                );
+                res.json({ accessToken });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err)
+    }
 };
